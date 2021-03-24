@@ -1,10 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import createSagaMiddleware from "redux-saga";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* <Provider> */}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+    {/* </Provider> */}
   </React.StrictMode>,
   document.getElementById("root"),
 );
