@@ -1,25 +1,79 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import * as mobilenet from "@tensorflow-models/mobilenet";
+import * as tf from "@tensorflow/tfjs";
+import Webcam from "react-webcam";
 
-function App() {
+const videoConstraints = {
+  width: 800,
+  height: 720,
+  facingMode: "user",
+};
+
+const App = () => {
+  let net;
+  const camera = useRef();
+  const figures = useRef();
+  const webcamElement = camera.current;
+
+  const [toggleStart, setToggleStart] = useState(false);
+
+  const onClickStart = useCallback(() => {
+    setToggleStart(!toggleStart);
+  }, [toggleStart]);
+
+  const run = async () => {
+    net = await mobilenet.load();
+
+    const webcam = await tf.data.webcam(webcamElement, {
+      resizeWidth: 500,
+      resizeHeight: 520,
+    });
+    while (true) {
+      const img = await webcam.capture();
+      const result = await net.classify(img);
+
+      if (figures.current) {
+        figures.current.innerText = `prediction : ${result[0].className} \n probability: ${result[0].probability}`;
+      }
+
+      img.dispose();
+
+      await tf.nextFrame();
+    }
+  };
+
+  // useEffect(() => {
+  //   run();
+  // });
+
+  const webcamRef = React.useRef(null);
+
+  const capture = React.useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+  }, [webcamRef]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div ref={figures}></div>
+      {/* <video
+        autoPlay
+        playsInline
+        muted={true}
+        ref={camera}
+        width="870"
+        height="534"
+      /> */}
+      <Webcam
+        audio={false}
+        height={720}
+        ref={camera}
+        screenshotFormat="image/jpeg"
+        width={800}
+        videoConstraints={videoConstraints}
+      />
+      <button onClick={onClickStart}>{toggleStart ? "Close" : "Run"}</button>
+    </>
   );
-}
+};
 
 export default App;
