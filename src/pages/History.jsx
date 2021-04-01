@@ -1,7 +1,7 @@
 import React from "react";
 
-const MyActivity = () => {
+const History = () => {
   return <div></div>;
 };
 
-export default MyActivity;
+export default History;

@@ -7,7 +7,7 @@ import Webcam from "react-webcam";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Landing from "./pages/Landing";
-import MyActivity from "./pages/MyActivity";
+import History from "./pages/History";
 
 // const videoConstraints = {
 //   width: 800,
@@ -83,7 +83,7 @@ const App = () => {
         <Route path="/" component={Landing} exact></Route>
         <Route path="/login" component={Login} exact></Route>
         <Route path="/register" component={Register} exact></Route>
-        <Route path="/myActivity" component={MyActivity} exact></Route>
+        <Route path="/history" component={History} exact></Route>
       </Switch>
     </>
   );
