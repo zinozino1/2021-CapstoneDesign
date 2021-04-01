@@ -34,7 +34,7 @@ const Login = () => {
             Focus
           </a>
         </div>
-        <Form {...InputLayout}>
+        <Form {...InputLayout} name="login">
           <Form.Item
             label="Email"
             name="email"

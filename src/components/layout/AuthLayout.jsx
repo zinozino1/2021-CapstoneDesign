@@ -11,7 +11,7 @@ const Container = styled.div`
 const ContentWrapper = styled.div`
   /* margin: 0 auto; */
   /* margin-top: 30vh; */
-  width: 500px;
+  width: 600px;
   border-radius: 5px;
   background-color: #f1f2f5;
   /* ${(props) =>

@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/antd": "^1.0.0",
     "antd": "^4.15.0",
+    "form-data": "^4.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet-async": "^1.0.7",
