@@ -22,6 +22,18 @@ const Login = () => {
   return (
     <AuthLayout>
       <LoginWrapper>
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "40px",
+            fontSize: "2.5rem",
+            fontWeight: "600",
+          }}
+        >
+          <a href={CLIENT_URL} style={{ color: "#ccc" }}>
+            Focus
+          </a>
+        </div>
         <Form {...InputLayout}>
           <Form.Item
             label="Email"
@@ -35,7 +47,6 @@ const Login = () => {
           >
             <Input placeholder="Input your email" />
           </Form.Item>
-
           <Form.Item
             label="Password"
             name="password"
