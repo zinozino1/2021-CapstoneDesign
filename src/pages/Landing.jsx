@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button, Modal } from "antd";
 import LandingLogo from "../statics/images/LandingLogo3.png";
-import CommonButton from "../components/common/CommonButton";
+import { CLIENT_URL } from "../libs/constant/constant";
 
 const LadingWrapper = styled.div``;
 
 const LandingHeader = styled.div`
   height: 5vh;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background: #aeb0d3;
   color: #fff;
   font-size: 0.7rem;
@@ -18,7 +19,7 @@ const LandingHeader = styled.div`
 
 const LandingSection = styled.div`
   height: 55vh;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   padding-top: 40px;
   font-size: 4.5rem;
   font-weight: 600;
@@ -41,14 +42,14 @@ const LandingSection = styled.div`
 
 const LandingImgWrapper = styled.div`
   height: 40vh;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   text-align: center;
 `;
 
 const LandingLogoImg = styled.img`
-  width: 650px;
+  width: 40%;
   height: auto;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
 `;
 
 const Landing = () => {
@@ -70,20 +71,12 @@ const Landing = () => {
         </div>
       </LandingHeader>
       <LandingSection>
-        <div style={{ border: "1px solid red", padding: 0 }}>
-          Fall into a meeting
-        </div>
-        <div
-          style={{ color: "#ccc", border: "1px solid red" }}
-          className="logo-name"
-        >
+        <div style={{ padding: 0 }}>Fall into a meeting</div>
+        <div style={{ color: "#ccc" }} className="logo-name">
           Focus.
         </div>
-        <div className="btn-wrapper" style={{ border: "1px solid blue" }}>
-          <div
-            style={{ color: "#ccc", border: "1px solid red" }}
-            className="login-btn-wrapper"
-          >
+        <div className="btn-wrapper">
+          <div style={{ color: "#ccc" }} className="login-btn-wrapper">
             <Button
               type="primary"
               onClick={handleOk}
@@ -93,21 +86,22 @@ const Landing = () => {
                 border: "1px solid #aeb0d3",
               }}
             >
-              <a href="http://localhost:3000/login">Login</a>
+              <a href={`${CLIENT_URL}/login`}>Login</a>
             </Button>
           </div>
-          <div
-            style={{ color: "#ccc", border: "1px solid red" }}
-            className="register-btn-wrapper"
-          >
-            <Button type="text" style={{}}>
-              Register
+          <div style={{ color: "#ccc" }} className="register-btn-wrapper">
+            <Button type="text">
+              <a
+                href={`${CLIENT_URL}/register`}
+                style={{ textDecoration: "underLine", color: "#aaa" }}
+              >
+                Register
+              </a>
             </Button>
-
             {/* <CommonButton
-              content="Register!"
+              content="Register"
               type="text"
-              style={{ width: "400px" }}
+              style={{ width: "500px" }}
             ></CommonButton> */}
           </div>
         </div>
