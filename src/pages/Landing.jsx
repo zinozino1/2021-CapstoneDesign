@@ -93,7 +93,7 @@ const Landing = () => {
                 border: "1px solid #aeb0d3",
               }}
             >
-              Login
+              <a href="http://localhost:3000/login">Login</a>
             </Button>
           </div>
           <div

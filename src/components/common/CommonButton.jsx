@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 
 const StyledButton = styled(Button)`
   background: #aeb0d3;
+  border: 1px solid #aeb0d3;
 `;
 
 const CommonButton = ({ content, type = "primary" }) => {
