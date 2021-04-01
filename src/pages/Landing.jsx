@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Button, Modal } from "antd";
 import LandingLogo from "../statics/images/LandingLogo3.png";
 import { CLIENT_URL } from "../libs/constant/constant";
+import { palette } from "../libs/constant/palette";
 
 const LadingWrapper = styled.div``;
 
@@ -82,8 +83,8 @@ const Landing = () => {
               onClick={handleOk}
               style={{
                 width: "170px",
-                background: "#aeb0d3",
-                border: "1px solid #aeb0d3",
+                background: palette.mainBG,
+                border: `1px solid ` + palette.mainBG,
               }}
             >
               <a href={`${CLIENT_URL}/login`}>Login</a>
@@ -98,11 +99,6 @@ const Landing = () => {
                 Register
               </a>
             </Button>
-            {/* <CommonButton
-              content="Register"
-              type="text"
-              style={{ width: "500px" }}
-            ></CommonButton> */}
           </div>
         </div>
       </LandingSection>

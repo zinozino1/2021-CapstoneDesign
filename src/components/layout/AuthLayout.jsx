@@ -3,12 +3,15 @@ import styled, { css } from "styled-components";
 
 const Container = styled.div`
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ContentWrapper = styled.div`
-  margin: 0 auto;
-  margin-top: 65px;
-  width: 400px;
+  /* margin: 0 auto; */
+  /* margin-top: 30vh; */
+  width: 500px;
   border-radius: 5px;
   background-color: #f1f2f5;
   /* ${(props) =>
