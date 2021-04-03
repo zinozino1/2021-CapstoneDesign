@@ -6,16 +6,19 @@ import { UploadOutlined, PlusOutlined } from "@ant-design/icons";
 import { CLIENT_URL } from "../libs/constant/constant";
 import FormData from "form-data";
 import ExampleProfileImage from "../statics/images/ExampleProfileImage.jpeg";
+import { palette } from "../libs/constant/palette";
 
 const RegisterWrapper = styled.div`
   padding: 50px 50px;
   .ant-upload-list-picture-card-container {
     width: 120px;
     height: 140px;
+    margin-left: 30px;
   }
   .ant-upload-select-picture-card {
     width: 120px;
     height: 140px;
+    margin-left: 30px;
   }
 `;
 
@@ -46,7 +49,6 @@ const Register = () => {
   const [previewTitle, setPreviewTitle] = useState("");
 
   const onChangeImage = (paramFileList) => {
-    console.log(paramFileList);
     setFileList(paramFileList.fileList);
   };
 
@@ -70,20 +72,6 @@ const Register = () => {
 
   const handleCancel = () => {
     setPreviewVisible(false);
-  };
-
-  const normFile = (e) => {
-    if (e.file.status === "done") {
-      formData.append("avatar", e.fileList[0].originFileObj);
-    } else if (e.file.status === "removed") {
-      formData.delete("avatar");
-    }
-    let fileList = e.fileList;
-    fileList = fileList.slice(-1);
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e && fileList;
   };
 
   useEffect(() => {
@@ -194,13 +182,16 @@ const Register = () => {
             //   },
             // ]}
             // extra="longgggggggggggggggggggggggggggggggggg"
-            style={{ border: "1px solid red" }}
           >
-            <div style={{ display: "flex", border: "1px solid blue" }}>
+            <div
+              style={{
+                display: "flex",
+              }}
+            >
               <Image
                 width={185}
                 src={ExampleProfileImage}
-                style={{ border: "1px solid red" }}
+                style={{ marginRight: "20px" }}
               />
               <Upload
                 name="logo"
@@ -210,7 +201,9 @@ const Register = () => {
                 fileList={fileList}
                 onPreview={handlePreview}
                 onChange={onChangeImage}
-                style={{ width: "140px", border: "1px solid red" }}
+                style={{
+                  width: "140px",
+                }}
               >
                 {fileList.length >= 1 ? null : uploadButton}
               </Upload>
@@ -227,8 +220,29 @@ const Register = () => {
                 />
               </Modal>
             </div>
-            <div>Example</div>
+            <div
+              style={{
+                paddingLeft: "25px",
+                color: "#bbb",
+              }}
+            >
+              -Example-
+            </div>
           </Form.Item>
+
+          <div style={{ textAlign: "center", padding: "20px" }}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{
+                width: "100px",
+                background: palette.mainBG,
+                border: `1px solid ` + palette.mainBG,
+              }}
+            >
+              Register
+            </Button>
+          </div>
         </Form>
       </RegisterWrapper>
     </AuthLayout>
