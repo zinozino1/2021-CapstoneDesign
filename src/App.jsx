@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Landing from "./pages/Landing";
 import History from "./pages/History";
+import Main from "./pages/Main";
 
 // const videoConstraints = {
 //   width: 800,
@@ -81,6 +82,7 @@ const App = () => {
 
       <Switch>
         <Route path="/" component={Landing} exact></Route>
+        <Route path="/main" component={Main} exact></Route>
         <Route path="/login" component={Login} exact></Route>
         <Route path="/register" component={Register} exact></Route>
         <Route path="/history" component={History} exact></Route>
