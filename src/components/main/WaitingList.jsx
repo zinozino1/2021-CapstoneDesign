@@ -12,7 +12,9 @@ const ListWrapper = styled.div`
 const WaitingList = () => {
   return (
     <WaitingListWrapper>
-      <Divider orientation="left">WaitingList</Divider>
+      <Divider orientation="left" style={{ color: "#ddd" }}>
+        WaitingList
+      </Divider>
       <ListWrapper></ListWrapper>
     </WaitingListWrapper>
   );
