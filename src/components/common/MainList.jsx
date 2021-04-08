@@ -8,7 +8,32 @@ const PaginationWrapper = styled.div`
   position: absolute;
   bottom: 0;
 
-  left: 38.5%;
+  right: 0;
+  .ant-pagination {
+    .ant-pagination-item {
+      &:hover {
+        border: 1px solid #aeb0d3;
+      }
+      a {
+        font-weight: 600;
+        color: #aeb0d3;
+      }
+    }
+    .ant-pagination-item-active {
+      border-color: #aeb0d3;
+      background-color: #aeb0d3;
+
+      a {
+        color: #fff;
+      }
+    }
+    .ant-pagination-item-link {
+      &:hover {
+        border-color: #aeb0d3;
+        color: #aeb0d3;
+      }
+    }
+  }
 `;
 
 const MainList = ({ data }) => {
@@ -30,6 +55,7 @@ const MainList = ({ data }) => {
       {currentData.map((item, i) => (
         <MainListItem item={item} key={i}></MainListItem>
       ))}
+
       <PaginationWrapper>
         <Pagination
           defaultCurrent={1}

@@ -8,7 +8,7 @@ const GroupListWrapper = styled.div``;
 
 const ListWrapper = styled.div`
   border: 1px solid black;
-  height: 300px;
+  height: 250px;
   position: relative;
 `;
 
@@ -84,8 +84,8 @@ const dummy = [
 const GroupList = () => {
   return (
     <GroupListWrapper>
-      <Divider orientation="left" style={{ color: "#ddd" }}>
-        GroupList
+      <Divider orientation="left" style={{ color: "#bbb" }}>
+        Group List
       </Divider>
       <ListWrapper>
         {/* <MainListIndex /> */}

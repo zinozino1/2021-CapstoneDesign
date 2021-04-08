@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const ItemWrapper = styled.div`
   display: flex;
+  cursor: pointer;
 `;
 
 const ColWrapper = styled.div`
