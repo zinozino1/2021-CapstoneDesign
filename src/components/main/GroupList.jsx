@@ -2,53 +2,79 @@ import React from "react";
 import styled from "styled-components";
 import { Divider, Pagination } from "antd";
 import MainList from "../common/MainList";
+import MainListIndex from "../common/MainListIndex";
 
 const GroupListWrapper = styled.div``;
 
 const ListWrapper = styled.div`
   border: 1px solid black;
   height: 300px;
+  position: relative;
 `;
 
 const dummy = [
   {
-    classRoomName: "AI capstone",
+    classRoomName: "1",
     classRoomCode: "12dj9f3#@",
     status: "off",
     role: "HOST",
   },
   {
-    classRoomName: "Data structure",
+    classRoomName: "2",
     classRoomCode: "af3f23#@",
     status: "on",
     role: "GUEST",
   },
   {
-    classRoomName: "Algorithm",
+    classRoomName: "3",
     classRoomCode: "b09333#@",
     status: "off",
     role: "HOST",
   },
   {
-    classRoomName: "AI capstone",
+    classRoomName: "4",
     classRoomCode: "12dj9f3#@",
     status: "off",
     role: "HOST",
   },
   {
-    classRoomName: "Data structure",
+    classRoomName: "5",
     classRoomCode: "af3f23#@",
     status: "on",
     role: "GUEST",
   },
   {
-    classRoomName: "Algorithm",
+    classRoomName: "6",
     classRoomCode: "b09333#@",
     status: "off",
     role: "HOST",
   },
   {
-    classRoomName: "AI capstone",
+    classRoomName: "7",
+    classRoomCode: "12dj9f3#@",
+    status: "off",
+    role: "HOST",
+  },
+  {
+    classRoomName: "8",
+    classRoomCode: "af3f23#@",
+    status: "on",
+    role: "GUEST",
+  },
+  {
+    classRoomName: "9",
+    classRoomCode: "b09333#@",
+    status: "off",
+    role: "HOST",
+  },
+  {
+    classRoomName: "10",
+    classRoomCode: "12dj9f3#@",
+    status: "off",
+    role: "HOST",
+  },
+  {
+    classRoomName: "11",
     classRoomCode: "12dj9f3#@",
     status: "off",
     role: "HOST",
@@ -62,8 +88,13 @@ const GroupList = () => {
         GroupList
       </Divider>
       <ListWrapper>
+        {/* <MainListIndex /> */}
         <MainList data={dummy} />
-        <Pagination defaultCurrent={1} total={30} pageSize={5}></Pagination>
+        {/* <Pagination
+          defaultCurrent={1}
+          total={dummy.length}
+          pageSize={5}
+        ></Pagination> */}
       </ListWrapper>
     </GroupListWrapper>
   );
