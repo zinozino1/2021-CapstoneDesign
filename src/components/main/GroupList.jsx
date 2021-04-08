@@ -4,7 +4,9 @@ import { Divider, Pagination } from "antd";
 import MainList from "../common/MainList";
 import MainListIndex from "../common/MainListIndex";
 
-const GroupListWrapper = styled.div``;
+const GroupListWrapper = styled.div`
+  flex: 1;
+`;
 
 const ListWrapper = styled.div`
   border: 1px solid black;

@@ -13,8 +13,10 @@ const Main = () => {
     <ContentLayout>
       <MainWrapper>
         <MainHeader />
-        <GroupList />
-        <WaitingList />
+        <div style={{ display: "flex" }}>
+          <GroupList />
+          <WaitingList />
+        </div>
         <RecentTrends />
       </MainWrapper>
     </ContentLayout>

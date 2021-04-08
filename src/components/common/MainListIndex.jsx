@@ -3,6 +3,10 @@ import styled from "styled-components";
 
 const MainListIndexWrapper = styled.div`
   display: flex;
+  padding: 5px 0;
+  font-weight: bold;
+  background: #aeb0d3;
+  color: #fff;
 `;
 
 const IndexItem = styled.div`

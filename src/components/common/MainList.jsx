@@ -53,7 +53,7 @@ const MainList = ({ data }) => {
     <>
       <MainListIndex />
       {currentData.map((item, i) => (
-        <MainListItem item={item} key={i}></MainListItem>
+        <MainListItem item={item} key={i} index={i}></MainListItem>
       ))}
 
       <PaginationWrapper>

@@ -3,7 +3,10 @@ import styled from "styled-components";
 import { Divider } from "antd";
 import MainList from "../common/MainList";
 
-const WaitingListWrapper = styled.div``;
+const WaitingListWrapper = styled.div`
+  flex: 1;
+  margin-left: 30px;
+`;
 
 const ListWrapper = styled.div`
   border: 1px solid black;
