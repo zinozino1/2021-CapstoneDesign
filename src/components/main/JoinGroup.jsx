@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Form, Input, Select, Button } from "antd";
 import { palette } from "../../libs/constant/palette";
+import useInput from "../../hooks/useInput";
 
-const CreateGroupWrapper = styled.div``;
+const JoinGroupWrapper = styled.div``;
 
 const JoinGroup = () => {
+  const [groupCode, setGroupCode, onChangeGroupCode] = useInput("");
+
+  const onSubmit = (item) => {
+    console.log(item);
+  };
+
   return (
-    <CreateGroupWrapper>
-      <Form>
+    <JoinGroupWrapper>
+      <Form onFinish={onSubmit}>
         <Form.Item
           name="groupName"
           label="Group Code"
@@ -19,7 +26,7 @@ const JoinGroup = () => {
             },
           ]}
         >
-          <Input />
+          <Input onChange={onChangeGroupCode} />
         </Form.Item>
         <div style={{ textAlign: "center" }}>
           <Button
@@ -35,7 +42,7 @@ const JoinGroup = () => {
           </Button>
         </div>
       </Form>
-    </CreateGroupWrapper>
+    </JoinGroupWrapper>
   );
 };
 

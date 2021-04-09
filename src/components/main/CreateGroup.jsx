@@ -21,9 +21,13 @@ const InputLayout = {
 };
 
 const CreateGroup = () => {
+  const onSubmit = (item) => {
+    console.log(item);
+  };
+
   return (
     <CreateGroupWrapper>
-      <Form {...InputLayout}>
+      <Form {...InputLayout} onFinish={onSubmit}>
         <Form.Item
           name="groupName"
           label="Group Name"
@@ -36,63 +40,85 @@ const CreateGroup = () => {
         >
           <Input />
         </Form.Item>
-        <Form.Item name="groupCode" label="Group Code">
-          <Input disabled placeholder="ASDFSADF" />
+        <Form.Item name="groupCode" label="Group Code" initialValue="aaa">
+          <Input placeholder="ASDFSADF" disabled />
         </Form.Item>
-        <Form.Item
-          name="groupDurationSetting"
-          label="Class Duration"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
+        <Form.Item label="Class Duration">
           <div style={{ display: "flex" }}>
-            <Select placeholder="h" style={{ flex: "1" }}>
-              {CLASS_DURATION_HOUR.map((v, i) => (
-                <Select.Option value={v}>{v}</Select.Option>
-              ))}
-            </Select>
-            <Select placeholder="m" style={{ flex: "1" }}>
-              {CLASS_DURATION_MINUTE.map((v, i) => (
-                <Select.Option value={v}>{v}</Select.Option>
-              ))}
-            </Select>
+            <Form.Item
+              name="groupDurationHour"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Select placeholder="hour" style={{ flex: "1" }}>
+                {CLASS_DURATION_HOUR.map((v, i) => (
+                  <Select.Option key={i} value={v}>
+                    {v}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name="groupDurationMin"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Select placeholder="minute" style={{ flex: "1" }}>
+                {CLASS_DURATION_MINUTE.map((v, i) => (
+                  <Select.Option key={i} value={v}>
+                    {v}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
           </div>
         </Form.Item>
-        <Form.Item
-          name="absenceTime"
-          label="Absence Time"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Select placeholder="m" style={{ flex: "1" }}>
-            {ABSENCE_TIME.map((v, i) => (
-              <Select.Option value={v}>{v}</Select.Option>
-            ))}
-          </Select>
+        <Form.Item label="Absence Time">
+          <Form.Item
+            noStyle
+            name="absenceTime"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Select placeholder="minute" style={{ flex: "1" }}>
+              {ABSENCE_TIME.map((v, i) => (
+                <Select.Option key={i} value={v}>
+                  {v}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
           <div style={{ fontSize: "0.7rem", color: "#bbb" }}>
             * Set Time for Attendance Failure
           </div>
         </Form.Item>
-        <Form.Item
-          name="absenceTime"
-          label="Atmosphere Alert Time"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Select placeholder="m" style={{ flex: "1" }}>
-            {ALERT_ATMOSPHERE.map((v, i) => (
-              <Select.Option value={v}>{v}</Select.Option>
-            ))}
-          </Select>
+        <Form.Item label="Atmosphere Alert Time">
+          <Form.Item
+            noStyle
+            name="alertTime"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Select placeholder="minute" style={{ flex: "1" }}>
+              {ALERT_ATMOSPHERE.map((v, i) => (
+                <Select.Option key={i} value={v}>
+                  {v}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
           <div style={{ fontSize: "0.7rem", color: "#bbb" }}>
             * Set Time for Alert
           </div>

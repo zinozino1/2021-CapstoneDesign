@@ -91,7 +91,7 @@ const MainHeader = () => {
         </div>
         <div className="profile-desc">
           <div className="role">Student</div>
-          <div className="username">박진호</div>
+          <div className="username">김영"진"</div>
         </div>
       </MyProfileWrapper>
       <RoomBtnWrapper>
@@ -126,7 +126,7 @@ const MainHeader = () => {
             isModalVisible={isHostModalVisible}
             setIsModalVisible={setIsHostModalVisible}
             footer={false}
-            width={600}
+            width={700}
           >
             <CreateGroup />
           </Modal>
