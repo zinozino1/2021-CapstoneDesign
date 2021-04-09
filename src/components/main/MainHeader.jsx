@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Image, Button } from "antd";
+import { Image, Button, Modal } from "antd";
 import ExampleProfileImage from "../../statics/images/ExampleProfileImage.jpeg";
+import useToggle from "../../hooks/useToggle";
 
 const MainHeaderWrapper = styled.div`
   display: flex;
@@ -63,6 +64,18 @@ const RoomBtnWrapper = styled.div`
 `;
 
 const MainHeader = () => {
+  const [
+    isGuestModalVisible,
+    setIsGuestModalVisible,
+    handleGuestVisible,
+  ] = useToggle(false);
+
+  const [
+    isHostModalVisible,
+    setIsHostModalVisible,
+    handleHostVisible,
+  ] = useToggle(false);
+
   return (
     <MainHeaderWrapper>
       <MyProfileWrapper>
@@ -80,12 +93,32 @@ const MainHeader = () => {
       </MyProfileWrapper>
       <RoomBtnWrapper>
         <div className="guest">
-          <Button type="primary" className="btn-guest">
+          <Button
+            type="primary"
+            className="btn-guest"
+            onClick={handleGuestVisible}
+          >
             Guest
           </Button>
+          <Modal
+            title="Basic Modal"
+            visible={isGuestModalVisible}
+            onCancel={() => {
+              setIsGuestModalVisible(false);
+            }}
+            footer={false}
+          >
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+          </Modal>
         </div>
         <div className="host">
-          <Button type="primary" className="btn-host">
+          <Button
+            type="primary"
+            className="btn-host"
+            onClick={handleHostVisible}
+          >
             Host
           </Button>
         </div>
