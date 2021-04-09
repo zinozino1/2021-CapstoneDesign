@@ -5,6 +5,7 @@ import ExampleProfileImage from "../../statics/images/ExampleProfileImage.jpeg";
 import useToggle from "../../hooks/useToggle";
 import Modal from "../common/Modal";
 import CreateGroup from "./CreateGroup";
+import JoinGroup from "./JoinGroup";
 
 const MainHeaderWrapper = styled.div`
   display: flex;
@@ -107,8 +108,9 @@ const MainHeader = () => {
             isModalVisible={isGuestModalVisible}
             setIsModalVisible={setIsGuestModalVisible}
             footer={false}
+            width={400}
           >
-            <CreateGroup />
+            <JoinGroup />
           </Modal>
         </div>
         <div className="host">
@@ -124,7 +126,10 @@ const MainHeader = () => {
             isModalVisible={isHostModalVisible}
             setIsModalVisible={setIsHostModalVisible}
             footer={false}
-          ></Modal>
+            width={600}
+          >
+            <CreateGroup />
+          </Modal>
         </div>
       </RoomBtnWrapper>
     </MainHeaderWrapper>

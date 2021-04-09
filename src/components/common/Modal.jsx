@@ -7,6 +7,7 @@ const Modal = ({
   isModalVisible,
   setIsModalVisible,
   footer,
+  width,
 }) => {
   return (
     <MD
@@ -16,7 +17,7 @@ const Modal = ({
         setIsModalVisible(false);
       }}
       footer={footer}
-      width={600}
+      width={width}
     >
       {children}
     </MD>

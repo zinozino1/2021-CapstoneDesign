@@ -36,15 +36,7 @@ const CreateGroup = () => {
         >
           <Input />
         </Form.Item>
-        <Form.Item
-          name="groupCode"
-          label="Group Code"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
+        <Form.Item name="groupCode" label="Group Code">
           <Input disabled placeholder="ASDFSADF" />
         </Form.Item>
         <Form.Item
