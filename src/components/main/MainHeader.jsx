@@ -100,18 +100,6 @@ const MainHeader = () => {
           >
             Guest
           </Button>
-          <Modal
-            title="Basic Modal"
-            visible={isGuestModalVisible}
-            onCancel={() => {
-              setIsGuestModalVisible(false);
-            }}
-            footer={false}
-          >
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-          </Modal>
         </div>
         <div className="host">
           <Button
