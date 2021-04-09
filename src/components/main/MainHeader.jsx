@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Image, Button, Modal } from "antd";
+import { Image, Button } from "antd";
 import ExampleProfileImage from "../../statics/images/ExampleProfileImage.jpeg";
 import useToggle from "../../hooks/useToggle";
+import Modal from "../common/Modal";
+import CreateGroup from "./CreateGroup";
 
 const MainHeaderWrapper = styled.div`
   display: flex;
@@ -100,6 +102,14 @@ const MainHeader = () => {
           >
             Guest
           </Button>
+          <Modal
+            title="Create Group"
+            isModalVisible={isGuestModalVisible}
+            setIsModalVisible={setIsGuestModalVisible}
+            footer={false}
+          >
+            <CreateGroup />
+          </Modal>
         </div>
         <div className="host">
           <Button
@@ -109,6 +119,12 @@ const MainHeader = () => {
           >
             Host
           </Button>
+          <Modal
+            title="Join Group"
+            isModalVisible={isHostModalVisible}
+            setIsModalVisible={setIsHostModalVisible}
+            footer={false}
+          ></Modal>
         </div>
       </RoomBtnWrapper>
     </MainHeaderWrapper>

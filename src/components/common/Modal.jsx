@@ -1,15 +1,22 @@
 import React from "react";
 import { Modal as MD } from "antd";
 
-const Modal = ({ children, isModalVisible, setIsModalVisible, footer }) => {
+const Modal = ({
+  children,
+  title,
+  isModalVisible,
+  setIsModalVisible,
+  footer,
+}) => {
   return (
     <MD
-      title="Basic Modal"
+      title={title}
       visible={isModalVisible}
       onCancel={() => {
         setIsModalVisible(false);
       }}
       footer={footer}
+      width={600}
     >
       {children}
     </MD>
