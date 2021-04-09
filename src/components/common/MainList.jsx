@@ -7,7 +7,6 @@ import { Pagination } from "antd";
 const PaginationWrapper = styled.div`
   position: absolute;
   bottom: 0;
-
   right: 0;
   .ant-pagination {
     .ant-pagination-item {
@@ -55,7 +54,6 @@ const MainList = ({ data }) => {
       {currentData.map((item, i) => (
         <MainListItem item={item} key={i} index={i}></MainListItem>
       ))}
-
       <PaginationWrapper>
         <Pagination
           defaultCurrent={1}
