@@ -22,7 +22,7 @@ const RateItem = styled.div`
 const RateDesc = styled.div``;
 
 const RecentTrends = () => {
-  const [currentRole, setCurrentRole] = useState("Guest");
+  const [currentRole, setCurrentRole] = useState(true);
 
   const onChangeRole = (checked) => {
     setCurrentRole(checked);
@@ -33,10 +33,7 @@ const RecentTrends = () => {
       <Divider orientation="left" style={{ color: "#bbb" }}>
         Recent Trends
       </Divider>
-      <div style={{ textAlign: "right", fontSize: "0.7rem", color: "#bbb" }}>
-        <span style={{ color: "red" }}>*</span> Shows the average indicatiors
-        for the 10 most recently attended classes.
-      </div>
+
       <div style={{ textAlign: "right", padding: "20px 0" }}>
         <Switch
           checkedChildren="Guest"
@@ -87,6 +84,10 @@ const RecentTrends = () => {
           </>
         )}
       </RatesWrapper>
+      <div style={{ textAlign: "right", fontSize: "0.7rem", color: "#bbb" }}>
+        <span style={{ color: "red" }}>*</span> Shows the average indicatiors
+        for the 10 most recently attended classes.
+      </div>
     </RecentTrendsWrapper>
   );
 };

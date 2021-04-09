@@ -75,7 +75,7 @@ const MainHeader = () => {
         </div>
         <div className="profile-desc">
           <div className="role">Student</div>
-          <div className="username">김영진</div>
+          <div className="username">박진호</div>
         </div>
       </MyProfileWrapper>
       <RoomBtnWrapper>

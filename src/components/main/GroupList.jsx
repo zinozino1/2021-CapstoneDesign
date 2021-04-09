@@ -16,37 +16,37 @@ const ListWrapper = styled.div`
 
 const dummy = [
   {
-    classRoomName: "1",
+    classRoomName: "AI Capstone design",
     classRoomCode: "12dj9f3#@",
     status: "off",
     role: "HOST",
   },
   {
-    classRoomName: "2",
+    classRoomName: "Data structure",
     classRoomCode: "af3f23#@",
     status: "on",
     role: "GUEST",
   },
   {
-    classRoomName: "3",
+    classRoomName: "Domain analysis",
     classRoomCode: "b09333#@",
     status: "off",
     role: "HOST",
   },
   {
-    classRoomName: "4",
+    classRoomName: "Database",
     classRoomCode: "12dj9f3#@",
     status: "off",
     role: "HOST",
   },
   {
-    classRoomName: "5",
+    classRoomName: "Machine learning",
     classRoomCode: "af3f23#@",
     status: "on",
     role: "GUEST",
   },
   {
-    classRoomName: "6",
+    classRoomName: "asdf",
     classRoomCode: "b09333#@",
     status: "off",
     role: "HOST",

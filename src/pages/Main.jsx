@@ -17,6 +17,17 @@ const Main = () => {
           <GroupList />
           <WaitingList />
         </div>
+        <div
+          style={{
+            textAlign: "right",
+            fontSize: "0.7rem",
+            color: "#bbb",
+            padding: "10px 0",
+          }}
+        >
+          <span style={{ color: "red" }}>*</span> This is the admission queue. A
+          notification will be sent upon rejection.
+        </div>
         <RecentTrends />
       </MainWrapper>
     </ContentLayout>
