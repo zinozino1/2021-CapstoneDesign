@@ -17,7 +17,7 @@ const JoinGroup = () => {
     <JoinGroupWrapper>
       <Form onFinish={onSubmit}>
         <Form.Item
-          name="groupName"
+          name="groupCode"
           label="Group Code"
           rules={[
             {

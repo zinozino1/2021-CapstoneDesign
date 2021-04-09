@@ -22,15 +22,29 @@ const MyProfileWrapper = styled.div`
   .profile-desc {
     flex: 1;
     border: 1px solid violet;
+    display: flex;
+    flex-direction: column;
+    .info {
+      text-align: right;
+      font-size: 1.2rem;
+      background: #ffc224;
+      color: #fff;
+      padding-right: 10px;
+    }
     .role {
+      flex: 1;
       font-weight: 600;
-      font-size: 2rem;
+      font-size: 1.75rem;
       border: 1px solid red;
+      text-align: center;
     }
     .username {
+      flex: 1;
       font-size: 1.25rem;
       border: 1px solid red;
       color: #aaa;
+      padding: 20px;
+      text-align: center;
     }
   }
 `;
@@ -90,8 +104,9 @@ const MainHeader = () => {
           />
         </div>
         <div className="profile-desc">
+          <div className="info">Info</div>
           <div className="role">Student</div>
-          <div className="username">김영"진"</div>
+          <div className="username">김영진</div>
         </div>
       </MyProfileWrapper>
       <RoomBtnWrapper>
