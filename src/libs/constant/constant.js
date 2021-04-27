@@ -13,4 +13,4 @@ export const ABSENCE_TIME = Array.from({ length: 60 }, (v, i) => i + "m");
 
 export const ALERT_ATMOSPHERE = Array.from({ length: 60 }, (v, i) => i + "m");
 
-export const AZURE_FACEAPI = `https://koreacentral.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true&returnFaceLandmarks=true&recognitionModel=recognition_04&returnRecognitionModel=true&detectionModel=detection_03&faceIdTimeToLive=86400`;
+export const AZURE_FACEAPI = `https://koreacentral.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true&returnFaceLandmarks=true&returnFaceAttributes=headPose&recognitionModel=recognition_03&returnRecognitionModel=true&detectionModel=detection_01&faceIdTimeToLive=86400`;

@@ -124,6 +124,7 @@ const Test = () => {
       .post(AZURE_FACEAPI, src, config)
       .then((res) => {
         console.log(res.data[0].faceLandmarks.eyeLeftBottom);
+        console.log(res);
       })
       .catch((e) => {
         console.log(e);
