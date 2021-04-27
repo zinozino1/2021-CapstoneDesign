@@ -10,6 +10,7 @@ import Landing from "./pages/Landing";
 import History from "./pages/History";
 import Main from "./pages/Main";
 import GroupDetail from "./pages/GroupDetail";
+import Test from "./pages/Test";
 
 // const videoConstraints = {
 //   width: 800,
@@ -82,6 +83,7 @@ const App = () => {
       <button onClick={onClickStart}>{toggleStart ? "Close" : "Run"}</button> */}
 
       <Switch>
+        <Route path="/test" component={Test} exact></Route>
         <Route path="/" component={Landing} exact></Route>
         <Route path="/main" component={Main} exact></Route>
         <Route path="/main/:id" component={GroupDetail} exact></Route>
