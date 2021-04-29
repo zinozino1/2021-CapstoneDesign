@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 const ItemWrapper = styled.div`
   display: flex;
-  cursor: pointer;
+
   font-size: 0.75rem;
   padding: 3px 0;
   ${(props) =>

@@ -126,7 +126,7 @@ const WaitingList = () => {
         Waiting List
       </Divider>
       <ListWrapper>
-        <MainList data={dummy} />
+        <MainList data={dummy} type="waiting" />
       </ListWrapper>
     </WaitingListWrapper>
   );

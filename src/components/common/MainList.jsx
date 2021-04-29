@@ -3,6 +3,7 @@ import styled from "styled-components";
 import MainListItem from "./MainListItem";
 import MainListIndex from "./MainListIndex";
 import { Pagination } from "antd";
+import { Link, withRouter } from "react-router-dom";
 
 const PaginationWrapper = styled.div`
   position: absolute;
@@ -35,7 +36,14 @@ const PaginationWrapper = styled.div`
   }
 `;
 
-const MainList = ({ data }) => {
+const LinkWrapper = styled(Link)`
+  color: #000;
+  &:hover {
+    color: #000;
+  }
+`;
+
+const MainList = ({ data, type }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState(data);
 
@@ -51,9 +59,16 @@ const MainList = ({ data }) => {
   return (
     <>
       <MainListIndex />
-      {currentData.map((item, i) => (
-        <MainListItem item={item} key={i} index={i}></MainListItem>
-      ))}
+      {type === "group"
+        ? currentData.map((item, i) => (
+            <LinkWrapper to={`/main/${item.id}`}>
+              <MainListItem item={item} key={i} index={i}></MainListItem>
+            </LinkWrapper>
+          ))
+        : currentData.map((item, i) => (
+            <MainListItem item={item} key={i} index={i}></MainListItem>
+          ))}
+
       <PaginationWrapper>
         <Pagination
           defaultCurrent={1}

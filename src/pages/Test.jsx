@@ -80,7 +80,15 @@ const Test = () => {
   //   loadModels();
   // }, []);
 
-  useEffect(() => {}, [image]);
+  useEffect(() => {
+    // let capture = setInterval(() => {
+    //   captureWebcam();
+    // }, 1500);
+    // return () => {
+    //   clearInterval(capture);
+    // };
+  }, []);
+
   const b64toBlob = (b64DataStr, contentType = "", sliceSize = 512) => {
     const byteCharacters = atob(b64DataStr);
     const byteArrays = [];
