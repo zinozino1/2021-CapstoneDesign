@@ -31,6 +31,10 @@ const Nav = ({ history }) => {
 
   useEffect(() => {
     let currPath = history.location.pathname.slice(1);
+    if (currPath.indexOf("/") !== -1) {
+      currPath = currPath.slice(0, currPath.indexOf("/"));
+    }
+    //console.log(currPath);
     setCurrentMenu(currPath);
   }, [history]);
 

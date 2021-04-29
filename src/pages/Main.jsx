@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import ContentLayout from "../components/layout/ContentLayout";
 import MainHeader from "../components/main/MainHeader";
@@ -8,7 +8,10 @@ import RecentTrends from "../components/main/RecentTrends";
 
 const MainWrapper = styled.div``;
 
+// redux 그룹리스트, 웨이팅리스트 데이터 필요
 const Main = () => {
+  useEffect(() => {}, []);
+
   return (
     <ContentLayout>
       <MainWrapper>
