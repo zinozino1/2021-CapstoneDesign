@@ -1,29 +1,33 @@
 import React, { useEffect, useState } from "react";
 import ContentLayout from "../components/layout/ContentLayout";
 import { Divider } from "antd";
-import HostGroupDetail from "../components/group/HostGroupDetail";
-import GuestGroupDetail from "../components/group/GuestGroupDetail";
 import { hostGroupData } from "../libs/util/dummyCreator";
 import Summary from "../components/group/Summary";
 import MemberList from "../components/group/MemberList";
 import HostWebcam from "../components/group/HostWebcam";
+import { useDispatch } from "react-redux";
+import { loadPostAction, initializePostAction } from "../reducers/post";
+import { useSelector } from "react-redux";
 
-const GroupDetail = () => {
+const GroupDetail = ({ match }) => {
   // url 파라미터로 api 호출 후 그룹리스트의 role에 따라 분기
-
-  const [groupInfo, setGroupInfo] = useState(null);
+  const dispatch = useDispatch();
+  const { post } = useSelector((state) => state.post);
 
   useEffect(() => {
-    // axios로 데이터 정제
-    setGroupInfo(hostGroupData(12, 4));
-    // redux로 처리해야할 듯
-  }, []);
+    const { id } = match.params;
+
+    dispatch(loadPostAction(id));
+    return () => {
+      dispatch(initializePostAction());
+    };
+  }, [match]);
 
   return (
     <ContentLayout>
       <Divider>Summary</Divider>
       <Summary />
-      {groupInfo.person === "host" ? (
+      {post && post.person === "host" ? (
         <>
           <MemberList type="groupMember" />
           <MemberList type="waitingMember" />
