@@ -3,6 +3,7 @@ import faker from "faker";
 
 export const hostGroupData = (groupMemberNum, waitingMemberNum) => {
   return {
+    person: "host",
     groupCode: shortId.generate(),
     groupName: faker.lorem.word(),
     absenceTime: faker.random.number(),
@@ -21,6 +22,7 @@ export const hostGroupData = (groupMemberNum, waitingMemberNum) => {
 
 export const guestGroupData = () => {
   return {
+    person: "guest",
     groupCode: shortId.generate(),
     groupName: faker.lorem.word(),
     absenceTime: faker.random.number(),
