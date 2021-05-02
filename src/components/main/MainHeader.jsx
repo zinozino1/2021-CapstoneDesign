@@ -106,7 +106,7 @@ const MainHeader = () => {
         <div className="profile-desc">
           <div className="info">Info</div>
           <div className="role">Student</div>
-          <div className="username">김영진</div>
+          <div className="username">김캡디</div>
         </div>
       </MyProfileWrapper>
       <RoomBtnWrapper>
@@ -119,7 +119,7 @@ const MainHeader = () => {
             Guest
           </Button>
           <Modal
-            title="Create Group"
+            title="Join Group"
             isModalVisible={isGuestModalVisible}
             setIsModalVisible={setIsGuestModalVisible}
             footer={false}
@@ -137,7 +137,7 @@ const MainHeader = () => {
             Host
           </Button>
           <Modal
-            title="Join Group"
+            title="Create Group"
             isModalVisible={isHostModalVisible}
             setIsModalVisible={setIsHostModalVisible}
             footer={false}

@@ -84,10 +84,6 @@ const RecentTrends = () => {
           </>
         )}
       </RatesWrapper>
-      <div style={{ textAlign: "right", fontSize: "0.7rem", color: "#bbb" }}>
-        <span style={{ color: "red" }}>*</span> Shows the average indicatiors
-        for the 10 most recently attended classes.
-      </div>
     </RecentTrendsWrapper>
   );
 };

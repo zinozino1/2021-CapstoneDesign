@@ -8,8 +8,10 @@ import RecentTrends from "../components/main/RecentTrends";
 
 const MainWrapper = styled.div``;
 
-// redux 그룹리스트, 웨이팅리스트 데이터 필요
+// redux 그룹리스트, 웨이팅리스트, 최근동향 데이터 필요
 const Main = () => {
+  // 그룹리스트, 웨이팅리스트, 최근 동향  데이터 요청 후 props로 뿌려주기
+
   useEffect(() => {}, []);
 
   return (
