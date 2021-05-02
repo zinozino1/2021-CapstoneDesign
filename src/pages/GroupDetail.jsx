@@ -23,11 +23,13 @@ const GroupDetail = ({ match }) => {
     };
   }, [match]);
 
+  if (!post) return null;
+
   return (
     <ContentLayout>
       <Divider>Summary</Divider>
       <Summary />
-      {post && post.person === "host" ? (
+      {post.person === "host" ? (
         <>
           <MemberList type="groupMember" />
           <MemberList type="waitingMember" />

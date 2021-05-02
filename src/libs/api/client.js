@@ -1,3 +1,9 @@
-export const CLIENT_URL = "http://localhost:3000";
+import axios from "axios";
+import { BACK_URL } from "../constant/constant";
 
-export const BACK_URL = "http://localhost:4000";
+axios.defaults.baseURL = `${BACK_URL}`;
+axios.defaults.withCredentials = true;
+
+const client = axios.create();
+
+export default client;
