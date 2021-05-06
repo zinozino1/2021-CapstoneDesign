@@ -23,7 +23,7 @@ function* loadPostSaga(action) {
     const dummyPost = hostGroupData(10, 5);
 
     yield delay(100);
-    yield put({ type: LOAD_POST_SUCCESS, post: dummyPost });
+    yield put({ type: LOAD_POST_SUCCESS, groupDetail: dummyPost });
   } catch (error) {
     yield put({ type: LOAD_POST_FAILURE });
   }

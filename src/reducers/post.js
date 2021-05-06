@@ -3,7 +3,7 @@ import { createAction, handleActions } from "redux-actions";
 // initial state
 
 const initialState = {
-  post: null,
+  groupDetail: null,
   loadPostLoading: false,
   loadPostDone: false,
   loadPostError: null,
@@ -29,7 +29,7 @@ const post = handleActions(
   {
     [INITIALIZE_POST]: (state, action) => ({
       ...state,
-      post: null,
+      groupDetail: null,
     }),
     [LOAD_POST_REQUEST]: (state, action) => ({
       ...state,
@@ -42,7 +42,7 @@ const post = handleActions(
       loadPostLoading: false,
       loadPostDone: true,
       loadPostError: null,
-      post: action.post,
+      groupDetail: action.groupDetail,
     }),
     [LOAD_POST_FAILURE]: (state, action) => ({
       ...state,

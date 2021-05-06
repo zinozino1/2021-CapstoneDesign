@@ -4,10 +4,11 @@ import faker from "faker";
 export const hostGroupData = (groupMemberNum, waitingMemberNum) => {
   return {
     person: "host",
+    host: faker.name.findName(),
     groupCode: shortId.generate(),
     groupName: faker.lorem.word(),
     absenceTime: faker.random.number(),
-    groupCreatedAt: faker.date.recent(),
+    creationDate: faker.date.recent(),
     alertTime: faker.random.number(),
     groupMember: new Array(groupMemberNum).fill().map((v, i) => ({
       name: faker.name.findName(),
@@ -23,6 +24,7 @@ export const hostGroupData = (groupMemberNum, waitingMemberNum) => {
 export const guestGroupData = () => {
   return {
     person: "guest",
+    host: faker.name.findName(),
     groupCode: shortId.generate(),
     groupName: faker.lorem.word(),
     absenceTime: faker.random.number(),

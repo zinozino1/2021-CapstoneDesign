@@ -61,7 +61,7 @@ const MainList = ({ data, type }) => {
       <MainListIndex />
       {type === "group"
         ? currentData.map((item, i) => (
-            <LinkWrapper to={`/main/${item.id}`}>
+            <LinkWrapper to={`/main/${item.id}`} key={i}>
               <MainListItem item={item} key={i} index={i}></MainListItem>
             </LinkWrapper>
           ))

@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 const GroupDetail = ({ match }) => {
   // url 파라미터로 api 호출 후 그룹리스트의 role에 따라 분기
   const dispatch = useDispatch();
-  const { post } = useSelector((state) => state.post);
+  const { groupDetail } = useSelector((state) => state.post);
 
   useEffect(() => {
     const { id } = match.params;
@@ -23,13 +23,15 @@ const GroupDetail = ({ match }) => {
     };
   }, [match]);
 
-  if (!post) return null;
+  if (!groupDetail) return null;
 
   return (
     <ContentLayout>
-      <Divider>Summary</Divider>
+      <Divider orientation="left">Summary</Divider>
+      {/* 호스트, 게스트 공통 */}
       <Summary />
-      {post.person === "host" ? (
+      {/* 호스트만 */}
+      {groupDetail.person === "host" ? (
         <>
           <MemberList type="groupMember" />
           <MemberList type="waitingMember" />
