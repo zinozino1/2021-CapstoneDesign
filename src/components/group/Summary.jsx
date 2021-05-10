@@ -8,6 +8,7 @@ const SummaryWrapper = styled.div``;
 const SummaryHeader = styled.div`
   border: 1px solid red;
   display: flex;
+  justify-content: space-between;
 `;
 
 const SummaryContent = styled.div`
@@ -23,6 +24,10 @@ const SummaryContent = styled.div`
 
 const SummaryFooter = styled.div`
   border: 1px solid red;
+  text-align: right;
+  .footer-btn {
+    margin-left: 3px;
+  }
 `;
 
 // 게스트, 호스트에 따라 다르게
@@ -35,14 +40,14 @@ const Summary = () => {
     <SummaryWrapper>
       {groupDetail.person === "host" && (
         <SummaryHeader>
-          <span className="alert-text">
+          <span className="alert-text" style={{ border: "1px solid red" }}>
             If you leave this page without saving, you may lose your work.
           </span>
-          <div className="onAir-clock">
+          <div className="onAir-clock" style={{ border: "1px solid red" }}>
             <div className="on-air">OnAir</div>
             <div className="clock">00:00:00</div>
           </div>
-          <div className="btns">
+          <div className="btns" style={{ border: "1px solid red" }}>
             <Button>START</Button>
             <Button>END</Button>
           </div>
@@ -103,8 +108,8 @@ const Summary = () => {
       </SummaryContent>
       {groupDetail.person === "host" ? (
         <SummaryFooter>
-          <Button>Save</Button>
-          <Button>Remove Group</Button>
+          <Button className="footer-btn">Save</Button>
+          <Button className="footer-btn">Remove Group</Button>
         </SummaryFooter>
       ) : (
         <SummaryFooter></SummaryFooter>

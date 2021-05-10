@@ -33,8 +33,10 @@ const GroupDetail = ({ match }) => {
       {/* 호스트만 */}
       {groupDetail.person === "host" ? (
         <>
-          <MemberList type="groupMember" />
-          <MemberList type="waitingMember" />
+          <div style={{ display: "flex", border: "1px solid red" }}>
+            <MemberList type="groupMember" />
+            <MemberList type="waitingMember" />
+          </div>
         </>
       ) : (
         <HostWebcam />
