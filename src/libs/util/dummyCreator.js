@@ -28,7 +28,7 @@ export const guestGroupData = () => {
     groupCode: shortId.generate(),
     groupName: faker.lorem.word(),
     absenceTime: faker.random.number(),
-    groupCreatedAt: faker.date.recent(),
+    creationDate: faker.date.recent(),
     alertTime: faker.random.number(),
   };
 };

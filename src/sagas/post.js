@@ -11,7 +11,7 @@ import {
   LOAD_POST_FAILURE,
   LOAD_POST_REQUEST,
 } from "../reducers/post";
-import { hostGroupData } from "../libs/util/dummyCreator";
+import { hostGroupData, guestGroupData } from "../libs/util/dummyCreator";
 
 // saga
 
@@ -21,9 +21,10 @@ function* loadPostSaga(action) {
   console.log(action.payload); // yield call 에 payload 박으면 된다
   try {
     const dummyPost = hostGroupData(10, 5);
+    const dummyPost2 = guestGroupData();
 
     yield delay(100);
-    yield put({ type: LOAD_POST_SUCCESS, groupDetail: dummyPost });
+    yield put({ type: LOAD_POST_SUCCESS, groupDetail: dummyPost2 });
   } catch (error) {
     yield put({ type: LOAD_POST_FAILURE });
   }
