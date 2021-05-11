@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { Button } from "antd";
+import useTimer from "../../hooks/useTimer";
 
 const SummaryWrapper = styled.div``;
 
@@ -12,6 +13,8 @@ const SummaryHeader = styled.div`
   .clock {
     .onAir-clock,
     .onAir-clock-activate {
+      width: 100px;
+
       padding: 0 20px;
       margin: 0 20px;
       font-weight: bold;
@@ -51,23 +54,33 @@ const Summary = () => {
   const { groupDetail } = useSelector((state) => state.post);
   const [onAir, setOnAir] = useState(false);
 
+  const [h, m, s] = useTimer(onAir);
+
   const startClass = () => {
-    let startClassConfirm = window.confirm("Would you like to start class?");
-    if (startClassConfirm) {
-      setOnAir(true);
+    if (!onAir) {
+      let startClassConfirm = window.confirm("Would you like to start class?");
+      if (startClassConfirm) {
+        setOnAir(true);
+      }
     }
   };
 
   const endClass = () => {
-    let endClassConfirm = window.confirm("Would you like to end class?");
-    if (endClassConfirm) {
-      setOnAir(false);
+    if (onAir) {
+      let endClassConfirm = window.confirm("Would you like to end class?");
+      if (endClassConfirm) {
+        setOnAir(false);
+      }
     }
   };
 
   useEffect(() => {
     console.log(onAir);
   }, [onAir]);
+
+  useEffect(() => {
+    console.log(h, m, s);
+  }, [h, m, s]);
 
   if (!groupDetail) return null;
 
@@ -99,12 +112,12 @@ const Summary = () => {
             {onAir ? (
               <div className="onAir-clock onAir-clock-activate">
                 <div className="on-air">ON AIR</div>
-                <div className="clock">00:00:00</div>
+                <div className="clock">{`${h}:${m}:${s}`}</div>
               </div>
             ) : (
               <div className="onAir-clock">
                 <div className="on-air">ON AIR</div>
-                <div className="clock">00:00:00</div>
+                <div className="clock">{`${h}:${m}:${s}`}</div>
               </div>
             )}
 
