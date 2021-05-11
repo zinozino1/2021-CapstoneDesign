@@ -7,6 +7,7 @@ import { CLIENT_URL } from "../libs/constant/constant";
 import FormData from "form-data";
 import ExampleProfileImage from "../statics/images/ExampleProfileImage.jpeg";
 import { palette } from "../libs/constant/palette";
+import axios from "axios";
 
 const RegisterWrapper = styled.div`
   padding: 50px 50px;
@@ -47,6 +48,15 @@ const Register = () => {
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
+
+  formData.append("email", "asdf");
+  formData.append("name", "asdf");
+  formData.append("password", "asdf");
+  formData.append("passwordConfirm", "asdf");
+
+  const onSubmit = () => {
+    axios.post("http://localhost:8080/api/auth/register", formData);
+  };
 
   const onChangeImage = (paramFileList) => {
     setFileList(paramFileList.fileList);
@@ -232,6 +242,7 @@ const Register = () => {
 
           <div style={{ textAlign: "center", padding: "20px" }}>
             <Button
+              onClick={onSubmit}
               type="primary"
               htmlType="submit"
               style={{
