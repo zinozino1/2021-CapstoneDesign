@@ -65,8 +65,12 @@ const GuestWebcam = () => {
   return (
     <Container>
       <ButtonsWrapper>
-        <Button onClick={webcamOn}>ON</Button>
-        <Button onClick={webcamOff}>OFF</Button>
+        <Button onClick={webcamOn} type="primary">
+          ON
+        </Button>
+        <Button onClick={webcamOff} type="danger">
+          OFF
+        </Button>
       </ButtonsWrapper>
       <GuestWebcamWrapper>
         {enableWebcam ? (
@@ -86,6 +90,17 @@ const GuestWebcam = () => {
 
         {/* <Button onClick={capture}>Capture</Button> */}
       </GuestWebcamWrapper>
+      <div
+        style={{
+          textAlign: "center",
+          fontSize: "0.75rem",
+          marginTop: "15px",
+          color: "#bbb",
+        }}
+      >
+        <span style={{ color: "red" }}>*</span> If you click the "OFF" during
+        class, it is recognized as "absence".
+      </div>
     </Container>
   );
 };

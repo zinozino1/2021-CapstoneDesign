@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Button } from "antd";
 
 const SummaryWrapper = styled.div``;
@@ -9,6 +9,22 @@ const SummaryHeader = styled.div`
   border: 1px solid red;
   display: flex;
   justify-content: space-between;
+  .clock {
+    .onAir-clock,
+    .onAir-clock-activate {
+      padding: 0 20px;
+      margin: 0 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .onAir-clock {
+      border: 1px solid #ddd;
+    }
+    .onAir-clock-activate {
+      background: #ff4d4f;
+      color: #fff;
+    }
+  }
 `;
 
 const SummaryContent = styled.div`
@@ -33,6 +49,25 @@ const SummaryFooter = styled.div`
 // 게스트, 호스트에 따라 다르게
 const Summary = () => {
   const { groupDetail } = useSelector((state) => state.post);
+  const [onAir, setOnAir] = useState(false);
+
+  const startClass = () => {
+    let startClassConfirm = window.confirm("Would you like to start class?");
+    if (startClassConfirm) {
+      setOnAir(true);
+    }
+  };
+
+  const endClass = () => {
+    let endClassConfirm = window.confirm("Would you like to end class?");
+    if (endClassConfirm) {
+      setOnAir(false);
+    }
+  };
+
+  useEffect(() => {
+    console.log(onAir);
+  }, [onAir]);
 
   if (!groupDetail) return null;
 
@@ -40,16 +75,41 @@ const Summary = () => {
     <SummaryWrapper>
       {groupDetail.person === "host" && (
         <SummaryHeader>
-          <span className="alert-text" style={{ border: "1px solid red" }}>
-            If you leave this page without saving, you may lose your work.
+          <span
+            className="alert-text"
+            style={{
+              border: "1px solid red",
+              fontSize: "0.75rem",
+              color: "#bbb",
+            }}
+          >
+            <span style={{ color: "red" }}>*</span> If you leave this page
+            without saving, you may lose your work.
           </span>
-          <div className="onAir-clock" style={{ border: "1px solid red" }}>
-            <div className="on-air">OnAir</div>
-            <div className="clock">00:00:00</div>
-          </div>
-          <div className="btns" style={{ border: "1px solid red" }}>
-            <Button>START</Button>
-            <Button>END</Button>
+
+          <div
+            className="clock"
+            style={{
+              border: "1px solid red",
+              padding: "0 20px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {onAir ? (
+              <div className="onAir-clock onAir-clock-activate">
+                <div className="on-air">ON AIR</div>
+                <div className="clock">00:00:00</div>
+              </div>
+            ) : (
+              <div className="onAir-clock">
+                <div className="on-air">ON AIR</div>
+                <div className="clock">00:00:00</div>
+              </div>
+            )}
+
+            <Button onClick={startClass}>START</Button>
+            <Button onClick={endClass}>END</Button>
           </div>
         </SummaryHeader>
       )}
@@ -108,11 +168,17 @@ const Summary = () => {
       </SummaryContent>
       {groupDetail.person === "host" ? (
         <SummaryFooter>
-          <Button className="footer-btn">Save</Button>
-          <Button className="footer-btn">Remove Group</Button>
+          <Button className="footer-btn" type="primary">
+            Save
+          </Button>
+          <Button className="footer-btn" type="danger">
+            Remove Group
+          </Button>
         </SummaryFooter>
       ) : (
-        <SummaryFooter></SummaryFooter>
+        <SummaryFooter>
+          <Button type="danger">Leave the Group</Button>
+        </SummaryFooter>
       )}
     </SummaryWrapper>
   );
