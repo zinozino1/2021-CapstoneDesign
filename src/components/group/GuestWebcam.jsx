@@ -15,6 +15,7 @@ const GuestWebcamWrapper = styled.div`
 
 const ButtonsWrapper = styled.div`
   text-align: center;
+  padding-bottom: 10px;
 `;
 
 const videoConstraints = {
@@ -56,7 +57,6 @@ const GuestWebcam = () => {
     } else {
       clearInterval(intervalCapture);
     }
-
     return () => {
       clearInterval(intervalCapture);
     };
@@ -84,8 +84,17 @@ const GuestWebcam = () => {
           />
         ) : (
           <div
-            style={{ width: "300px", height: "300px", background: "#000" }}
-          ></div>
+            style={{
+              width: "300px",
+              height: "300px",
+              background: "#000",
+              color: "#ddd",
+              textAlign: "center",
+              lineHeight: "300px",
+            }}
+          >
+            Please turn on the webcam.
+          </div>
         )}
 
         {/* <Button onClick={capture}>Capture</Button> */}

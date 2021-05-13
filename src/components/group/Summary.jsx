@@ -35,6 +35,10 @@ const SummaryContent = styled.div`
   .table-index {
     width: 20%;
     height: 35px;
+    font-weight: 600;
+  }
+  .table-content {
+    color: #999;
   }
   td {
     padding: 10px;
@@ -42,6 +46,7 @@ const SummaryContent = styled.div`
 `;
 
 const SummaryFooter = styled.div`
+  padding: 10px 0;
   border: 1px solid red;
   text-align: right;
   .footer-btn {
@@ -74,13 +79,13 @@ const Summary = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(onAir);
-  }, [onAir]);
+  // host
+  const saveGroupDetail = () => {};
 
-  useEffect(() => {
-    console.log(h, m, s);
-  }, [h, m, s]);
+  const removeGroup = () => {};
+
+  //guest
+  const leaveGroup = () => {};
 
   if (!groupDetail) return null;
 
