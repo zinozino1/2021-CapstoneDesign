@@ -2,6 +2,8 @@ import React, { useRef, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import Webcam from "react-webcam";
 import { Button } from "antd";
+import axios from "axios";
+import FormData from "form-data";
 
 const Container = styled.div`
   border: 1px solid red;
@@ -24,15 +26,25 @@ const videoConstraints = {
   facingMode: "user",
 };
 
+const formData = new FormData();
+const formData2 = new FormData();
+formData2.append("keys", "key 값 ");
+
 const GuestWebcam = () => {
   const webcamRef = useRef(null);
   const [image, setImage] = useState(null);
   const [enableWebcam, setEnableWebcam] = useState(false);
 
   const capture = useCallback(() => {
+    formData.delete("file");
     const imageSrc = webcamRef.current.getScreenshot();
-    setImage(imageSrc);
-    console.log(imageSrc[0]);
+    // console.log(imageSrc.slice(3));
+    formData.append("file", imageSrc);
+    // for (var pair of image.entries()) {
+    //   console.log(pair[0] + ", " + pair[1], "ㅋㅋㅋㅋ");
+    // }
+    setImage(formData);
+    // setImage(imageSrc);
   }, [webcamRef]);
 
   const webcamOn = () => {
@@ -47,20 +59,62 @@ const GuestWebcam = () => {
   //   console.log(image[0]);
   // }, [image]);
 
-  useEffect(() => {
-    let intervalCapture;
+  const manualCapture = () => {
+    console.log("image manual capture");
+    capture();
+  };
 
-    if (enableWebcam) {
-      intervalCapture = setInterval(() => {
-        capture();
-      }, 1000);
-    } else {
-      clearInterval(intervalCapture);
+  const tempApi = () => {
+    for (var pair of formData2.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
     }
-    return () => {
-      clearInterval(intervalCapture);
-    };
-  }, [enableWebcam, capture]);
+    axios
+      .post("http://localhost:5000/ping", formData2, {
+        header: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const sendImage = () => {
+    for (var pair of image.entries()) {
+      console.log(pair[0] + ", " + pair[1], "ㅋㅋㅋㅋ");
+    }
+    axios
+      .post("http://localhost:5000/image", image, {
+        header: {
+          "Content-Type": "multipart/form-data",
+          Accept: "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  // useEffect(() => {
+  //   let intervalCapture;
+
+  //   if (enableWebcam) {
+  //     intervalCapture = setInterval(() => {
+  //       capture();
+  //     }, 1000);
+  //   } else {
+  //     clearInterval(intervalCapture);
+  //   }
+  //   return () => {
+  //     clearInterval(intervalCapture);
+  //   };
+  // }, [enableWebcam, capture]);
 
   return (
     <Container>
@@ -97,7 +151,9 @@ const GuestWebcam = () => {
           </div>
         )}
 
-        {/* <Button onClick={capture}>Capture</Button> */}
+        <Button onClick={manualCapture}>Capture</Button>
+        <Button onClick={sendImage}>send Image</Button>
+        <Button onClick={tempApi}>send tmp api</Button>
       </GuestWebcamWrapper>
       <div
         style={{
