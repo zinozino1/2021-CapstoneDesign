@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import AuthLayout from "../components/layout/AuthLayout";
 import { Form, Input, Button } from "antd";
 import { palette } from "../libs/constant/palette";
 import { CLIENT_URL } from "../libs/constant/constant";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { loginRequestAction } from "../reducers/user";
 
 const LoginWrapper = styled.div`
   padding: 50px 50px;
@@ -18,7 +21,21 @@ const InputLayout = {
   },
 };
 
-const Login = () => {
+const Login = ({ history }) => {
+  const dispatch = useDispatch();
+  const { me } = useSelector((state) => state.user);
+
+  const onLogin = (values) => {
+    console.log(values);
+    dispatch(loginRequestAction());
+  };
+
+  useEffect(() => {
+    if (me) {
+      history.push("/main");
+    }
+  }, [me, history]);
+
   return (
     <AuthLayout>
       <LoginWrapper>
@@ -34,7 +51,7 @@ const Login = () => {
             Focus
           </a>
         </div>
-        <Form {...InputLayout} name="login">
+        <Form {...InputLayout} name="login" onFinish={onLogin}>
           <Form.Item
             label="Email"
             name="email"
@@ -68,6 +85,7 @@ const Login = () => {
                   border: `1px solid ` + palette.mainBG,
                   width: "100px",
                 }}
+                htmlType="submit"
               >
                 Login
               </Button>

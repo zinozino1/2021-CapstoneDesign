@@ -40,7 +40,7 @@ export const setUserRequestAction = createAction(
   (data) => data,
 );
 
-export const loginRequestAction = createAction(LOG_IN_REQUEST, (data) => data);
+export const loginRequestAction = createAction(LOG_IN_REQUEST);
 
 export const logoutRequestAction = createAction(LOG_OUT_REQUEST);
 
@@ -64,7 +64,7 @@ const user = handleActions(
       setUserLoading: false,
       setUserDone: true,
       setUserFalse: null,
-      me: action.user,
+      me: action.me,
     }),
     [SET_USER_FAILURE]: (state, action) => ({
       ...state,
@@ -83,7 +83,7 @@ const user = handleActions(
       loginLoading: false,
       loginDone: true,
       loginError: null,
-      me: action.user,
+      me: action.me,
     }),
     [LOG_IN_FAILURE]: (state, action) => ({
       ...state,

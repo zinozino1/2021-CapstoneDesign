@@ -58,7 +58,7 @@ const MainList = ({ data, type }) => {
 
   return (
     <>
-      <MainListIndex />
+      <MainListIndex type={type} />
       {type === "group"
         ? currentData.map((item, i) => (
             <LinkWrapper to={`/main/${item.id}`} key={i}>
@@ -68,7 +68,6 @@ const MainList = ({ data, type }) => {
         : currentData.map((item, i) => (
             <MainListItem item={item} key={i} index={i}></MainListItem>
           ))}
-
       <PaginationWrapper>
         <Pagination
           defaultCurrent={1}

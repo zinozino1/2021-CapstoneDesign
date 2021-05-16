@@ -22,13 +22,7 @@ const GroupList = () => {
         Group List
       </Divider>
       <ListWrapper>
-        {/* <MainListIndex /> */}
         <MainList data={groupList(30)} type="group" />
-        {/* <Pagination
-          defaultCurrent={1}
-          total={dummy.length}
-          pageSize={5}
-        ></Pagination> */}
       </ListWrapper>
     </GroupListWrapper>
   );

@@ -27,10 +27,16 @@ const ColWrapper = styled.div`
 const MainListItem = ({ item, index }) => {
   return (
     <ItemWrapper index={index}>
-      <ColWrapper>{item.classRoomName}</ColWrapper>
-      <ColWrapper>{item.classRoomCode}</ColWrapper>
-      <ColWrapper>{item.status}</ColWrapper>
-      <ColWrapper>{item.role}</ColWrapper>
+      <ColWrapper>{item.groupName}</ColWrapper>
+      <ColWrapper>{item.groupCode}</ColWrapper>
+      <ColWrapper>
+        {item.status === true
+          ? "ON"
+          : item.status === "wait"
+          ? "Waiting.."
+          : "OFF"}
+      </ColWrapper>
+      {item.role && <ColWrapper>{item.role}</ColWrapper>}
     </ItemWrapper>
   );
 };

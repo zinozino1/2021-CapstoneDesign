@@ -3,7 +3,7 @@ import { watchPost } from "./post";
 import { watchUser } from "./user";
 
 function* rootSaga() {
-  yield all([fork(watchPost)], fork(watchUser));
+  yield all([fork(watchPost), fork(watchUser)]);
 }
 
 export default rootSaga;

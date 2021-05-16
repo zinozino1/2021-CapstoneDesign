@@ -6,6 +6,7 @@ import useToggle from "../../hooks/useToggle";
 import Modal from "../common/Modal";
 import CreateGroup from "./CreateGroup";
 import JoinGroup from "./JoinGroup";
+import { useSelector } from "react-redux";
 
 const MainHeaderWrapper = styled.div`
   display: flex;
@@ -93,20 +94,24 @@ const MainHeader = () => {
     handleHostVisible,
   ] = useToggle(false);
 
+  const { me } = useSelector((state) => state.user);
+
+  if (!me) return null;
+
   return (
     <MainHeaderWrapper>
       <MyProfileWrapper>
         <div className="profile-image">
           <Image
             width={120}
-            src={ExampleProfileImage}
+            src={me.profileImage}
             style={{ marginRight: "20px" }}
           />
         </div>
         <div className="profile-desc">
           <div className="info">Info</div>
           <div className="role">Student</div>
-          <div className="username">김캡디</div>
+          <div className="username">{me.name}</div>
         </div>
       </MyProfileWrapper>
       <RoomBtnWrapper>

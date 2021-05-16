@@ -4,24 +4,53 @@ import { createAction, handleActions } from "redux-actions";
 
 const initialState = {
   groupDetail: null,
+  groupList: null,
+  waitingList: null,
   loadPostLoading: false,
   loadPostDone: false,
   loadPostError: null,
+  loadGroupListLoading: false,
+  loadGroupListDone: false,
+  loadGroupListError: null,
+  loadWaitingListLoading: false,
+  loadWaitingListDone: false,
+  loadWaitingListError: null,
 };
 
 // action type
 
 export const INITIALIZE_POST = "post/INITIALIZE_POST";
 
+export const INITIALIZE_GROUP_AND_WAITING_LIST =
+  "post/INITIALIZE_GROUP_AND_WAITING_LIST";
+
 export const LOAD_POST_REQUEST = "post/LOAD_POST_REQUEST";
 export const LOAD_POST_SUCCESS = "post/LOAD_POST_SUCCESS";
 export const LOAD_POST_FAILURE = "post/LOAD_POST_FAILURE";
+
+export const LOAD_GROUP_LIST_REQUEST = "post/LOAD_GROUP_LIST_REQUEST";
+export const LOAD_GROUP_LIST_SUCCESS = "post/LOAD_GROUP_LIST_SUCCESS";
+export const LOAD_GROUP_LIST_FAILURE = "post/LOAD_GROUP_LIST_FAILURE";
+
+export const LOAD_WAITING_LIST_REQUEST = "post/LOAD_WAITING_LIST_REQUEST";
+export const LOAD_WAITING_LIST_SUCCESS = "post/LOAD_WAITING_LIST_SUCCESS";
+export const LOAD_WAITING_LIST_FAILURE = "post/LOAD_WAITING_LIST_FAILURE";
 
 // action creator
 
 export const initializePostAction = createAction(INITIALIZE_POST);
 
+export const initializeGroupAndWaitingList = createAction(
+  INITIALIZE_GROUP_AND_WAITING_LIST,
+);
+
 export const loadPostAction = createAction(LOAD_POST_REQUEST, (data) => data);
+
+export const loadGroupListRequestAction = createAction(LOAD_GROUP_LIST_REQUEST);
+
+export const loadWaitingListRequestAction = createAction(
+  LOAD_WAITING_LIST_REQUEST,
+);
 
 // reducer
 
@@ -30,6 +59,11 @@ const post = handleActions(
     [INITIALIZE_POST]: (state, action) => ({
       ...state,
       groupDetail: null,
+    }),
+    [INITIALIZE_GROUP_AND_WAITING_LIST]: (state, action) => ({
+      ...state,
+      groupList: null,
+      waitingList: null,
     }),
     [LOAD_POST_REQUEST]: (state, action) => ({
       ...state,
@@ -49,6 +83,44 @@ const post = handleActions(
       loadPostLoading: false,
       loadPostDone: false,
       loadPostError: null,
+    }),
+    [LOAD_GROUP_LIST_REQUEST]: (state, action) => ({
+      ...state,
+      loadGroupListLoading: true,
+      loadGroupListDone: false,
+      loadGroupListError: null,
+    }),
+    [LOAD_GROUP_LIST_SUCCESS]: (state, action) => ({
+      ...state,
+      loadGroupListLoading: false,
+      loadGroupListDone: true,
+      loadGroupListError: null,
+      groupList: action.groupList,
+    }),
+    [LOAD_GROUP_LIST_FAILURE]: (state, action) => ({
+      ...state,
+      loadGroupListLoading: false,
+      loadGroupListDone: false,
+      loadGroupListError: null,
+    }),
+    [LOAD_WAITING_LIST_REQUEST]: (state, action) => ({
+      ...state,
+      loadWaitingListLoading: true,
+      loadWaitingListDone: false,
+      loadWaitingListError: null,
+    }),
+    [LOAD_WAITING_LIST_SUCCESS]: (state, action) => ({
+      ...state,
+      loadWaitingListLoading: false,
+      loadWaitingListDone: true,
+      loadWaitingListError: null,
+      waitingList: action.waitingList,
+    }),
+    [LOAD_WAITING_LIST_FAILURE]: (state, action) => ({
+      ...state,
+      loadWaitingListLoading: false,
+      loadWaitingListDone: false,
+      loadWaitingListError: null,
     }),
   },
   initialState,

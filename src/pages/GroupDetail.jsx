@@ -31,7 +31,7 @@ const GroupDetail = ({ match }) => {
       {/* 호스트, 게스트 공통 */}
       <Summary />
       {/* 호스트만 */}
-      {groupDetail.person === "host" ? (
+      {groupDetail.role === "host" ? (
         <>
           <div style={{ display: "flex", border: "1px solid red" }}>
             <MemberList type="groupMember" />

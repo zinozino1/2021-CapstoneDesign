@@ -1,35 +1,43 @@
 import shortId from "shortid";
 import faker from "faker";
 
+export const createUser = () => {
+  return {
+    name: faker.name.findName(),
+    profileImage: faker.image.image(),
+    email: faker.internet.email(),
+    token: faker.random.word(),
+    id: shortId.generate(),
+  };
+};
+
 export const hostGroupData = (groupMemberNum, waitingMemberNum) => {
   return {
-    person: "host",
-    host: faker.name.findName(),
+    role: "host",
+    hostName: faker.name.findName(),
     groupCode: shortId.generate(),
     groupName: faker.lorem.word(),
     absenceTime: faker.random.number(),
-    creationDate: faker.date.recent(),
-    alertTime: faker.random.number(),
+    alertduration: faker.random.number(),
     groupMember: new Array(groupMemberNum).fill().map((v, i) => ({
       name: faker.name.findName(),
-      email: faker.random.word(),
+      email: faker.internet.email(),
     })),
     waitingMember: new Array(waitingMemberNum).fill().map((v, i) => ({
       name: faker.name.findName(),
-      email: faker.random.word(),
+      email: faker.internet.email(),
     })),
   };
 };
 
 export const guestGroupData = () => {
   return {
-    person: "guest",
-    host: faker.name.findName(),
+    role: "guest",
+    hostName: faker.name.findName(),
     groupCode: shortId.generate(),
     groupName: faker.lorem.word(),
-    absenceTime: faker.random.number(),
-    creationDate: faker.date.recent(),
-    alertTime: faker.random.number(),
+    absenceTime: faker.datatype.number(),
+    alertDuration: faker.datatype.number(),
   };
 };
 
@@ -38,9 +46,9 @@ export const groupList = (number) => {
     .fill()
     .map((v, i) => ({
       id: shortId.generate(),
-      classRoomName: faker.lorem.word(),
-      classRoomCode: faker.random.number(),
-      status: i % 2 === 0 ? "OFF" : "ON",
+      groupName: faker.random.word(),
+      groupCode: faker.datatype.number(),
+      status: i % 2 === 0 ? true : false,
       role: i % 2 === 0 ? "HOST" : "GUEST",
     }));
 };
@@ -49,9 +57,26 @@ export const waitingList = (number) => {
   return Array(number)
     .fill()
     .map((v, i) => ({
-      classRoomName: faker.lorem.word(),
-      classRoomCode: faker.random.number(),
-      status: i % 2 === 0 ? "OFF" : "ON",
-      role: i % 2 === 0 ? "HOST" : "GUEST",
+      groupName: faker.random.word(),
+      groupCode: faker.datatype.number(),
+      status: "wait",
     }));
+};
+
+export const createHostRecentTrends = () => {
+  return {
+    role: "host",
+    attendanceRate: faker.datatype.number(),
+    concentrationRate: faker.datatype.number(),
+    drowsinessRate: faker.datatype.number(),
+  };
+};
+
+export const createGuestRecentTrends = () => {
+  return {
+    role: "guest",
+    attendanceRate: faker.datatype.number(),
+    concentrationRate: faker.datatype.number(),
+    drowsinessRate: faker.datatype.number(),
+  };
 };

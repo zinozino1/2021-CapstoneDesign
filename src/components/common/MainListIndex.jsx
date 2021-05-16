@@ -14,13 +14,13 @@ const IndexItem = styled.div`
   text-align: center;
 `;
 
-const MainListIndex = () => {
+const MainListIndex = ({ type }) => {
   return (
     <MainListIndexWrapper>
-      <IndexItem>Class Room Name</IndexItem>
-      <IndexItem>Class Room Code</IndexItem>
+      <IndexItem>Group Name</IndexItem>
+      <IndexItem>Group Code</IndexItem>
       <IndexItem>Status</IndexItem>
-      <IndexItem>Role</IndexItem>
+      {type === "group" && <IndexItem>Role</IndexItem>}
     </MainListIndexWrapper>
   );
 };

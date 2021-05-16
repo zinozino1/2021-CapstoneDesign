@@ -24,7 +24,7 @@ function* loadPostSaga(action) {
     const dummyPost2 = guestGroupData();
 
     yield delay(100);
-    yield put({ type: LOAD_POST_SUCCESS, groupDetail: dummyPost2 });
+    yield put({ type: LOAD_POST_SUCCESS, groupDetail: dummyPost });
   } catch (error) {
     yield put({ type: LOAD_POST_FAILURE });
   }
