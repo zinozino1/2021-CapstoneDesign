@@ -15,14 +15,14 @@ const WaitingListWrapper = styled.div`
 
 const ListWrapper = styled.div`
   border: 1px solid black;
-  height: 250px;
+  height: 300px;
   position: relative;
 `;
 
 const Skeleton = styled.div`
-  height: 250px;
+  height: 300px;
   text-align: center;
-  line-height: 250px;
+  line-height: 300px;
 `;
 
 const WaitingList = () => {

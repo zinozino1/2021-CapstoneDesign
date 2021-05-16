@@ -29,7 +29,7 @@ const GroupDetail = ({ match }) => {
     <ContentLayout>
       <Divider orientation="left">Summary</Divider>
       {/* 호스트, 게스트 공통 */}
-      <Summary />
+      <Summary groupDetail={groupDetail} />
       {/* 호스트만 */}
       {groupDetail.role === "host" ? (
         <>

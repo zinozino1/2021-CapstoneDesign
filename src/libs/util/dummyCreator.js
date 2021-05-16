@@ -18,7 +18,7 @@ export const hostGroupData = (groupMemberNum, waitingMemberNum) => {
     groupCode: shortId.generate(),
     groupName: faker.lorem.word(),
     absenceTime: faker.random.number(),
-    alertduration: faker.random.number(),
+    alertDuration: faker.random.number(),
     groupMember: new Array(groupMemberNum).fill().map((v, i) => ({
       name: faker.name.findName(),
       email: faker.internet.email(),

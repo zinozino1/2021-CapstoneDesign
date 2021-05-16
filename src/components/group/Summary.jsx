@@ -91,7 +91,7 @@ const Summary = () => {
 
   return (
     <SummaryWrapper>
-      {groupDetail.person === "host" && (
+      {groupDetail.role === "host" && (
         <SummaryHeader>
           <span
             className="alert-text"
@@ -159,27 +159,20 @@ const Summary = () => {
                 <span>{groupDetail.absenceTime}</span>
               </td>
             </tr>
+
             <tr>
               <td className="table-index">
-                <span>Creation Date</span>
+                <span>Alert Duration</span>
               </td>
               <td className="table-content">
-                {groupDetail.creationDate.getFullYear()}
+                <span>{groupDetail.alertDuration}</span>
               </td>
             </tr>
             <tr>
               <td className="table-index">
-                <span>Atmosphere Alert Time</span>
+                <span>Host Name</span>
               </td>
-              <td className="table-content">
-                <span>{groupDetail.alertTime}</span>
-              </td>
-            </tr>
-            <tr>
-              <td className="table-index">
-                <span>HOST</span>
-              </td>
-              <td className="table-content">{groupDetail.host}</td>
+              <td className="table-content">{groupDetail.hostName}</td>
             </tr>
           </tbody>
         </table>
