@@ -6,6 +6,8 @@ const initialState = {
   groupDetail: null,
   groupList: null,
   waitingList: null,
+  guestRecentTrends: null,
+  hostRecentTrends: null,
   loadPostLoading: false,
   loadPostDone: false,
   loadPostError: null,
@@ -36,6 +38,20 @@ export const LOAD_WAITING_LIST_REQUEST = "post/LOAD_WAITING_LIST_REQUEST";
 export const LOAD_WAITING_LIST_SUCCESS = "post/LOAD_WAITING_LIST_SUCCESS";
 export const LOAD_WAITING_LIST_FAILURE = "post/LOAD_WAITING_LIST_FAILURE";
 
+export const LOAD_GUEST_RECENT_TRENDS_REQUEST =
+  "post/LOAD_GUEST_RECENT_TRENDS_REQUEST";
+export const LOAD_GUEST_RECENT_TRENDS_SUCCESS =
+  "post/LOAD_GUEST_RECENT_TRENDS_SUCCESS";
+export const LOAD_GUEST_RECENT_TRENDS_FAILURE =
+  "post/LOAD_GUEST_RECENT_TRENDS_FAILURE";
+
+export const LOAD_HOST_RECENT_TRENDS_REQUEST =
+  "post/LOAD_HOST_RECENT_TRENDS_REQUEST";
+export const LOAD_HOST_RECENT_TRENDS_SUCCESS =
+  "post/LOAD_HOST_RECENT_TRENDS_SUCCESS";
+export const LOAD_HOST_RECENT_TRENDS_FAILURE =
+  "post/LOAD_HOST_RECENT_TRENDS_FAILURE";
+
 // action creator
 
 export const initializePostAction = createAction(INITIALIZE_POST);
@@ -50,6 +66,14 @@ export const loadGroupListRequestAction = createAction(LOAD_GROUP_LIST_REQUEST);
 
 export const loadWaitingListRequestAction = createAction(
   LOAD_WAITING_LIST_REQUEST,
+);
+
+export const loadGuestRecentTrendsRequestAction = createAction(
+  LOAD_GUEST_RECENT_TRENDS_REQUEST,
+);
+
+export const loadHostRecentTrendsRequestAction = createAction(
+  LOAD_HOST_RECENT_TRENDS_REQUEST,
 );
 
 // reducer
@@ -121,6 +145,26 @@ const post = handleActions(
       loadWaitingListLoading: false,
       loadWaitingListDone: false,
       loadWaitingListError: null,
+    }),
+    [LOAD_GUEST_RECENT_TRENDS_REQUEST]: (state, action) => ({
+      ...state,
+    }),
+    [LOAD_GUEST_RECENT_TRENDS_SUCCESS]: (state, action) => ({
+      ...state,
+      guestRecentTrends: action.guestRecentTrends,
+    }),
+    [LOAD_GUEST_RECENT_TRENDS_FAILURE]: (state, action) => ({
+      ...state,
+    }),
+    [LOAD_HOST_RECENT_TRENDS_REQUEST]: (state, action) => ({
+      ...state,
+    }),
+    [LOAD_HOST_RECENT_TRENDS_SUCCESS]: (state, action) => ({
+      ...state,
+      hostRecentTrends: action.hostRecentTrends,
+    }),
+    [LOAD_HOST_RECENT_TRENDS_FAILURE]: (state, action) => ({
+      ...state,
     }),
   },
   initialState,

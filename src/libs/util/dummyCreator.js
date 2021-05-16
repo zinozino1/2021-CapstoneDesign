@@ -66,17 +66,17 @@ export const waitingList = (number) => {
 export const createHostRecentTrends = () => {
   return {
     role: "host",
-    attendanceRate: faker.datatype.number(),
-    concentrationRate: faker.datatype.number(),
-    drowsinessRate: faker.datatype.number(),
+    attendanceRate: parseInt(faker.datatype.number() / 100 - 30),
+    concentrationRate: parseInt(faker.datatype.number() / 100 - 30),
+    drowsinessRate: parseInt(faker.datatype.number() / 100 - 30),
   };
 };
 
 export const createGuestRecentTrends = () => {
   return {
     role: "guest",
-    attendanceRate: faker.datatype.number(),
-    concentrationRate: faker.datatype.number(),
-    drowsinessRate: faker.datatype.number(),
+    attendanceRate: parseInt(faker.datatype.number() / 100 - 30),
+    concentrationRate: parseInt(faker.datatype.number() / 100 - 30),
+    drowsinessRate: parseInt(faker.datatype.number() / 100 - 30),
   };
 };

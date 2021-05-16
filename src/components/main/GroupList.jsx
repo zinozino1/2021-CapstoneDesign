@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Divider, Pagination } from "antd";
 import MainList from "../common/MainList";
 import MainListIndex from "../common/MainListIndex";
 import { groupList } from "../../libs/util/dummyCreator";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { loadGroupListRequestAction } from "../../reducers/post";
+import { Spin } from "antd";
 
 const GroupListWrapper = styled.div`
   flex: 1;
@@ -15,14 +19,33 @@ const ListWrapper = styled.div`
   position: relative;
 `;
 
+const Skeleton = styled.div`
+  height: 250px;
+  text-align: center;
+  line-height: 250px;
+`;
+
 const GroupList = () => {
+  const dispatch = useDispatch();
+  const { groupList } = useSelector((state) => state.post);
+
+  useEffect(() => {
+    dispatch(loadGroupListRequestAction());
+  }, []);
+
   return (
     <GroupListWrapper>
       <Divider orientation="left" style={{ color: "#bbb" }}>
         Group List
       </Divider>
       <ListWrapper>
-        <MainList data={groupList(30)} type="group" />
+        {!groupList ? (
+          <Skeleton>
+            <Spin></Spin>
+          </Skeleton>
+        ) : (
+          <MainList data={groupList} type="group" />
+        )}
       </ListWrapper>
     </GroupListWrapper>
   );

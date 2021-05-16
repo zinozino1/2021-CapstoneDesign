@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Divider, Progress, Switch } from "antd";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import {
+  loadGuestRecentTrendsRequestAction,
+  loadHostRecentTrendsRequestAction,
+} from "../../reducers/post";
 
 const RecentTrendsWrapper = styled.div`
   .ant-switch-checked {
@@ -22,11 +28,26 @@ const RateItem = styled.div`
 const RateDesc = styled.div``;
 
 const RecentTrends = () => {
+  const dispatch = useDispatch();
+
+  const { guestRecentTrends } = useSelector((state) => state.post);
+  const { hostRecentTrends } = useSelector((state) => state.post);
+
   const [currentRole, setCurrentRole] = useState(true);
 
   const onChangeRole = (checked) => {
     setCurrentRole(checked);
   };
+
+  useEffect(() => {
+    dispatch(loadGuestRecentTrendsRequestAction());
+  }, []);
+
+  useEffect(() => {
+    dispatch(loadHostRecentTrendsRequestAction());
+  }, []);
+
+  if (!guestRecentTrends || !hostRecentTrends) return null;
 
   return (
     <RecentTrendsWrapper>
@@ -49,17 +70,23 @@ const RecentTrends = () => {
             <RateItem>
               <Progress
                 type="circle"
-                percent={90}
+                percent={guestRecentTrends.attendanceRate}
                 format={(percent) => `${percent}% \n 😊`}
               />
               <RateDesc>Attendance Rate</RateDesc>
             </RateItem>
             <RateItem>
-              <Progress type="circle" percent={45} />
+              <Progress
+                type="circle"
+                percent={guestRecentTrends.concentrationRate}
+              />
               <RateDesc>Concentration Rate</RateDesc>
             </RateItem>
             <RateItem>
-              <Progress type="circle" percent={75} />
+              <Progress
+                type="circle"
+                percent={guestRecentTrends.drowsinessRate}
+              />
               <RateDesc>Drowsiness Rate</RateDesc>
             </RateItem>
           </>
@@ -68,17 +95,23 @@ const RecentTrends = () => {
             <RateItem>
               <Progress
                 type="circle"
-                percent={10}
+                percent={hostRecentTrends.attendanceRate}
                 format={(percent) => `${percent}% \n 😵`}
               />
               <RateDesc>Attendance Rate</RateDesc>
             </RateItem>
             <RateItem>
-              <Progress type="circle" percent={25} />
+              <Progress
+                type="circle"
+                percent={hostRecentTrends.concentrationRate}
+              />
               <RateDesc>Concentration Rate</RateDesc>
             </RateItem>
             <RateItem>
-              <Progress type="circle" percent={95} />
+              <Progress
+                type="circle"
+                percent={hostRecentTrends.drowsinessRate}
+              />
               <RateDesc>Drowsiness Rate</RateDesc>
             </RateItem>
           </>
