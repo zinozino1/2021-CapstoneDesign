@@ -14,12 +14,12 @@ const RegisterWrapper = styled.div`
   .ant-upload-list-picture-card-container {
     width: 120px;
     height: 140px;
-    margin-left: 30px;
+    /* margin-left: 30px; */
   }
   .ant-upload-select-picture-card {
     width: 120px;
     height: 140px;
-    margin-left: 30px;
+    /* margin-left: 30px; */
   }
 `;
 
@@ -49,13 +49,37 @@ const Register = () => {
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
 
-  formData.append("email", "asdf");
-  formData.append("name", "asdf");
-  formData.append("password", "asdf");
-  formData.append("passwordConfirm", "asdf");
+  // formData.append("email", "asdf");
+  // formData.append("name", "asdf");
+  // formData.append("password", "asdf");
+  // formData.append("passwordConfirm", "asdf");
 
-  const onSubmit = () => {
-    axios.post("http://localhost:8080/api/auth/register", formData);
+  const onSubmit = (values) => {
+    console.log(values);
+    formData.append("email", values.email);
+    formData.append("name", values.name);
+    formData.append("password", values.password);
+    formData.append("passwordConfirm", values.passwordConfirm);
+    fileList.forEach((file, i) => {
+      formData.append("file" + i, file);
+    });
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
+    // console.log(values);
+    axios
+      .post("http://localhost:8080/api/auth/register", formData, {
+        header: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   const onChangeImage = (paramFileList) => {
@@ -103,7 +127,7 @@ const Register = () => {
             Focus
           </a>
         </div>
-        <Form {...InputLayout}>
+        <Form {...InputLayout} onFinish={onSubmit}>
           <Form.Item
             name="email"
             label="Email"
@@ -136,7 +160,7 @@ const Register = () => {
           </Form.Item>
 
           <Form.Item
-            name="confirm"
+            name="passwordConfirm"
             label="Confirm Password"
             dependencies={["password"]}
             hasFeedback
@@ -193,29 +217,51 @@ const Register = () => {
             // ]}
             // extra="longgggggggggggggggggggggggggggggggggg"
           >
+            <div style={{ border: "1px solid red", display: "flex" }}>
+              <div>
+                <Image
+                  width={120}
+                  src={ExampleProfileImage}
+                  style={{ marginRight: "20px" }}
+                />
+                <div
+                  style={{
+                    paddingLeft: "25px",
+                    color: "#bbb",
+                  }}
+                >
+                  -Example-
+                </div>
+              </div>
+              <div style={{ padding: "10% 30px" }}>
+                <span style={{ color: "red" }}>*</span> Please upload a picture
+                of you looking straight ahead.
+              </div>
+            </div>
+
             <div
               style={{
                 display: "flex",
+                border: "1px solid red",
               }}
             >
-              <Image
-                width={185}
-                src={ExampleProfileImage}
-                style={{ marginRight: "20px" }}
-              />
               <Upload
                 name="logo"
-                // action="/upload.do"
+                beforeUpload={(file) => {
+                  setFileList(file);
+                  return false;
+                }}
                 listType="picture-card"
                 accept="image/*"
-                fileList={fileList}
+                //fileList={fileList}
                 onPreview={handlePreview}
                 onChange={onChangeImage}
                 style={{
                   width: "140px",
+                  margin: "0",
                 }}
               >
-                {fileList.length >= 1 ? null : uploadButton}
+                {fileList.length >= 3 ? null : uploadButton}
               </Upload>
               <Modal
                 visible={previewVisible}
@@ -230,19 +276,10 @@ const Register = () => {
                 />
               </Modal>
             </div>
-            <div
-              style={{
-                paddingLeft: "25px",
-                color: "#bbb",
-              }}
-            >
-              -Example-
-            </div>
           </Form.Item>
 
           <div style={{ textAlign: "center", padding: "20px" }}>
             <Button
-              onClick={onSubmit}
               type="primary"
               htmlType="submit"
               style={{
