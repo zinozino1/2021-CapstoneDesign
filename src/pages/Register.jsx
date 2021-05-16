@@ -89,7 +89,7 @@ const Register = () => {
   const uploadButton = (
     <div>
       <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
+      <div style={{ marginTop: 8, color: "#ccc" }}>Upload Image</div>
     </div>
   );
 
@@ -217,7 +217,7 @@ const Register = () => {
             // ]}
             // extra="longgggggggggggggggggggggggggggggggggg"
           >
-            <div style={{ border: "1px solid red", display: "flex" }}>
+            <div style={{ display: "flex" }}>
               <div>
                 <Image
                   width={120}
@@ -242,7 +242,7 @@ const Register = () => {
             <div
               style={{
                 display: "flex",
-                border: "1px solid red",
+                marginTop: "20px",
               }}
             >
               <Upload
@@ -253,7 +253,6 @@ const Register = () => {
                 }}
                 listType="picture-card"
                 accept="image/*"
-                //fileList={fileList}
                 onPreview={handlePreview}
                 onChange={onChangeImage}
                 style={{
