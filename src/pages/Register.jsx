@@ -62,26 +62,26 @@ const Register = () => {
     formData.append("password", values.password);
     formData.append("passwordConfirm", values.passwordConfirm);
 
-    fileList.forEach((file, i) => {
-      formData.append("file" + i, file);
-    });
+    // fileList.forEach((file, i) => {
+    //   formData.append("file" + (i + 1), file);
+    // });
     for (var pair of formData.entries()) {
       console.log(pair[0] + ": " + pair[1]);
     }
 
     // console.log(values);
-    axios
-      .post("http://localhost:8080/api/auth/register", formData, {
-        header: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // axios
+    //   .post("http://localhost:8080/api/auth/register", formData, {
+    //     header: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
   };
 
   const onChangeImage = (paramFileList) => {
@@ -248,7 +248,7 @@ const Register = () => {
               }}
             >
               <Upload
-                name="logo"
+                name="logo1"
                 beforeUpload={(file) => {
                   setFileList(file);
                   return false;
