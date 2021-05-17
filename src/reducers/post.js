@@ -8,6 +8,7 @@ const initialState = {
   waitingList: null,
   guestRecentTrends: null,
   hostRecentTrends: null,
+  historyList: null,
   loadPostLoading: false,
   loadPostDone: false,
   loadPostError: null,
@@ -17,6 +18,9 @@ const initialState = {
   loadWaitingListLoading: false,
   loadWaitingListDone: false,
   loadWaitingListError: null,
+  loadHistoryListLoading: false,
+  loadHistoryListDone: false,
+  loadHistoryListError: null,
 };
 
 // action type
@@ -52,6 +56,10 @@ export const LOAD_HOST_RECENT_TRENDS_SUCCESS =
 export const LOAD_HOST_RECENT_TRENDS_FAILURE =
   "post/LOAD_HOST_RECENT_TRENDS_FAILURE";
 
+export const LOAD_HISTORY_LIST_REQEUST = "post/LOAD_HISTORY_LIST_REQEUST";
+export const LOAD_HISTORY_LIST_SUCCESS = "post/LOAD_HISTORY_LIST_SUCCESS";
+export const LOAD_HISTORY_LIST_FAILURE = "post/LOAD_HISTORY_LIST_FAILURE";
+
 // action creator
 
 export const initializePostAction = createAction(INITIALIZE_POST);
@@ -74,6 +82,10 @@ export const loadGuestRecentTrendsRequestAction = createAction(
 
 export const loadHostRecentTrendsRequestAction = createAction(
   LOAD_HOST_RECENT_TRENDS_REQUEST,
+);
+
+export const loadHistoryListRequestAction = createAction(
+  LOAD_HISTORY_LIST_REQEUST,
 );
 
 // reducer
@@ -165,6 +177,25 @@ const post = handleActions(
     }),
     [LOAD_HOST_RECENT_TRENDS_FAILURE]: (state, action) => ({
       ...state,
+    }),
+    [LOAD_HISTORY_LIST_REQEUST]: (state, action) => ({
+      ...state,
+      loadHistoryListLoading: true,
+      loadHistoryListDone: false,
+      loadHistoryListError: null,
+    }),
+    [LOAD_HISTORY_LIST_SUCCESS]: (state, action) => ({
+      ...state,
+      loadHistoryListLoading: false,
+      loadHistoryListDone: true,
+      loadHistoryListError: null,
+      historyList: action.historyList,
+    }),
+    [LOAD_HISTORY_LIST_FAILURE]: (state, action) => ({
+      ...state,
+      loadHistoryListLoading: false,
+      loadHistoryListDone: false,
+      loadHistoryListError: null,
     }),
   },
   initialState,
