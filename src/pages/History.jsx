@@ -4,6 +4,10 @@ import ContentLayout from "../components/layout/ContentLayout";
 import HistoryHeader from "../components/history/HistoryHeader";
 import { Pagination } from "antd";
 import { Link, withRouter } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { loadHistoryListRequestAction } from "../reducers/post";
+import HistoryList from "../components/history/HistoryList";
 
 const HistoryWrapper = styled.div``;
 
@@ -46,26 +50,47 @@ const LinkWrapper = styled(Link)`
 `;
 
 const History = () => {
+  const dispatch = useDispatch();
+  const { historyList } = useSelector((state) => state.post);
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentData, setCurrentData] = useState(data);
+  const [currentData, setCurrentData] = useState(historyList);
 
   const onChangePage = (page) => {
     setCurrentPage(page);
   };
 
   useEffect(() => {
-    let newData = data.slice((currentPage - 1) * 5, (currentPage - 1) * 5 + 5);
-    setCurrentData(newData);
-  }, [currentPage]);
+    dispatch(loadHistoryListRequestAction());
+  }, []);
+
+  useEffect(() => {
+    if (historyList) {
+      let newData = historyList.slice(
+        (currentPage - 1) * 5,
+        (currentPage - 1) * 5 + 5,
+      );
+      setCurrentData(newData);
+    }
+  }, [currentPage, historyList]);
+
+  useEffect(() => {
+    console.log(currentData);
+  }, [currentData]);
+
+  if (!historyList || !currentData) return null;
 
   return (
     <ContentLayout>
       <HistoryWrapper>
         <HistoryHeader />
+        <HistoryList data={currentData} />
+        {/* {currentData &&
+          currentData.map((item, i) => <div key={i}>{item.groupName}</div>)} */}
         <PaginationWrapper>
           <Pagination
             defaultCurrent={1}
-            total={data.length}
+            total={historyList.length}
             pageSize={5}
             onChange={onChangePage}
           />

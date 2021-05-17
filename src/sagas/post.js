@@ -22,6 +22,9 @@ import {
   LOAD_HOST_RECENT_TRENDS_FAILURE,
   LOAD_GUEST_RECENT_TRENDS_REQUEST,
   LOAD_HOST_RECENT_TRENDS_REQUEST,
+  LOAD_HISTORY_LIST_SUCCESS,
+  LOAD_HISTORY_LIST_FAILURE,
+  LOAD_HISTORY_LIST_REQEUST,
 } from "../reducers/post";
 import {
   hostGroupData,
@@ -30,6 +33,7 @@ import {
   waitingList,
   createGuestRecentTrends,
   createHostRecentTrends,
+  createHistoryList,
 } from "../libs/util/dummyCreator";
 
 // saga
@@ -99,10 +103,25 @@ function* loadHostRecentTrendsSaga() {
   }
 }
 
+function* loadHistoryListSaga() {
+  try {
+    const dummyPost = createHistoryList();
+
+    yield delay(100);
+    yield put({
+      type: LOAD_HISTORY_LIST_SUCCESS,
+      historyList: dummyPost,
+    });
+  } catch (error) {
+    yield put({ type: LOAD_HISTORY_LIST_FAILURE });
+  }
+}
+
 export function* watchPost() {
   yield takeLatest(LOAD_POST_REQUEST, loadPostSaga);
   yield takeLatest(LOAD_GROUP_LIST_REQUEST, loadGroupListSaga);
   yield takeLatest(LOAD_WAITING_LIST_REQUEST, loadWaitingListSaga);
   yield takeLatest(LOAD_GUEST_RECENT_TRENDS_REQUEST, loadGuestRecentTrendsSaga);
   yield takeLatest(LOAD_HOST_RECENT_TRENDS_REQUEST, loadHostRecentTrendsSaga);
+  yield takeLatest(LOAD_HISTORY_LIST_REQEUST, loadHistoryListSaga);
 }

@@ -106,7 +106,8 @@ export const createGuestRecentTrends = () => {
 };
 
 export const createHistoryList = () => {
-  return {
+  return new Array(20).fill().map((v, i) => ({
+    id: shortId.generate(),
     groupName: faker.lorem.word(),
     createdAt: faker.date.past(2),
     attendance: faker.datatype.number({
@@ -117,7 +118,7 @@ export const createHistoryList = () => {
       min: 1,
       max: 100,
     }),
-  };
+  }));
 };
 
 export const createGuestHistoryDetail = () => {
