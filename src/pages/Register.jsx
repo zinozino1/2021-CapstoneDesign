@@ -56,15 +56,17 @@ const Register = () => {
 
   const onSubmit = (values) => {
     console.log(values);
+
     formData.append("email", values.email);
     formData.append("name", values.name);
     formData.append("password", values.password);
     formData.append("passwordConfirm", values.passwordConfirm);
+
     fileList.forEach((file, i) => {
       formData.append("file" + i, file);
     });
     for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
+      console.log(pair[0] + ": " + pair[1]);
     }
 
     // console.log(values);

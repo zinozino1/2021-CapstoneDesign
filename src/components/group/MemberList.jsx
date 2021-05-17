@@ -12,7 +12,7 @@ const MemberListContainer = styled.div`
 
 const MemberListWrapper = styled.div`
   height: 25vh;
-  overflow: scroll;
+  overflow: auto;
   border: 1px solid red;
   table {
     border-color: #ddd;
