@@ -16,7 +16,7 @@ const HistoryListItemWrapper = styled(List.Item)`
           background: #f4f2f6;
         `}
 
-  padding: 10px 30px;
+  padding: 18px 30px;
   margin-bottom: 10px;
   transition: 0.3s;
   display: flex;
@@ -94,6 +94,12 @@ const HistoryListItem = ({ item, idx }) => {
               ? "😐"
               : "😭"}
           </div>
+        </div>
+        <div className="list-col">
+          <span className="list-index">
+            <Tag color="blue">Role</Tag>
+          </span>
+          <div className="list-data">{item.role}</div>
         </div>
       </HistoryListItemWrapper>
       {item.role === "guest" ? (
