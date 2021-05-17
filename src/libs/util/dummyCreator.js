@@ -72,17 +72,58 @@ export const waitingList = (number) => {
 export const createHostRecentTrends = () => {
   return {
     role: "host",
-    attendanceRate: parseInt(faker.datatype.number() / 100 - 30),
-    concentrationRate: parseInt(faker.datatype.number() / 100 - 30),
-    drowsinessRate: parseInt(faker.datatype.number() / 100 - 30),
+    attendanceRate: faker.datatype.number({
+      min: 1,
+      max: 100,
+    }),
+    concentrationRate: faker.datatype.number({
+      min: 1,
+      max: 100,
+    }),
+    drowsinessRate: faker.datatype.number({
+      min: 1,
+      max: 100,
+    }),
   };
 };
 
 export const createGuestRecentTrends = () => {
   return {
     role: "guest",
-    attendanceRate: parseInt(faker.datatype.number() / 100 - 30),
-    concentrationRate: parseInt(faker.datatype.number() / 100 - 30),
-    drowsinessRate: parseInt(faker.datatype.number() / 100 - 30),
+    attendanceRate: faker.datatype.number({
+      min: 1,
+      max: 100,
+    }),
+    concentrationRate: faker.datatype.number({
+      min: 1,
+      max: 100,
+    }),
+    drowsinessRate: faker.datatype.number({
+      min: 1,
+      max: 100,
+    }),
   };
+};
+
+export const createHistoryList = () => {
+  return {
+    groupName: faker.lorem.word(),
+    createdAt: faker.date.past(2),
+    attendance: faker.datatype.number({
+      min: 1,
+      max: 100,
+    }),
+    vibe: faker.datatype.number({
+      min: 1,
+      max: 100,
+    }),
+  };
+};
+
+export const createGuestHistoryDetail = () => {
+  return {};
+};
+
+export const createHostHistoryDetail = () => {
+  return {};
 };
