@@ -121,7 +121,7 @@ export const createHistoryList = () => {
       max: 100,
     }),
     // list item - guest
-    isAttendance: faker.random.boolean(),
+    isAttendance: faker.datatype.boolean(),
     timeLineLog: new Array(10).fill().map((v, i) => ({
       state: "absence",
       timeLog: {
@@ -196,7 +196,7 @@ export const createHistoryList = () => {
         min: 1,
         max: 60,
       }),
-      attendance: faker.random.boolean(),
+      attendance: faker.datatype.boolean(),
     })),
   }));
 };

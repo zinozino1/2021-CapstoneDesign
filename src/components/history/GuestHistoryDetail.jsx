@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import { Divider } from "antd";
+import { Bar } from "react-chartjs-2";
 
 const GuestHistoryDetailWrapper = styled.div`
   .top,
@@ -8,10 +9,13 @@ const GuestHistoryDetailWrapper = styled.div`
     display: flex;
   }
   .item {
-    height: 250px;
     flex: 1;
     border: 1px solid violet;
+    .divider {
+      height: 50px;
+    }
     .item-desc {
+      height: 200px;
       border: 1px solid red;
       text-align: center;
     }
@@ -35,11 +39,17 @@ const IsAttendanceWrapper = styled.span`
 
 const GuestHistoryDetail = ({ data }) => {
   console.log(data);
+  console.log([...Object.entries(data.roll).map((v, i) => v[1])]);
+
+  const rollChartRef = useRef(null);
+
   return (
     <GuestHistoryDetailWrapper>
       <div className="top">
         <div className="item attendance">
-          <Divider orientation="left">Attendance</Divider>
+          <div className="divider">
+            <Divider orientation="left">Attendance</Divider>
+          </div>
           <div
             className="item-desc"
             style={{
@@ -55,13 +65,12 @@ const GuestHistoryDetail = ({ data }) => {
           </div>
         </div>
         <div className="item time-line">
-          <div>
+          <div className="divider">
             <Divider orientation="left">Timeline Log</Divider>
           </div>
           <div
             className="item-desc"
             style={{
-              height: "77%",
               overflow: "auto",
               border: "1px solid blue",
             }}
@@ -113,11 +122,60 @@ const GuestHistoryDetail = ({ data }) => {
       </div>
       <div className="bottom">
         <div className="item roll graph">
-          <Divider orientation="left">Roll Graph</Divider>
-          <div className="item-desc"></div>
+          <div className="divider">
+            <Divider orientation="left">Roll Graph</Divider>
+          </div>
+          <div className="item-desc">
+            <Bar
+              ref={rollChartRef}
+              data={{
+                // 각 막대별 라벨
+                labels: ["Left", "Front", "Right"],
+                datasets: [
+                  {
+                    label: "Roll",
+                    borderWidth: 0.5, // 테두리 두께
+                    data: [
+                      ...Object.entries(data.roll).map((v, i) => {
+                        console.log(v);
+                        return v[1];
+                      }),
+                    ], // 수치
+                    backgroundColor: "rgba(255,99,132,0.2)",
+                    borderColor: "rgba(255,99,132,1)",
+                    hoverBackgroundColor: "rgba(255,99,132,0.4)",
+                    hoverBorderColor: "rgba(255,99,132,1)",
+                  },
+                ],
+              }}
+              options={{
+                legend: {
+                  display: false, // label 보이기 여부
+                },
+                scales: {
+                  yAxes: [
+                    {
+                      ticks: {
+                        min: 0, // y축 스케일에 대한 최소값 설정
+                        stepSize: 1, // y축 그리드 한 칸당 수치
+                      },
+                    },
+                  ],
+                },
+
+                // false : 사용자 정의 크기에 따라 그래프 크기가 결정됨.
+                // true : 크기가 알아서 결정됨.
+                maintainAspectRatio: true,
+              }}
+              height={200}
+              style={{ border: "1px solid red", margin: "0 auto" }}
+            ></Bar>
+          </div>
         </div>
         <div className="item yaw graph">
-          <Divider orientation="left">Yaw Graph</Divider>
+          <div className="divider">
+            <Divider orientation="left">Yaw Graph</Divider>
+          </div>
           <div className="item-desc"></div>
         </div>
       </div>
