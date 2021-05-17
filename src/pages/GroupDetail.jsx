@@ -22,11 +22,16 @@ import kim3 from "../statics/testImages/kim3.jpeg";
 
 import han1 from "../statics/testImages/han1.jpeg";
 import han2 from "../statics/testImages/han2.jpeg";
+import han3 from "../statics/testImages/han3.jpeg";
+
+import yang1 from "../statics/testImages/yang1.jpeg";
+import yang2 from "../statics/testImages/yang2.jpeg";
+import yang3 from "../statics/testImages/yang3.jpeg";
 
 const images1 = [park1, park2, park3]; // 박진호
 const images2 = [kim1, kim2, kim3]; // 김지훈
-const images3 = [han1, han2]; // 한창희
-const images4 = []; // 양세영
+const images3 = [han1, han2, han3]; // 한창희
+const images4 = [yang1, yang2, yang3]; // 양세영
 let tmp1 = [];
 let tmp2 = [];
 let tmp3 = [];
@@ -58,6 +63,13 @@ const GroupDetail = ({ match }) => {
       imageToBase64(image).then((res) => {
         //formData1.append("image" + i, res);
         tmp3.push(res);
+      });
+    });
+
+    images4.forEach((image, i) => {
+      imageToBase64(image).then((res) => {
+        //formData1.append("image" + i, res);
+        tmp4.push(res);
       });
     });
 

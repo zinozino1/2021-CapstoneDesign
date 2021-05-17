@@ -3,6 +3,8 @@ import styled, { css } from "styled-components";
 import { List, Avatar, Space, Tag, Popover, Image } from "antd";
 import useToggle from "../../hooks/useToggle";
 import Modal from "../common/Modal";
+import GuestHistoryDetail from "./GuestHistoryDetail";
+import HostHistoryDetail from "./HostHistoryDetail";
 
 const HistoryListItemWrapper = styled(List.Item)`
   ${(props) =>
@@ -100,16 +102,20 @@ const HistoryListItem = ({ item, idx }) => {
           isModalVisible={modalVisible}
           setIsModalVisible={setModalVisible}
           footer={false}
-          width={700}
-        ></Modal>
+          width={900}
+        >
+          <GuestHistoryDetail data={item} />
+        </Modal>
       ) : (
         <Modal
           title="History Detail - Host"
           isModalVisible={modalVisible}
           setIsModalVisible={setModalVisible}
           footer={false}
-          width={700}
-        ></Modal>
+          width={900}
+        >
+          <HostHistoryDetail data={item} />
+        </Modal>
       )}
     </>
   );
