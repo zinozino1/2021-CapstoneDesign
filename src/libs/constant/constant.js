@@ -14,3 +14,9 @@ export const ABSENCE_TIME = Array.from({ length: 60 }, (v, i) => i + "m");
 export const ALERT_ATMOSPHERE = Array.from({ length: 60 }, (v, i) => i + "m");
 
 export const AZURE_FACEAPI = `https://koreacentral.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true&returnFaceLandmarks=true&returnFaceAttributes=headPose&recognitionModel=recognition_03&returnRecognitionModel=true&detectionModel=detection_01&faceIdTimeToLive=86400`;
+
+export const YEAR = Array.from({ length: 10 }, (v, i) => 2020 + i);
+
+export const MONTH = Array.from({ length: 12 }, (v, i) => 1 + i);
+
+export const DAY = Array.from({ length: 31 }, (v, i) => 1 + i);

@@ -12,9 +12,8 @@ import HistoryList from "../components/history/HistoryList";
 const HistoryWrapper = styled.div``;
 
 const PaginationWrapper = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  text-align: center;
+  margin-top: 50px;
   .ant-pagination {
     .ant-pagination-item {
       &:hover {
@@ -39,13 +38,6 @@ const PaginationWrapper = styled.div`
         color: #aeb0d3;
       }
     }
-  }
-`;
-
-const LinkWrapper = styled(Link)`
-  color: #000;
-  &:hover {
-    color: #000;
   }
 `;
 

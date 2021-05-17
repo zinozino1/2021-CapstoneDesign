@@ -1,10 +1,17 @@
 import React from "react";
 import { Select } from "antd";
 import styled from "styled-components";
+import { YEAR, MONTH, DAY } from "../../libs/constant/constant";
 
 const { Option } = Select;
 
-const HistoryHeaderWrapper = styled.div``;
+const HistoryHeaderWrapper = styled.div`
+  margin: 20px 0;
+  .select {
+    width: 120px;
+    margin-right: 10px;
+  }
+`;
 
 const HistoryHeader = () => {
   const onChangeSelect = () => {};
@@ -12,25 +19,38 @@ const HistoryHeader = () => {
   return (
     <HistoryHeaderWrapper>
       <Select
+        className="select"
         placeholder="Group Name"
-        style={{ width: 120 }}
         onChange={onChangeSelect}
       >
         <Option value="jack">Jack</Option>
         <Option value="lucy">Lucy</Option>
         <Option value="Yiminghe">yiminghe</Option>
       </Select>
-      <Select style={{ width: 120 }} placeholder="Year">
-        <Option value="lucy">Lucy</Option>
+      <Select className="select" placeholder="Year">
+        {YEAR.map((v, i) => (
+          <Option key={i} value={`v`}>
+            {v}
+          </Option>
+        ))}
       </Select>
-      <Select style={{ width: 120 }} placeholder="Month">
-        <Option value="lucy">Lucy</Option>
+      <Select className="select" placeholder="Month">
+        {MONTH.map((v, i) => (
+          <Option key={i} value={`v`}>
+            {v}
+          </Option>
+        ))}
       </Select>
-      <Select style={{ width: 120 }} placeholder="Day">
-        <Option value="lucy">Lucy</Option>
+      <Select className="select" placeholder="Day">
+        {DAY.map((v, i) => (
+          <Option key={i} value={`v`}>
+            {v}
+          </Option>
+        ))}
       </Select>
-      <Select style={{ width: 120 }} placeholder="Role">
-        <Option value="lucy">Lucy</Option>
+      <Select className="select" placeholder="Role">
+        <Option value="host">Host</Option>
+        <Option value="guest">Guest</Option>
       </Select>
     </HistoryHeaderWrapper>
   );
