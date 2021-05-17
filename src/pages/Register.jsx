@@ -69,19 +69,19 @@ const Register = () => {
       console.log(pair[0] + ": " + pair[1]);
     }
 
-    // console.log(values);
-    // axios
-    //   .post("http://localhost:8080/api/auth/register", formData, {
-    //     header: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
+    console.log(values);
+    axios
+      .post("http://localhost:8080/api/auth/register", formData, {
+        header: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   const onChangeImage = (paramFileList) => {
@@ -235,9 +235,15 @@ const Register = () => {
                   -Example-
                 </div>
               </div>
-              <div style={{ padding: "10% 30px" }}>
-                <span style={{ color: "red" }}>*</span> Please upload a picture
-                of you looking straight ahead.
+              <div style={{ padding: "5% 30px" }}>
+                <div style={{ padding: "10px 0" }}>
+                  <span style={{ color: "red" }}>*</span> Please upload a
+                  picture of you looking straight ahead.
+                </div>
+                <div>
+                  <span style={{ color: "red" }}>*</span> Please upload 3
+                  photos.
+                </div>
               </div>
             </div>
 
