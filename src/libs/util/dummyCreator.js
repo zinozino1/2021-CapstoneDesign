@@ -107,6 +107,8 @@ export const createGuestRecentTrends = () => {
 
 export const createHistoryList = () => {
   return new Array(20).fill().map((v, i) => ({
+    // list
+    role: i % 2 === 0 ? "guest" : "host",
     id: shortId.generate(),
     groupName: faker.lorem.word(),
     createdAt: faker.date.past(2),
@@ -118,13 +120,93 @@ export const createHistoryList = () => {
       min: 1,
       max: 100,
     }),
+    // list item - guest
+    isAttendance: faker.random.boolean(),
+    timeLineLog: new Array(10).fill().map((v, i) => ({
+      state: "absence",
+      timeLog: {
+        startTime: {
+          hour: faker.datatype.number({
+            min: 1,
+            max: 10,
+          }),
+          minute: faker.datatype.number({
+            min: 0,
+            max: 59,
+          }),
+          seconds: faker.datatype.number({
+            min: 0,
+            max: 59,
+          }),
+        },
+        endTime: {
+          hour: faker.datatype.number({
+            min: 1,
+            max: 10,
+          }),
+          minute: faker.datatype.number({
+            min: 0,
+            max: 59,
+          }),
+          seconds: faker.datatype.number({
+            min: 0,
+            max: 59,
+          }),
+        },
+      },
+    })),
+    roll: {
+      left: faker.datatype.number({
+        min: 1,
+        max: 100,
+      }),
+      normal: faker.datatype.number({
+        min: 1,
+        max: 100,
+      }),
+      right: faker.datatype.number({
+        min: 1,
+        max: 100,
+      }),
+    },
+    yaw: {
+      left: faker.datatype.number({
+        min: 1,
+        max: 100,
+      }),
+      normal: faker.datatype.number({
+        min: 1,
+        max: 100,
+      }),
+      right: faker.datatype.number({
+        min: 1,
+        max: 100,
+      }),
+    },
+    // list item - host
+
+    groupMember: new Array(30).fill().map((v, i) => ({
+      name: faker.name.findName(),
+      email: faker.internet.email(),
+      attitude: faker.datatype.number({
+        min: 1,
+        max: 3,
+      }),
+      absenceTime: faker.datatype.number({
+        min: 1,
+        max: 60,
+      }),
+      attendance: faker.random.boolean(),
+    })),
   }));
 };
 
+// deprecated
 export const createGuestHistoryDetail = () => {
   return {};
 };
 
+// deprecated
 export const createHostHistoryDetail = () => {
   return {};
 };
