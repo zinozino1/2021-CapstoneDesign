@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { List, Avatar, Space, Tag, Popover, Image } from "antd";
+import useToggle from "../../hooks/useToggle";
+import Modal from "../common/Modal";
 
 const HistoryListItemWrapper = styled(List.Item)`
   ${(props) =>
@@ -16,6 +18,7 @@ const HistoryListItemWrapper = styled(List.Item)`
   margin-bottom: 10px;
   transition: 0.3s;
   display: flex;
+  cursor: pointer;
 
   .ant-list-item-action {
     margin-top: 5px;
@@ -52,34 +55,63 @@ const HistoryListItemWrapper = styled(List.Item)`
 `;
 
 const HistoryListItem = ({ item, idx }) => {
+  const [modalVisible, setModalVisible, handleModalVisible] = useToggle(false);
+
+  const onClickItem = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  // useEffect(() => {
+  //   console.log(modalVisible, idx);
+  // }, [modalVisible, idx]);
+
   return (
-    <HistoryListItemWrapper idx={idx}>
-      <div className="list-title">{item.groupName}</div>
-      <div className="list-col">
-        <span className="list-index">
-          <Tag color="magenta">Created At</Tag>
-        </span>
-        <div className="list-data">{`${item.createdAt.getFullYear()}.${item.createdAt.getMonth()}.${item.createdAt.getDate()}`}</div>
-      </div>
-      <div className="list-col">
-        <span className="list-index">
-          <Tag color="green">Attendance</Tag>
-        </span>
-        <div className="list-data">{`${item.attendance}/100`}</div>
-      </div>
-      <div className="list-col">
-        <span className="list-index">
-          <Tag color="orange">Vibe</Tag>
-        </span>
-        <div className="list-data">
-          {item.vibe >= 0 && item.vibe < 33
-            ? "😞"
-            : item.vibe >= 33 && item.vibe < 66
-            ? "😐"
-            : "😭"}
+    <>
+      <HistoryListItemWrapper idx={idx} onClick={onClickItem}>
+        <div className="list-title">{item.groupName}</div>
+        <div className="list-col">
+          <span className="list-index">
+            <Tag color="magenta">Created At</Tag>
+          </span>
+          <div className="list-data">{`${item.createdAt.getFullYear()}.${item.createdAt.getMonth()}.${item.createdAt.getDate()}`}</div>
         </div>
-      </div>
-    </HistoryListItemWrapper>
+        <div className="list-col">
+          <span className="list-index">
+            <Tag color="green">Attendance</Tag>
+          </span>
+          <div className="list-data">{`${item.attendance}/100`}</div>
+        </div>
+        <div className="list-col">
+          <span className="list-index">
+            <Tag color="orange">Vibe</Tag>
+          </span>
+          <div className="list-data">
+            {item.vibe >= 0 && item.vibe < 33
+              ? "😞"
+              : item.vibe >= 33 && item.vibe < 66
+              ? "😐"
+              : "😭"}
+          </div>
+        </div>
+      </HistoryListItemWrapper>
+      {item.role === "guest" ? (
+        <Modal
+          title="History Detail - Guest"
+          isModalVisible={modalVisible}
+          setIsModalVisible={setModalVisible}
+          footer={false}
+          width={700}
+        ></Modal>
+      ) : (
+        <Modal
+          title="History Detail - Host"
+          isModalVisible={modalVisible}
+          setIsModalVisible={setModalVisible}
+          footer={false}
+          width={700}
+        ></Modal>
+      )}
+    </>
   );
 };
 
