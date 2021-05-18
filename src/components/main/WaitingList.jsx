@@ -28,10 +28,13 @@ const Skeleton = styled.div`
 const WaitingList = () => {
   const dispatch = useDispatch();
   const { waitingList } = useSelector((state) => state.post);
+  const { me } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(loadWaitingListRequestAction());
-  }, []);
+    if (me) {
+      dispatch(loadWaitingListRequestAction(me.data.userId));
+    }
+  }, [me]);
 
   return (
     <WaitingListWrapper>
@@ -44,7 +47,7 @@ const WaitingList = () => {
             <Spin></Spin>
           </Skeleton>
         ) : (
-          <MainList data={waitingList} type="waiting" />
+          <MainList data={waitingList.data} type="waiting" />
         )}
       </ListWrapper>
     </WaitingListWrapper>

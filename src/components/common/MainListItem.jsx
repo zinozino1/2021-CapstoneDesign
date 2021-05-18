@@ -27,8 +27,12 @@ const ColWrapper = styled.div`
 const MainListItem = ({ item, index }) => {
   return (
     <ItemWrapper index={index}>
-      <ColWrapper>{item.name}</ColWrapper>
-      <ColWrapper>{item.enterCode}</ColWrapper>
+      {item.enterCode ? (
+        <ColWrapper>{item.name}</ColWrapper>
+      ) : (
+        <ColWrapper>{item.groupName}</ColWrapper>
+      )}
+      {item.enterCode && <ColWrapper>{item.enterCode}</ColWrapper>}
       <ColWrapper>
         {item.status === true
           ? "ON"

@@ -130,7 +130,7 @@ const MainHeader = () => {
             footer={false}
             width={400}
           >
-            <JoinGroup />
+            <JoinGroup setIsGuestModalVisible={setIsGuestModalVisible} />
           </Modal>
         </div>
         <div className="host">

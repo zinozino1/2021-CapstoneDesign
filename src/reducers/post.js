@@ -77,6 +77,7 @@ export const loadGroupListRequestAction = createAction(
 
 export const loadWaitingListRequestAction = createAction(
   LOAD_WAITING_LIST_REQUEST,
+  (data) => data,
 );
 
 export const loadGuestRecentTrendsRequestAction = createAction(

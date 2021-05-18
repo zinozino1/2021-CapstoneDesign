@@ -18,7 +18,7 @@ const MainListIndex = ({ type }) => {
   return (
     <MainListIndexWrapper>
       <IndexItem>Group Name</IndexItem>
-      <IndexItem>Group Code</IndexItem>
+      {type === "group" && <IndexItem>Enter Code</IndexItem>}
       <IndexItem>Status</IndexItem>
       {type === "group" && <IndexItem>Role</IndexItem>}
     </MainListIndexWrapper>

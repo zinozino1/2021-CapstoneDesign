@@ -35,7 +35,7 @@ import {
   createHostRecentTrends,
   createHistoryList,
 } from "../libs/util/dummyCreator";
-import { loadGroupList } from "../libs/api/post";
+import { loadGroupList, loadWaitingList } from "../libs/api/post";
 
 // saga
 
@@ -65,12 +65,12 @@ function* loadGroupListSaga(action) {
   }
 }
 
-function* loadWaitingListSaga() {
+function* loadWaitingListSaga(action) {
   try {
-    const dummyPost = waitingList(10);
+    //const dummyPost = waitingList(10);
+    const res = yield call(loadWaitingList, action.payload);
 
-    yield delay(500);
-    yield put({ type: LOAD_WAITING_LIST_SUCCESS, waitingList: dummyPost });
+    yield put({ type: LOAD_WAITING_LIST_SUCCESS, waitingList: res });
   } catch (error) {
     yield put({ type: LOAD_WAITING_LIST_FAILURE });
   }
