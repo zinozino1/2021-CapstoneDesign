@@ -109,10 +109,10 @@ export const createHistoryList = () => {
   return new Array(20).fill().map((v, i) => ({
     // list
     role: i % 2 === 0 ? "guest" : "host",
-    id: shortId.generate(),
+    historyId: shortId.generate(),
     groupName: faker.lorem.word(),
     createdAt: faker.date.past(2),
-    attendance: faker.datatype.number({
+    attendanceCount: faker.datatype.number({
       min: 1,
       max: 100,
     }),
@@ -121,39 +121,33 @@ export const createHistoryList = () => {
       max: 100,
     }),
     // list item - guest
-    isAttendance: faker.datatype.boolean(),
+    isAttend: faker.datatype.boolean(),
     timeLineLog: new Array(10).fill().map((v, i) => ({
       state: "absence",
-      timeLog: {
-        startTime: {
-          hour: faker.datatype.number({
-            min: 1,
-            max: 10,
-          }),
-          minute: faker.datatype.number({
-            min: 0,
-            max: 59,
-          }),
-          seconds: faker.datatype.number({
-            min: 0,
-            max: 59,
-          }),
-        },
-        endTime: {
-          hour: faker.datatype.number({
-            min: 1,
-            max: 10,
-          }),
-          minute: faker.datatype.number({
-            min: 0,
-            max: 59,
-          }),
-          seconds: faker.datatype.number({
-            min: 0,
-            max: 59,
-          }),
-        },
-      },
+      startHour: faker.datatype.number({
+        min: 1,
+        max: 10,
+      }),
+      startMinute: faker.datatype.number({
+        min: 0,
+        max: 59,
+      }),
+      startSeconds: faker.datatype.number({
+        min: 0,
+        max: 59,
+      }),
+      endHour: faker.datatype.number({
+        min: 1,
+        max: 10,
+      }),
+      endMinute: faker.datatype.number({
+        min: 0,
+        max: 59,
+      }),
+      endSeconds: faker.datatype.number({
+        min: 0,
+        max: 59,
+      }),
     })),
     roll: {
       left: faker.datatype.number({
@@ -196,7 +190,7 @@ export const createHistoryList = () => {
         min: 1,
         max: 60,
       }),
-      attendance: faker.datatype.boolean(),
+      isAttend: faker.datatype.boolean(),
     })),
   }));
 };

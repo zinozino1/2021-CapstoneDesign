@@ -10,13 +10,13 @@ const GuestHistoryDetailWrapper = styled.div`
   }
   .item {
     flex: 1;
-    border: 1px solid violet;
+    /* border: 1px solid violet; */
     .divider {
       height: 50px;
     }
     .item-desc {
       height: 200px;
-      border: 1px solid red;
+      /* border: 1px solid red; */
       text-align: center;
     }
   }
@@ -34,7 +34,7 @@ const IsAttendanceWrapper = styled.span`
       : css`
           color: red;
         `}
-  font-size:3.5rem;
+  font-size:4rem;
 `;
 
 const GuestHistoryDetail = ({ data }) => {
@@ -69,7 +69,7 @@ const GuestHistoryDetail = ({ data }) => {
               lineHeight: "200px",
             }}
           >
-            {data.isAttendance ? (
+            {data.isAttend ? (
               <IsAttendanceWrapper type="pass">PASS</IsAttendanceWrapper>
             ) : (
               <IsAttendanceWrapper type="fail">FAIL</IsAttendanceWrapper>
@@ -84,12 +84,12 @@ const GuestHistoryDetail = ({ data }) => {
             className="item-desc"
             style={{
               overflow: "auto",
-              border: "1px solid blue",
+              border: "1px solid #ddd",
             }}
           >
-            <table border="1px solid #ddd" width="100%">
+            <table width="100%">
               <tbody>
-                <tr>
+                <tr style={{ borderBottom: "1px solid #ddd" }}>
                   <th className="th">State</th>
                   <th className="th">Time Log</th>
                 </tr>
@@ -97,32 +97,18 @@ const GuestHistoryDetail = ({ data }) => {
                   <tr key={i}>
                     <td>{v.state}</td>
                     <td>
-                      {`${
-                        v.timeLog.startTime.hour < 10
-                          ? "0" + v.timeLog.startTime.hour
-                          : v.timeLog.startTime.hour
+                      {`${v.startHour < 10 ? "0" + v.startHour : v.startHour}:${
+                        v.startMinute < 10 ? "0" + v.startMinute : v.startMinute
                       }:${
-                        v.timeLog.startTime.minute < 10
-                          ? "0" + v.timeLog.startTime.minute
-                          : v.timeLog.startTime.minute
-                      }:${
-                        v.timeLog.startTime.seconds < 10
-                          ? "0" + v.timeLog.startTime.seconds
-                          : v.timeLog.startTime.seconds
+                        v.startSeconds < 10
+                          ? "0" + v.startSeconds
+                          : v.startSeconds
                       }`}{" "}
                       -{" "}
-                      {`${
-                        v.timeLog.endTime.hour < 10
-                          ? "0" + v.timeLog.endTime.hour
-                          : v.timeLog.endTime.hour
+                      {`${v.endHour < 10 ? "0" + v.endHour : v.endHour}:${
+                        v.endMinute < 10 ? "0" + v.endMinute : v.endMinute
                       }:${
-                        v.timeLog.endTime.minute < 10
-                          ? "0" + v.timeLog.endTime.minute
-                          : v.timeLog.endTime.minute
-                      }:${
-                        v.timeLog.endTime.seconds < 10
-                          ? "0" + v.timeLog.endTime.seconds
-                          : v.timeLog.endTime.seconds
+                        v.endSeconds < 10 ? "0" + v.endSeconds : v.endSeconds
                       }`}
                     </td>
                   </tr>
@@ -177,7 +163,7 @@ const GuestHistoryDetail = ({ data }) => {
               animate={true}
               motionStiffness={90}
               motionDamping={15}
-              isInteractive={false}
+              isInteractive={true}
             />
           </div>
         </div>
@@ -225,7 +211,7 @@ const GuestHistoryDetail = ({ data }) => {
               animate={true}
               motionStiffness={90}
               motionDamping={15}
-              isInteractive={false}
+              isInteractive={true}
             />
           </div>
         </div>

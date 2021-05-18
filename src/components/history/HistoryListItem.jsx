@@ -81,7 +81,7 @@ const HistoryListItem = ({ item, idx }) => {
           <span className="list-index">
             <Tag color="green">Attendance</Tag>
           </span>
-          <div className="list-data">{`${item.attendance}/100`}</div>
+          <div className="list-data">{`${item.attendanceCount}/100`}</div>
         </div>
         <div className="list-col">
           <span className="list-index">
