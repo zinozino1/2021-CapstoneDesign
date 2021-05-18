@@ -28,10 +28,13 @@ const Skeleton = styled.div`
 const GroupList = () => {
   const dispatch = useDispatch();
   const { groupList } = useSelector((state) => state.post);
+  const { me } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(loadGroupListRequestAction());
-  }, []);
+    if (me) {
+      dispatch(loadGroupListRequestAction(me.data.userId));
+    }
+  }, [me]);
 
   return (
     <GroupListWrapper>
@@ -44,7 +47,7 @@ const GroupList = () => {
             <Spin></Spin>
           </Skeleton>
         ) : (
-          <MainList data={groupList} type="group" />
+          <MainList data={groupList.data} type="group" />
         )}
       </ListWrapper>
     </GroupListWrapper>

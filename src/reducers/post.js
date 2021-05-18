@@ -70,7 +70,10 @@ export const initializeGroupAndWaitingList = createAction(
 
 export const loadPostAction = createAction(LOAD_POST_REQUEST, (data) => data);
 
-export const loadGroupListRequestAction = createAction(LOAD_GROUP_LIST_REQUEST);
+export const loadGroupListRequestAction = createAction(
+  LOAD_GROUP_LIST_REQUEST,
+  (data) => data,
+);
 
 export const loadWaitingListRequestAction = createAction(
   LOAD_WAITING_LIST_REQUEST,

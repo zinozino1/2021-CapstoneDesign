@@ -17,21 +17,17 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );
 
-// function loadUser() {
-//   try {
-//     const user = localStorage.getItem("user");
-//     if (!user) {
-//       store.dispatch(setUserRequestAction(null));
-//       return;
-//     }
-//     store.dispatch(setUserRequestAction(JSON.parse(user)));
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+function loadUser() {
+  console.log("load user");
+  try {
+    store.dispatch(setUserRequestAction());
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 sagaMiddleware.run(rootSaga);
-//loadUser();
+loadUser();
 
 ReactDOM.render(
   <Provider store={store}>

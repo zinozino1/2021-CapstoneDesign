@@ -35,7 +35,7 @@ const CreateGroup = ({ setIsHostModalVisible }) => {
       })
       .then((res) => {
         console.log(res);
-        alert("Success.");
+        alert("The group created successfully.");
         setIsHostModalVisible(false);
       })
       .catch((e) => {

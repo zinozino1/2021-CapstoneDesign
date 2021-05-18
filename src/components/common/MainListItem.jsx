@@ -27,12 +27,12 @@ const ColWrapper = styled.div`
 const MainListItem = ({ item, index }) => {
   return (
     <ItemWrapper index={index}>
-      <ColWrapper>{item.groupName}</ColWrapper>
-      <ColWrapper>{item.groupCode}</ColWrapper>
+      <ColWrapper>{item.name}</ColWrapper>
+      <ColWrapper>{item.enterCode}</ColWrapper>
       <ColWrapper>
         {item.status === true
           ? "ON"
-          : item.status === "wait"
+          : item.isOnAir === "wait"
           ? "Waiting.."
           : "OFF"}
       </ColWrapper>
