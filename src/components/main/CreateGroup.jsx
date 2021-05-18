@@ -6,8 +6,11 @@ import {
   CLASS_DURATION_MINUTE,
   ABSENCE_TIME,
   ALERT_ATMOSPHERE,
+  BACK_URL,
 } from "../../libs/constant/constant";
 import { palette } from "../../libs/constant/palette";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const CreateGroupWrapper = styled.div``;
 
@@ -20,9 +23,24 @@ const InputLayout = {
   },
 };
 
-const CreateGroup = () => {
+const CreateGroup = ({ setIsHostModalVisible }) => {
+  const { me } = useSelector((state) => state.user);
   const onSubmit = (item) => {
-    console.log(item);
+    axios
+      .post(`${BACK_URL}/api/group/createGroup`, {
+        name: item.groupName,
+        absenceTime: item.absenceTime,
+        alertDuration: item.alertTime,
+        userId: me && me.data.userId,
+      })
+      .then((res) => {
+        console.log(res);
+        alert("Success.");
+        setIsHostModalVisible(false);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (

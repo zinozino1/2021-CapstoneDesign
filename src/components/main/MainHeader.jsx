@@ -148,7 +148,7 @@ const MainHeader = () => {
             footer={false}
             width={700}
           >
-            <CreateGroup />
+            <CreateGroup setIsHostModalVisible={setIsHostModalVisible} />
           </Modal>
         </div>
       </RoomBtnWrapper>
