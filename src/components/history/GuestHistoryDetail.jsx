@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import { Divider } from "antd";
-import { Bar } from "react-chartjs-2";
+import { ResponsiveBar } from "@nivo/bar";
 
 const GuestHistoryDetailWrapper = styled.div`
   .top,
@@ -38,10 +38,22 @@ const IsAttendanceWrapper = styled.span`
 `;
 
 const GuestHistoryDetail = ({ data }) => {
-  console.log(data);
-  console.log([...Object.entries(data.roll).map((v, i) => v[1])]);
+  const [rollData, setRollData] = useState(null);
+  const [yawData, setYawData] = useState(null);
 
-  const rollChartRef = useRef(null);
+  useEffect(() => {
+    let tmpRoll = [];
+    Object.entries(data.roll).forEach((v, i) => {
+      tmpRoll.push({ roll: v[0], val: v[1] });
+    });
+    setRollData(tmpRoll);
+
+    let tmpYaw = [];
+    Object.entries(data.yaw).forEach((v, i) => {
+      tmpYaw.push({ roll: v[0], val: v[1] });
+    });
+    setYawData(tmpYaw);
+  }, [data]);
 
   return (
     <GuestHistoryDetailWrapper>
@@ -126,57 +138,96 @@ const GuestHistoryDetail = ({ data }) => {
             <Divider orientation="left">Roll Graph</Divider>
           </div>
           <div className="item-desc">
-            <Bar
-              ref={rollChartRef}
-              data={{
-                // 각 막대별 라벨
-                labels: ["Left", "Front", "Right"],
-                datasets: [
-                  {
-                    label: "Roll",
-                    borderWidth: 0.5, // 테두리 두께
-                    data: [
-                      ...Object.entries(data.roll).map((v, i) => {
-                        console.log(v);
-                        return v[1];
-                      }),
-                    ], // 수치
-                    backgroundColor: "rgba(255,99,132,0.2)",
-                    borderColor: "rgba(255,99,132,1)",
-                    hoverBackgroundColor: "rgba(255,99,132,0.4)",
-                    hoverBorderColor: "rgba(255,99,132,1)",
-                  },
-                ],
-              }}
-              options={{
-                legend: {
-                  display: false, // label 보이기 여부
+            <ResponsiveBar
+              style={{ border: "1px solid blue" }}
+              data={rollData && rollData}
+              keys={["val"]}
+              indexBy="roll"
+              margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
+              padding={0.45}
+              valueScale={{ type: "linear" }}
+              indexScale={{ type: "band", round: true }}
+              colors={{ scheme: "paired" }}
+              defs={[
+                {
+                  id: "dots",
+                  type: "patternDots",
+                  background: "inherit",
+                  color: "#38bcb2",
+                  size: 4,
+                  padding: 1,
+                  stagger: true,
                 },
-                scales: {
-                  yAxes: [
-                    {
-                      ticks: {
-                        min: 0, // y축 스케일에 대한 최소값 설정
-                        stepSize: 1, // y축 그리드 한 칸당 수치
-                      },
-                    },
-                  ],
+                {
+                  id: "lines",
+                  type: "patternLines",
+                  background: "inherit",
+                  color: "#eed312",
+                  rotation: -45,
+                  lineWidth: 6,
+                  spacing: 10,
                 },
-
-                // false : 사용자 정의 크기에 따라 그래프 크기가 결정됨.
-                // true : 크기가 알아서 결정됨.
-                maintainAspectRatio: true,
-              }}
-              height={200}
-              style={{ border: "1px solid red", margin: "0 auto" }}
-            ></Bar>
+              ]}
+              borderColor={{ from: "color", modifiers: [["darker", 1.6]] }}
+              axisTop={null}
+              axisRight={null}
+              labelSkipWidth={0}
+              labelSkipHeight={0}
+              labelTextColor={{ from: "color", modifiers: [["darker", 1.6]] }}
+              animate={true}
+              motionStiffness={90}
+              motionDamping={15}
+              isInteractive={false}
+            />
           </div>
         </div>
         <div className="item yaw graph">
           <div className="divider">
             <Divider orientation="left">Yaw Graph</Divider>
           </div>
-          <div className="item-desc"></div>
+          <div className="item-desc">
+            <ResponsiveBar
+              style={{ border: "1px solid blue" }}
+              data={yawData && yawData}
+              keys={["val"]}
+              indexBy="roll"
+              margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
+              padding={0.45}
+              valueScale={{ type: "linear" }}
+              indexScale={{ type: "band", round: true }}
+              colors={{ scheme: "pastel1" }}
+              defs={[
+                {
+                  id: "dots",
+                  type: "patternDots",
+                  background: "inherit",
+                  color: "#38bcb2",
+                  size: 4,
+                  padding: 1,
+                  stagger: true,
+                },
+                {
+                  id: "lines",
+                  type: "patternLines",
+                  background: "inherit",
+                  color: "#eed312",
+                  rotation: -45,
+                  lineWidth: 6,
+                  spacing: 10,
+                },
+              ]}
+              borderColor={{ from: "color", modifiers: [["darker", 1.6]] }}
+              axisTop={null}
+              axisRight={null}
+              labelSkipWidth={0}
+              labelSkipHeight={0}
+              labelTextColor={{ from: "color", modifiers: [["darker", 1.6]] }}
+              animate={true}
+              motionStiffness={90}
+              motionDamping={15}
+              isInteractive={false}
+            />
+          </div>
         </div>
       </div>
     </GuestHistoryDetailWrapper>
