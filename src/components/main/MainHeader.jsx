@@ -104,14 +104,14 @@ const MainHeader = () => {
         <div className="profile-image">
           <Image
             width={120}
-            src={me.profileImage}
+            src={me.data.profileImage}
             style={{ marginRight: "20px" }}
           />
         </div>
         <div className="profile-desc">
           <div className="info">Info</div>
           <div className="role">Student</div>
-          <div className="username">{me.name}</div>
+          <div className="username">{me.data.name}</div>
         </div>
       </MyProfileWrapper>
       <RoomBtnWrapper>

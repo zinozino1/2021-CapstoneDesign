@@ -3,11 +3,12 @@ import styled from "styled-components";
 import AuthLayout from "../components/layout/AuthLayout";
 import { Form, Input, Button, Upload, Image, Modal } from "antd";
 import { UploadOutlined, PlusOutlined } from "@ant-design/icons";
-import { CLIENT_URL } from "../libs/constant/constant";
+import { CLIENT_URL, BACK_URL } from "../libs/constant/constant";
 import FormData from "form-data";
 import ExampleProfileImage from "../statics/images/ExampleProfileImage.jpeg";
 import { palette } from "../libs/constant/palette";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 const RegisterWrapper = styled.div`
   padding: 50px 50px;
@@ -41,7 +42,9 @@ function getBase64(file) {
   });
 }
 
-const Register = () => {
+const Register = ({ history }) => {
+  const dispatch = useDispatch();
+
   const formData = new FormData();
 
   const [fileList, setFileList] = useState([]);
@@ -49,34 +52,24 @@ const Register = () => {
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
 
-  // formData.append("email", "asdf");
-  // formData.append("name", "asdf");
-  // formData.append("password", "asdf");
-  // formData.append("passwordConfirm", "asdf");
-
   const onSubmit = (values) => {
-    console.log(values);
-
     formData.append("email", values.email);
     formData.append("name", values.name);
     formData.append("password", values.password);
     formData.append("passwordConfirm", values.passwordConfirm);
 
-    // fileList.forEach((file, i) => {
-    //   formData.append("file" + (i + 1), file);
-    // });
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ": " + pair[1]);
-    }
+    fileList.forEach((file, i) => {
+      formData.append("file" + (i + 1), file.originFileObj);
+    });
 
-    console.log(values);
     axios
-      .post("http://localhost:8080/api/auth/register", formData, {
+      .post(`${BACK_URL}/api/auth/register`, formData, {
         header: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
+        history.push("/login");
         console.log(res);
       })
       .catch((e) => {

@@ -1,6 +1,6 @@
 export const CLIENT_URL = "http://localhost:3000";
 
-export const BACK_URL = "http://localhost:4000";
+export const BACK_URL = "http://localhost:8080";
 
 export const CLASS_DURATION_HOUR = ["0h", "1h", "2h", "3h", "4h", "5h"];
 

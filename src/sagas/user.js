@@ -10,6 +10,7 @@ import {
   SET_USER_FAILURE,
 } from "../reducers/user";
 import { createUser } from "../libs/util/dummyCreator";
+import { login } from "../libs/api/user";
 
 // saga
 
@@ -25,9 +26,9 @@ function* setUserSaga(action) {
 
 function* loginSaga(action) {
   try {
-    //const res = yield call(login, action.payload);
-    const dummyUser = createUser();
-    yield put({ type: LOG_IN_SUCCESS, me: dummyUser });
+    const res = yield call(login, action.payload);
+    //const dummyUser = createUser();
+    yield put({ type: LOG_IN_SUCCESS, me: res });
   } catch (error) {
     yield put({ type: LOG_IN_FAILURE });
   }

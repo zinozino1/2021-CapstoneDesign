@@ -40,7 +40,7 @@ export const setUserRequestAction = createAction(
   (data) => data,
 );
 
-export const loginRequestAction = createAction(LOG_IN_REQUEST);
+export const loginRequestAction = createAction(LOG_IN_REQUEST, (data) => data);
 
 export const logoutRequestAction = createAction(LOG_OUT_REQUEST);
 

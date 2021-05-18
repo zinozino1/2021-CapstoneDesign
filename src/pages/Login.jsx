@@ -7,6 +7,7 @@ import { CLIENT_URL } from "../libs/constant/constant";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { loginRequestAction } from "../reducers/user";
+import useInput from "../hooks/useInput";
 
 const LoginWrapper = styled.div`
   padding: 50px 50px;
@@ -26,8 +27,7 @@ const Login = ({ history }) => {
   const { me } = useSelector((state) => state.user);
 
   const onLogin = (values) => {
-    console.log(values);
-    dispatch(loginRequestAction());
+    dispatch(loginRequestAction({ ...values }));
   };
 
   useEffect(() => {
