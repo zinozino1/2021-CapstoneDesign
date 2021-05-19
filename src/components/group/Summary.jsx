@@ -91,7 +91,7 @@ const Summary = () => {
 
   return (
     <SummaryWrapper>
-      {groupDetail.role === "host" && (
+      {groupDetail.data.role === "HOST" && (
         <SummaryHeader>
           <span
             className="alert-text"
@@ -140,7 +140,7 @@ const Summary = () => {
                 <span>Group Code</span>
               </td>
               <td className="table-content">
-                <span>{groupDetail.groupCode}</span>
+                <span>{groupDetail.data.groupCode}</span>
               </td>
             </tr>
             <tr>
@@ -148,7 +148,7 @@ const Summary = () => {
                 <span>Group Name</span>
               </td>
               <td className="table-content">
-                <span>{groupDetail.groupName}</span>
+                <span>{groupDetail.data.groupName}</span>
               </td>
             </tr>
             <tr>
@@ -156,7 +156,7 @@ const Summary = () => {
                 <span>Limit Absence Time</span>
               </td>
               <td className="table-content">
-                <span>{groupDetail.absenceTime}</span>
+                <span>{groupDetail.data.absenceTime} minutes</span>
               </td>
             </tr>
 
@@ -165,19 +165,19 @@ const Summary = () => {
                 <span>Alert Duration</span>
               </td>
               <td className="table-content">
-                <span>{groupDetail.alertDuration}</span>
+                <span>{groupDetail.data.alertTime} minutes</span>
               </td>
             </tr>
             <tr>
               <td className="table-index">
                 <span>Host Name</span>
               </td>
-              <td className="table-content">{groupDetail.hostName}</td>
+              <td className="table-content">{groupDetail.data.host}</td>
             </tr>
           </tbody>
         </table>
       </SummaryContent>
-      {groupDetail.person === "host" ? (
+      {groupDetail.data.role === "HOST" ? (
         <SummaryFooter>
           <Button className="footer-btn" type="primary">
             Save

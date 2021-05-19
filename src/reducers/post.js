@@ -60,6 +60,14 @@ export const LOAD_HISTORY_LIST_REQEUST = "post/LOAD_HISTORY_LIST_REQEUST";
 export const LOAD_HISTORY_LIST_SUCCESS = "post/LOAD_HISTORY_LIST_SUCCESS";
 export const LOAD_HISTORY_LIST_FAILURE = "post/LOAD_HISTORY_LIST_FAILURE";
 
+export const ALLOW_MEMBER_REQUEST = "post/ALLOW_MEMBER_REQUEST";
+export const ALLOW_MEMBER_SUCCESS = "post/ALLOW_MEMBER_SUCCESS";
+export const ALLOW_MEMBER_FAILURE = "post/ALLOW_MEMBER_FAILURE";
+
+export const REJECT_MEMBER_REQUEST = "post/REJECT_MEMBER_REQUEST";
+export const REJECT_MEMBER_SUCCESS = "post/REJECT_MEMBER_SUCCESS";
+export const REJECT_MEMBER_FAILURE = "post/REJECT_MEMBER_FAILURE";
+
 // action creator
 
 export const initializePostAction = createAction(INITIALIZE_POST);
@@ -90,6 +98,16 @@ export const loadHostRecentTrendsRequestAction = createAction(
 
 export const loadHistoryListRequestAction = createAction(
   LOAD_HISTORY_LIST_REQEUST,
+);
+
+export const allowMemberRequestAction = createAction(
+  ALLOW_MEMBER_REQUEST,
+  (data) => data,
+);
+
+export const rejectMemberRequestAction = createAction(
+  REJECT_MEMBER_REQUEST,
+  (data) => data,
 );
 
 // reducer
@@ -200,6 +218,24 @@ const post = handleActions(
       loadHistoryListLoading: false,
       loadHistoryListDone: false,
       loadHistoryListError: null,
+    }),
+    [ALLOW_MEMBER_REQUEST]: (state, action) => ({
+      ...state,
+    }),
+    [ALLOW_MEMBER_SUCCESS]: (state, action) => ({
+      ...state,
+    }),
+    [ALLOW_MEMBER_FAILURE]: (state, action) => ({
+      ...state,
+    }),
+    [REJECT_MEMBER_REQUEST]: (state, action) => ({
+      ...state,
+    }),
+    [REJECT_MEMBER_SUCCESS]: (state, action) => ({
+      ...state,
+    }),
+    [REJECT_MEMBER_FAILURE]: (state, action) => ({
+      ...state,
     }),
   },
   initialState,

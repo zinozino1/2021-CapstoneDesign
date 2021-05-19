@@ -9,3 +9,12 @@ export const loadWaitingList = (id) =>
 
 // axios 로 대체
 export const joinGroup = (id) => client.post(`/api/group/joinGroup/${id}`);
+
+export const loadGroupInfo = ({ id, groupId, userId }) =>
+  client.post(`/api/group/getGroupInfo`, { groupId, userId });
+
+export const allowMember = ({ userEmail, groupId }) =>
+  client.post(`/api/group/allowMember/${groupId}`, { email: userEmail });
+
+export const rejectMember = (id, email) =>
+  client.patch(`/api/group/rejectMember/${id}`, { email });

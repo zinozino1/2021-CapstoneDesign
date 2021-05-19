@@ -4,6 +4,7 @@ import Webcam from "react-webcam";
 import { Button } from "antd";
 import axios from "axios";
 import FormData from "form-data";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   border: 1px solid red;
@@ -35,14 +36,31 @@ const GuestWebcam = () => {
   const [image, setImage] = useState(null);
   const [enableWebcam, setEnableWebcam] = useState(false);
 
+  const { groupDetail } = useSelector((state) => state.post);
+  const { me } = useSelector((state) => state.user);
+
   const capture = useCallback(() => {
-    formData.delete("file");
-    const imageSrc = webcamRef.current.getScreenshot();
-    // console.log(imageSrc.slice(3));
-    formData.append("file", imageSrc);
-    // for (var pair of image.entries()) {
-    //   console.log(pair[0] + ", " + pair[1], "ㅋㅋㅋㅋ");
-    // }
+    if (me && groupDetail) {
+      formData.delete("file");
+      const imageSrc = webcamRef.current.getScreenshot();
+      // console.log(imageSrc.slice(3));
+      formData.append("file", imageSrc);
+      formData.append("userId", me.data.userId);
+      formData.append(
+        "groupId",
+        document.location.href.split("/")[
+          document.location.href.split("/").length - 1
+        ],
+      );
+
+      setImage(formData);
+      // setImage(imageSrc);
+    }
+    // formData.delete("file");
+    // const imageSrc = webcamRef.current.getScreenshot();
+    // // console.log(imageSrc.slice(3));
+    // formData.append("file", imageSrc);
+
     setImage(formData);
     // setImage(imageSrc);
   }, [webcamRef]);
@@ -68,6 +86,7 @@ const GuestWebcam = () => {
     for (var pair of formData2.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
+
     axios
       .post("http://localhost:5000/ping", formData2, {
         header: {
@@ -86,19 +105,20 @@ const GuestWebcam = () => {
     for (var pair of image.entries()) {
       console.log(pair[0] + ", " + pair[1], "ㅋㅋㅋㅋ");
     }
-    axios
-      .post("http://localhost:5000/image", image, {
-        header: {
-          "Content-Type": "multipart/form-data",
-          Accept: "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+
+    // axios
+    //   .post("http://localhost:5000/image", image, {
+    //     header: {
+    //       "Content-Type": "multipart/form-data",
+    //       Accept: "multipart/form-data",
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
   };
 
   // useEffect(() => {

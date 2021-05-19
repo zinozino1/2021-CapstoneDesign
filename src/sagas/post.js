@@ -25,6 +25,12 @@ import {
   LOAD_HISTORY_LIST_SUCCESS,
   LOAD_HISTORY_LIST_FAILURE,
   LOAD_HISTORY_LIST_REQEUST,
+  ALLOW_MEMBER_SUCCESS,
+  ALLOW_MEMBER_FAILURE,
+  REJECT_MEMBER_SUCCESS,
+  REJECT_MEMBER_FAILURE,
+  ALLOW_MEMBER_REQUEST,
+  REJECT_MEMBER_REQUEST,
 } from "../reducers/post";
 import {
   hostGroupData,
@@ -35,7 +41,12 @@ import {
   createHostRecentTrends,
   createHistoryList,
 } from "../libs/util/dummyCreator";
-import { loadGroupList, loadWaitingList } from "../libs/api/post";
+import {
+  loadGroupList,
+  loadWaitingList,
+  loadGroupInfo,
+  allowMember,
+} from "../libs/api/post";
 
 // saga
 
@@ -44,11 +55,12 @@ function* loadPostSaga(action) {
 
   console.log(action.payload); // yield call 에 payload 박으면 된다
   try {
-    const dummyPost = hostGroupData(10, 5);
-    const dummyPost2 = guestGroupData();
+    //const dummyPost = hostGroupData(10, 5); -> 데모때 필요
+    // const dummyPost2 = guestGroupData();
+    const res = yield call(loadGroupInfo, action.payload);
+    console.log(res);
 
-    yield delay(100);
-    yield put({ type: LOAD_POST_SUCCESS, groupDetail: dummyPost2 });
+    yield put({ type: LOAD_POST_SUCCESS, groupDetail: res });
   } catch (error) {
     yield put({ type: LOAD_POST_FAILURE });
   }
@@ -118,6 +130,32 @@ function* loadHistoryListSaga() {
   }
 }
 
+function* allowMemberSaga(action) {
+  try {
+    // const dummyPost = createHistoryList();
+    console.log(action.payload);
+    const res = yield call(allowMember, action.payload);
+    console.log(res);
+    yield put({
+      type: ALLOW_MEMBER_SUCCESS,
+    });
+  } catch (error) {
+    yield put({ type: ALLOW_MEMBER_FAILURE });
+  }
+}
+
+function* rejectMemberSaga(action) {
+  try {
+    // const dummyPost = createHistoryList();
+
+    yield put({
+      type: REJECT_MEMBER_SUCCESS,
+    });
+  } catch (error) {
+    yield put({ type: REJECT_MEMBER_FAILURE });
+  }
+}
+
 export function* watchPost() {
   yield takeLatest(LOAD_POST_REQUEST, loadPostSaga);
   yield takeLatest(LOAD_GROUP_LIST_REQUEST, loadGroupListSaga);
@@ -125,4 +163,6 @@ export function* watchPost() {
   yield takeLatest(LOAD_GUEST_RECENT_TRENDS_REQUEST, loadGuestRecentTrendsSaga);
   yield takeLatest(LOAD_HOST_RECENT_TRENDS_REQUEST, loadHostRecentTrendsSaga);
   yield takeLatest(LOAD_HISTORY_LIST_REQEUST, loadHistoryListSaga);
+  yield takeLatest(ALLOW_MEMBER_REQUEST, allowMemberSaga);
+  yield takeLatest(REJECT_MEMBER_REQUEST, rejectMemberSaga);
 }

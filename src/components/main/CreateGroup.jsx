@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Form, Input, Select, Button } from "antd";
 import {
@@ -11,6 +11,7 @@ import {
 import { palette } from "../../libs/constant/palette";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 const CreateGroupWrapper = styled.div``;
 
@@ -25,6 +26,8 @@ const InputLayout = {
 
 const CreateGroup = ({ setIsHostModalVisible }) => {
   const { me } = useSelector((state) => state.user);
+  const [isCreated, setIscreated] = useState(false);
+  const [groupId, setGroupId] = useState(null);
   const onSubmit = (item) => {
     axios
       .post(`${BACK_URL}/api/group/createGroup`, {
@@ -34,14 +37,17 @@ const CreateGroup = ({ setIsHostModalVisible }) => {
         userId: me && me.data.userId,
       })
       .then((res) => {
-        console.log(res);
         alert("The group created successfully.");
         setIsHostModalVisible(false);
+        setGroupId(res.data.id);
+        setIscreated(true);
       })
       .catch((e) => {
         console.log(e);
       });
   };
+
+  if (isCreated && groupId) return <Redirect to={`/main/${groupId}`} />;
 
   return (
     <CreateGroupWrapper>

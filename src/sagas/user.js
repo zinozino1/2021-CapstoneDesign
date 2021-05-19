@@ -32,6 +32,9 @@ function* loginSaga(action) {
     const user = localStorage.getItem("user");
     if (!user) {
       localStorage.setItem("user", JSON.stringify(res));
+    } else {
+      localStorage.removeItem("user");
+      localStorage.setItem("user", JSON.stringify(res));
     }
     yield put({ type: LOG_IN_SUCCESS, me: res });
   } catch (error) {

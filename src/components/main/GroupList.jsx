@@ -31,9 +31,16 @@ const GroupList = () => {
   const { me } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (me) {
-      dispatch(loadGroupListRequestAction(me.data.userId));
-    }
+    // let loadGroupInterval;
+    // if (me) {
+    //   loadGroupInterval = setInterval(() => {
+    //     dispatch(loadGroupListRequestAction(me.data.userId));
+    //   }, 1500);
+    // }
+    // return () => {
+    //   clearInterval(loadGroupInterval);
+    // };
+    dispatch(loadGroupListRequestAction(me.data.userId));
   }, [me]);
 
   return (

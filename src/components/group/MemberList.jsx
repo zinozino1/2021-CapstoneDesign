@@ -2,6 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Divider, Button } from "antd";
+import { useDispatch } from "react-redux";
+import { allowMemberRequestAction } from "../../reducers/post";
 
 // 그룹멤버리스트, 대기리스트 분기해야함
 
@@ -37,9 +39,16 @@ const MemberListWrapper = styled.div`
 `;
 
 const MemberList = ({ type }) => {
+  const dispatch = useDispatch();
   const { groupDetail } = useSelector((state) => state.post);
 
   if (!groupDetail) return null;
+
+  const allowMember = (userEmail, groupId) => {
+    dispatch(allowMemberRequestAction({ userEmail, groupId }));
+  };
+
+  const rejectMember = () => {};
 
   return (
     <MemberListContainer>
@@ -55,18 +64,30 @@ const MemberList = ({ type }) => {
               {type === "waitingMember" && <th className="th">Enter</th>}
             </tr>
             {type === "groupMember"
-              ? groupDetail.groupMember.map((v, i) => (
+              ? groupDetail.data.groupMemberSimpleDtoList.map((v, i) => (
                   <tr key={i}>
                     <td className="td-gm td-gm-name">{v.name}</td>
                     <td className="td-gm">{v.email}</td>
                   </tr>
                 ))
-              : groupDetail.waitingMember.map((v, i) => (
+              : groupDetail.data.waitingMemberDtoList.map((v, i) => (
                   <tr key={i}>
                     <td className="td-wm">{v.name}</td>
                     <td className="td-wm">{v.email}</td>
                     <td className="td-wm" style={{ textAlign: "center" }}>
-                      <Button className="td-wm-btn">Accept</Button>
+                      <Button
+                        className="td-wm-btn"
+                        onClick={() => {
+                          allowMember(
+                            v.email,
+                            document.location.href.split("/")[
+                              document.location.href.split("/").length - 1
+                            ],
+                          );
+                        }}
+                      >
+                        Accept
+                      </Button>
                       <Button className="td-wm-btn">Reject</Button>
                     </td>
                   </tr>

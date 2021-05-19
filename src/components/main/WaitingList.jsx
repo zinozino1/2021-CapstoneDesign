@@ -36,6 +36,10 @@ const WaitingList = () => {
     }
   }, [me]);
 
+  useEffect(() => {
+    console.log("waiting list rerender", waitingList);
+  }, [waitingList]);
+
   return (
     <WaitingListWrapper>
       <Divider orientation="left" style={{ color: "#bbb" }}>

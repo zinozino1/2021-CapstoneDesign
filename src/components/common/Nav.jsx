@@ -29,6 +29,11 @@ const NavLink = styled.div`
 const Nav = ({ history }) => {
   const [currentMenu, setCurrentMenu] = useState("Home");
 
+  const onLogout = () => {
+    localStorage.removeItem("user");
+    history.push("/");
+  };
+
   useEffect(() => {
     let currPath = history.location.pathname.slice(1);
     if (currPath.indexOf("/") !== -1) {
@@ -49,9 +54,14 @@ const Nav = ({ history }) => {
       <NavLink currentMenu={currentMenu === "mypage" && true}>
         <Link to="/mypage">Mypage</Link>
       </NavLink>
-      {/* <div>
-        <Link to="/main">Logout</Link>
-      </div> */}
+      <NavLink>
+        <div
+          style={{ fontSize: "1.25rem", color: "#fff", cursor: "pointer" }}
+          onClick={onLogout}
+        >
+          Logout
+        </div>
+      </NavLink>
     </NavWrapper>
   );
 };

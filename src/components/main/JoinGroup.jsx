@@ -5,11 +5,14 @@ import { palette } from "../../libs/constant/palette";
 import useInput from "../../hooks/useInput";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { loadWaitingListRequestAction } from "../../reducers/post";
 
 const JoinGroupWrapper = styled.div``;
 
 const JoinGroup = ({ setIsGuestModalVisible }) => {
   const { me } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const onSubmit = (item) => {
     if (me) {
@@ -18,6 +21,8 @@ const JoinGroup = ({ setIsGuestModalVisible }) => {
           groupEnterCode: item.groupCode,
         })
         .then((res) => {
+          console.log(res);
+          dispatch(loadWaitingListRequestAction(me.data.userId));
           alert("You have completed the application for participation.");
           setIsGuestModalVisible(false);
           console.log(res);

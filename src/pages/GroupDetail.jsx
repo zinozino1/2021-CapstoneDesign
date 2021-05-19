@@ -41,6 +41,7 @@ const GroupDetail = ({ match }) => {
   // url 파라미터로 api 호출 후 그룹리스트의 role에 따라 분기
   const dispatch = useDispatch();
   const { groupDetail } = useSelector((state) => state.post);
+  const { me } = useSelector((state) => state.user);
 
   const sendTestImages = () => {
     console.log("send Test Images");
@@ -103,12 +104,14 @@ const GroupDetail = ({ match }) => {
 
   useEffect(() => {
     const { id } = match.params;
+    if (me) {
+      dispatch(loadPostAction({ id, groupId: id, userId: me.data.userId }));
+    }
 
-    dispatch(loadPostAction(id));
     return () => {
       dispatch(initializePostAction());
     };
-  }, [match]);
+  }, [match, me]);
 
   if (!groupDetail) return null;
 
@@ -118,11 +121,11 @@ const GroupDetail = ({ match }) => {
       {/* 호스트, 게스트 공통 */}
       <Summary groupDetail={groupDetail} />
       {/* 호스트만 */}
-      {groupDetail.role === "host" ? (
+      {groupDetail.data.role === "HOST" ? (
         <>
           <div style={{ display: "flex", border: "1px solid red" }}>
-            <MemberList type="groupMember" />
-            <MemberList type="waitingMember" />
+            <MemberList type="groupMember" match={match} />
+            <MemberList type="waitingMember" match={match} />
           </div>
           <Button onClick={sendTestImages}>Send Group Member's Images</Button>
         </>
