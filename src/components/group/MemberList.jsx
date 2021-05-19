@@ -3,7 +3,10 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Divider, Button } from "antd";
 import { useDispatch } from "react-redux";
-import { allowMemberRequestAction } from "../../reducers/post";
+import {
+  allowMemberRequestAction,
+  rejectMemberRequestAction,
+} from "../../reducers/post";
 
 // 그룹멤버리스트, 대기리스트 분기해야함
 
@@ -48,7 +51,9 @@ const MemberList = ({ type }) => {
     dispatch(allowMemberRequestAction({ userEmail, groupId }));
   };
 
-  const rejectMember = () => {};
+  const rejectMember = (userEmail, groupId) => {
+    dispatch(rejectMemberRequestAction({ userEmail, groupId }));
+  };
 
   return (
     <MemberListContainer>
@@ -88,7 +93,19 @@ const MemberList = ({ type }) => {
                       >
                         Accept
                       </Button>
-                      <Button className="td-wm-btn">Reject</Button>
+                      <Button
+                        className="td-wm-btn"
+                        onClick={() => {
+                          rejectMember(
+                            v.email,
+                            document.location.href.split("/")[
+                              document.location.href.split("/").length - 1
+                            ],
+                          );
+                        }}
+                      >
+                        Reject
+                      </Button>
                     </td>
                   </tr>
                 ))}

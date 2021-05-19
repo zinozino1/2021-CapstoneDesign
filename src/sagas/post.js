@@ -46,6 +46,7 @@ import {
   loadWaitingList,
   loadGroupInfo,
   allowMember,
+  rejectMember,
 } from "../libs/api/post";
 
 // saga
@@ -147,7 +148,8 @@ function* allowMemberSaga(action) {
 function* rejectMemberSaga(action) {
   try {
     // const dummyPost = createHistoryList();
-
+    const res = yield call(rejectMember, action.payload);
+    console.log(res);
     yield put({
       type: REJECT_MEMBER_SUCCESS,
     });

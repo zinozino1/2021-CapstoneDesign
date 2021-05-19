@@ -16,5 +16,5 @@ export const loadGroupInfo = ({ id, groupId, userId }) =>
 export const allowMember = ({ userEmail, groupId }) =>
   client.post(`/api/group/allowMember/${groupId}`, { email: userEmail });
 
-export const rejectMember = (id, email) =>
-  client.patch(`/api/group/rejectMember/${id}`, { email });
+export const rejectMember = ({ userEmail, groupId }) =>
+  client.post(`/api/group/rejectMember/${groupId}`, { email: userEmail });
