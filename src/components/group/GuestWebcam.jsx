@@ -30,6 +30,7 @@ const videoConstraints = {
 const formData = new FormData();
 const formData2 = new FormData();
 formData2.append("keys", "key 값 ");
+let intervalCapture;
 
 const GuestWebcam = () => {
   const webcamRef = useRef(null);
@@ -43,7 +44,7 @@ const GuestWebcam = () => {
     if (me && groupDetail) {
       formData.delete("file");
       const imageSrc = webcamRef.current.getScreenshot();
-      // console.log(imageSrc.slice(3));
+      console.log("capturing Image", imageSrc.slice(0, 10));
       formData.append("file", imageSrc);
       formData.append("userId", me.data.userId);
       formData.append(
@@ -67,10 +68,12 @@ const GuestWebcam = () => {
 
   const webcamOn = () => {
     setEnableWebcam(true);
+    //intervalCapture();
   };
 
   const webcamOff = () => {
     setEnableWebcam(false);
+    clearInterval(intervalCapture);
   };
 
   // useEffect(() => {
@@ -83,9 +86,9 @@ const GuestWebcam = () => {
   };
 
   const tempApi = () => {
-    for (var pair of formData2.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
+    // for (var pair of formData2.entries()) {
+    //   console.log(pair[0] + ", " + pair[1]);
+    // }
 
     axios
       .post("http://localhost:5000/ping", formData2, {
@@ -102,39 +105,39 @@ const GuestWebcam = () => {
   };
 
   const sendImage = () => {
-    for (var pair of image.entries()) {
-      console.log(pair[0] + ", " + pair[1], "ㅋㅋㅋㅋ");
-    }
+    // for (var pair of image.entries()) {
+    //   console.log(pair[0] + ", " + pair[1], "ㅋㅋㅋㅋ");
+    // }
 
-    // axios
-    //   .post("http://localhost:5000/image", image, {
-    //     header: {
-    //       "Content-Type": "multipart/form-data",
-    //       Accept: "multipart/form-data",
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
+    axios
+      .post("http://localhost:5000/image", image, {
+        header: {
+          "Content-Type": "multipart/form-data",
+          Accept: "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
-  // useEffect(() => {
-  //   let intervalCapture;
+  useEffect(() => {
+    let intervalCapture;
 
-  //   if (enableWebcam) {
-  //     intervalCapture = setInterval(() => {
-  //       capture();
-  //     }, 1000);
-  //   } else {
-  //     clearInterval(intervalCapture);
-  //   }
-  //   return () => {
-  //     clearInterval(intervalCapture);
-  //   };
-  // }, [enableWebcam, capture]);
+    if (enableWebcam) {
+      intervalCapture = setInterval(() => {
+        capture();
+      }, 7000);
+    } else {
+      clearInterval(intervalCapture);
+    }
+    return () => {
+      clearInterval(intervalCapture);
+    };
+  }, [enableWebcam, capture]);
 
   return (
     <Container>

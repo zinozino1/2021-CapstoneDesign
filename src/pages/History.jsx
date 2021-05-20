@@ -44,6 +44,7 @@ const PaginationWrapper = styled.div`
 const History = () => {
   const dispatch = useDispatch();
   const { historyList } = useSelector((state) => state.post);
+  const { me } = useSelector((state) => state.user);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState(historyList);
@@ -53,8 +54,10 @@ const History = () => {
   };
 
   useEffect(() => {
-    dispatch(loadHistoryListRequestAction());
-  }, []);
+    if (me) {
+      dispatch(loadHistoryListRequestAction(me.data.userId));
+    }
+  }, [me]);
 
   useEffect(() => {
     if (historyList) {

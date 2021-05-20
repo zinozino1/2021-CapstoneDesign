@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { Button } from "antd";
 import useTimer from "../../hooks/useTimer";
+import axios from "axios";
+import { BACK_URL } from "../../libs/constant/constant";
 
 const SummaryWrapper = styled.div``;
 
@@ -57,7 +59,9 @@ const SummaryFooter = styled.div`
 // 게스트, 호스트에 따라 다르게
 const Summary = () => {
   const { groupDetail } = useSelector((state) => state.post);
+  const { me } = useSelector((state) => state.user);
   const [onAir, setOnAir] = useState(false);
+  const [sessionId, setSessionId] = useState(null);
 
   const [h, m, s] = useTimer(onAir);
 
@@ -66,15 +70,60 @@ const Summary = () => {
       let startClassConfirm = window.confirm("Would you like to start class?");
       if (startClassConfirm) {
         setOnAir(true);
+        axios
+          .post(
+            `${BACK_URL}/api/group/startSession/${
+              document.location.href.split("/")[
+                document.location.href.split("/").length - 1
+              ]
+            }`,
+          )
+          .then((res) => {
+            console.log(res);
+            setSessionId(res.data.id);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       }
     }
   };
 
   const endClass = () => {
-    if (onAir) {
+    if (onAir && sessionId) {
       let endClassConfirm = window.confirm("Would you like to end class?");
       if (endClassConfirm) {
+        console.log(h, m, s);
         setOnAir(false);
+        axios
+          .post(`${BACK_URL}/api/group/endSession/${sessionId}`)
+          .then((res) => {
+            console.log(res);
+            // axios.post(`/api/history/createHistory`, {
+            //   userId: me.data.userId,
+            //   sessionId,
+            //   attendanceCount: 10,
+            //   vibe: 10,
+            //   attitude: 10,
+            //   isAttend: true,
+            //   timeLineLog: [
+            //     {
+            //       state: "absence",
+            //       startHour: 0,
+            //       startMinute: 30,
+            //       startSeconds: 30,
+            //       endHour: 1,
+            //       endMinute: 20,
+            //       endSeconds: 40,
+            //     },
+            //   ],
+            //   roll: { rollLeft: 40, rollNormal: 20, rollRight: 40 },
+            //   yaw: { yawLeft: 30, yawNormal: 30, yawRight: 40 },
+            // });
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       }
     }
   };

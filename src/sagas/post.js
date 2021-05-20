@@ -47,6 +47,7 @@ import {
   loadGroupInfo,
   allowMember,
   rejectMember,
+  loadHistoryList,
 } from "../libs/api/post";
 
 // saga
@@ -117,11 +118,13 @@ function* loadHostRecentTrendsSaga() {
   }
 }
 
-function* loadHistoryListSaga() {
+function* loadHistoryListSaga(action) {
   try {
     const dummyPost = createHistoryList();
 
-    yield delay(100);
+    // yield delay(100);
+    const res = yield call(loadHistoryList, action.payload);
+    console.log(res);
     yield put({
       type: LOAD_HISTORY_LIST_SUCCESS,
       historyList: dummyPost,

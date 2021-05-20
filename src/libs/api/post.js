@@ -18,3 +18,6 @@ export const allowMember = ({ userEmail, groupId }) =>
 
 export const rejectMember = ({ userEmail, groupId }) =>
   client.post(`/api/group/rejectMember/${groupId}`, { email: userEmail });
+
+export const loadHistoryList = (userId) =>
+  client.get(`/api/history/getHistory?userId=${userId}`);
