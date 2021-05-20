@@ -130,6 +130,21 @@ const GuestWebcam = () => {
     if (enableWebcam) {
       intervalCapture = setInterval(() => {
         capture();
+        if (image) {
+          axios
+            .post("http://localhost:5000/image", image, {
+              header: {
+                "Content-Type": "multipart/form-data",
+                Accept: "multipart/form-data",
+              },
+            })
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
       }, 7000);
     } else {
       clearInterval(intervalCapture);
