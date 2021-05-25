@@ -68,6 +68,16 @@ export const REJECT_MEMBER_REQUEST = "post/REJECT_MEMBER_REQUEST";
 export const REJECT_MEMBER_SUCCESS = "post/REJECT_MEMBER_SUCCESS";
 export const REJECT_MEMBER_FAILURE = "post/REJECT_MEMBER_FAILURE";
 
+export const EXIT_GROUP_REQUEST = "post/EXIT_GROUP_REQUEST";
+export const EXIT_GROUP_SUCCESS = "post/EXIT_GROUP_SUCCESS";
+export const EXIT_GROUP_FAILURE = "post/EXIT_GROUP_FAILURE";
+
+export const WAITING_TO_GROUP = "post/WAITING_TO_GROUP";
+
+export const WAITING_TO_NONE = "post/WAITING_TO_NONE";
+
+export const JOIN_TO_WAITING = "post/JOIN_TO_WAITING";
+
 // action creator
 
 export const initializePostAction = createAction(INITIALIZE_POST);
@@ -109,6 +119,14 @@ export const rejectMemberRequestAction = createAction(
   REJECT_MEMBER_REQUEST,
   (data) => data,
 );
+
+export const exitGroup = createAction(EXIT_GROUP_REQUEST, (data) => data);
+
+export const waitingToGroup = createAction(WAITING_TO_GROUP, (data) => data);
+
+export const waitingToNone = createAction(WAITING_TO_NONE, (data) => data);
+
+export const joinToWaiting = createAction(JOIN_TO_WAITING, (data) => data);
 
 // reducer
 
@@ -224,6 +242,14 @@ const post = handleActions(
     }),
     [ALLOW_MEMBER_SUCCESS]: (state, action) => ({
       ...state,
+      // groupDetail: {
+      //   ...state.groupDetail,
+      //   data: {
+      //     ...state.groupDetail.data,
+      //     groupMemberSimpleDtoList:
+      //       action.groupDetail.data.groupMemberSimpleDtoList,
+      //   },
+      // },
     }),
     [ALLOW_MEMBER_FAILURE]: (state, action) => ({
       ...state,
@@ -233,9 +259,62 @@ const post = handleActions(
     }),
     [REJECT_MEMBER_SUCCESS]: (state, action) => ({
       ...state,
+      // groupDetail: {
+      //   ...state.groupDetail,
+      //   data: {
+      //     ...state.groupDetail.data,
+      //     waitingMemberDtoList: action.groupDetail.data.waitingMemberDtoList,
+      //   },
+      // },
     }),
     [REJECT_MEMBER_FAILURE]: (state, action) => ({
       ...state,
+    }),
+    [WAITING_TO_GROUP]: (state, action) => {
+      console.log(action);
+      return {
+        ...state,
+        groupDetail: {
+          ...state.groupDetail,
+          data: {
+            ...state.groupDetail.data,
+            groupMemberSimpleDtoList: [
+              ...state.groupDetail.data.groupMemberSimpleDtoList,
+            ].concat({
+              name: action.payload.name,
+              email: action.payload.userEmail,
+            }),
+          },
+        },
+      };
+    },
+    [WAITING_TO_NONE]: (state, action) => ({
+      ...state,
+      groupDetail: {
+        ...state.groupDetail,
+        data: {
+          ...state.groupDetail.data,
+          waitingMemberDtoList: [
+            ...state.groupDetail.data.waitingMemberDtoList,
+          ].filter((v, i) => {
+            if (v.email !== action.payload.userEmail) {
+              return { ...v };
+            }
+          }),
+        },
+      },
+    }),
+    [JOIN_TO_WAITING]: (state, action) => ({
+      ...state,
+      waitingList: {
+        ...state.waitingList,
+        data: [...state.waitingList.data].concat({
+          id: 1,
+          groupName: action.payload.groupName,
+          groupId: 1,
+          waitingStatus: "WAIT",
+        }),
+      },
     }),
   },
   initialState,

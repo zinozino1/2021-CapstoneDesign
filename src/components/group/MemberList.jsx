@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import {
   allowMemberRequestAction,
   rejectMemberRequestAction,
+  waitingToGroup,
+  waitingToNone,
 } from "../../reducers/post";
 
 // 그룹멤버리스트, 대기리스트 분기해야함
@@ -47,11 +49,15 @@ const MemberList = ({ type }) => {
 
   if (!groupDetail) return null;
 
-  const allowMember = (userEmail, groupId) => {
+  const allowMember = (userEmail, groupId, name) => {
+    console.log(userEmail, groupId, name);
+    dispatch(waitingToGroup({ name, userEmail }));
+    dispatch(waitingToNone({ name, userEmail }));
     dispatch(allowMemberRequestAction({ userEmail, groupId }));
   };
 
-  const rejectMember = (userEmail, groupId) => {
+  const rejectMember = (userEmail, groupId, name) => {
+    dispatch(waitingToNone({ name, userEmail }));
     dispatch(rejectMemberRequestAction({ userEmail, groupId }));
   };
 
@@ -88,6 +94,7 @@ const MemberList = ({ type }) => {
                             document.location.href.split("/")[
                               document.location.href.split("/").length - 1
                             ],
+                            v.name,
                           );
                         }}
                       >
@@ -101,6 +108,7 @@ const MemberList = ({ type }) => {
                             document.location.href.split("/")[
                               document.location.href.split("/").length - 1
                             ],
+                            v.name,
                           );
                         }}
                       >

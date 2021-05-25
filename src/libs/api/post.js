@@ -27,3 +27,6 @@ export const loadGuestRecentTrends = (userId) =>
 
 export const loadHostRecentTrends = (userId) =>
   client.get(`/api/main/getHostRecentTrends/${userId}`);
+
+export const exitGroup = (groupId, userId) =>
+  client.patch(`/api/group/exitGroup/${groupId}`, { userId });

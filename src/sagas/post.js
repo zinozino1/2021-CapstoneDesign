@@ -51,6 +51,7 @@ import {
   loadGuestRecentTrends,
   loadHostRecentTrends,
 } from "../libs/api/post";
+import axios from "axios";
 
 // saga
 
@@ -139,11 +140,14 @@ function* loadHistoryListSaga(action) {
 function* allowMemberSaga(action) {
   try {
     // const dummyPost = createHistoryList();
-    console.log(action.payload);
+    // console.log(action.payload);
     const res = yield call(allowMember, action.payload);
     console.log(res);
+    // axios 요청 해야겠ㄷ네 다시
+
     yield put({
       type: ALLOW_MEMBER_SUCCESS,
+      groupDetail: res,
     });
   } catch (error) {
     yield put({ type: ALLOW_MEMBER_FAILURE });
@@ -157,6 +161,7 @@ function* rejectMemberSaga(action) {
     console.log(res);
     yield put({
       type: REJECT_MEMBER_SUCCESS,
+      groupDetail: res,
     });
   } catch (error) {
     yield put({ type: REJECT_MEMBER_FAILURE });

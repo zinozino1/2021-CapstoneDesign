@@ -6,7 +6,10 @@ import useInput from "../../hooks/useInput";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { loadWaitingListRequestAction } from "../../reducers/post";
+import {
+  loadWaitingListRequestAction,
+  joinToWaiting,
+} from "../../reducers/post";
 
 const JoinGroupWrapper = styled.div``;
 
@@ -21,10 +24,20 @@ const JoinGroup = ({ setIsGuestModalVisible }) => {
           groupEnterCode: item.groupCode,
         })
         .then((res) => {
-          console.log(res);
+          console.log("join gropup", res);
           dispatch(loadWaitingListRequestAction(me.data.userId));
           alert("You have completed the application for participation.");
           setIsGuestModalVisible(false);
+          // axios
+          //   .post(`/api/group/getGroupInfo`, {
+          //     groupId: res.data.id,
+          //     userid: me.data.userId,
+          //   })
+          //   .then((res) => {
+          //     console.log(res);
+          //     dispatch(joinToWaiting({ groupName: res.data.groupName }));
+          //     // 여기서 프론트 데이터 업데이트
+          //   });
           console.log(res);
         })
         .catch((e) => {

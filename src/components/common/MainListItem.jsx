@@ -33,13 +33,7 @@ const MainListItem = ({ item, index }) => {
         <ColWrapper>{item.groupName}</ColWrapper>
       )}
       {item.enterCode && <ColWrapper>{item.enterCode}</ColWrapper>}
-      <ColWrapper>
-        {item.status === true
-          ? "ON"
-          : item.isOnAir === "wait"
-          ? "Waiting.."
-          : "OFF"}
-      </ColWrapper>
+      <ColWrapper>{item.waitingStatus && "Waiting.."}</ColWrapper>
       {item.role && <ColWrapper>{item.role}</ColWrapper>}
     </ItemWrapper>
   );

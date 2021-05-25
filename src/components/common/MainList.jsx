@@ -54,7 +54,7 @@ const MainList = ({ data, type }) => {
   useEffect(() => {
     let newData = data.slice((currentPage - 1) * 5, (currentPage - 1) * 5 + 5);
     setCurrentData(newData);
-  }, [currentPage]);
+  }, [currentPage, data]);
 
   return (
     <>
