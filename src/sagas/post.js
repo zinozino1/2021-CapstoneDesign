@@ -48,6 +48,8 @@ import {
   allowMember,
   rejectMember,
   loadHistoryList,
+  loadGuestRecentTrends,
+  loadHostRecentTrends,
 } from "../libs/api/post";
 
 // saga
@@ -90,10 +92,10 @@ function* loadWaitingListSaga(action) {
   }
 }
 
-function* loadGuestRecentTrendsSaga() {
+function* loadGuestRecentTrendsSaga(action) {
   try {
     const dummyPost = createGuestRecentTrends();
-
+    //const res = yield call(loadGuestRecentTrends, action.payload);
     yield delay(100);
     yield put({
       type: LOAD_GUEST_RECENT_TRENDS_SUCCESS,
@@ -104,10 +106,10 @@ function* loadGuestRecentTrendsSaga() {
   }
 }
 
-function* loadHostRecentTrendsSaga() {
+function* loadHostRecentTrendsSaga(action) {
   try {
     const dummyPost = createHostRecentTrends();
-
+    //const res = yield call(loadHostRecentTrends, action.payload)
     yield delay(100);
     yield put({
       type: LOAD_HOST_RECENT_TRENDS_SUCCESS,
@@ -123,8 +125,8 @@ function* loadHistoryListSaga(action) {
     const dummyPost = createHistoryList();
 
     // yield delay(100);
-    const res = yield call(loadHistoryList, action.payload);
-    console.log(res);
+    // const res = yield call(loadHistoryList, action.payload);
+    // console.log(res);
     yield put({
       type: LOAD_HISTORY_LIST_SUCCESS,
       historyList: dummyPost,

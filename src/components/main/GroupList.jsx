@@ -40,7 +40,9 @@ const GroupList = () => {
     // return () => {
     //   clearInterval(loadGroupInterval);
     // };
-    dispatch(loadGroupListRequestAction(me.data.userId));
+    if (me) {
+      dispatch(loadGroupListRequestAction(me.data.userId));
+    }
   }, [me]);
 
   return (

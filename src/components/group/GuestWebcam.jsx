@@ -152,7 +152,7 @@ const GuestWebcam = () => {
     return () => {
       clearInterval(intervalCapture);
     };
-  }, [enableWebcam, capture]);
+  }, [enableWebcam, capture, image]);
 
   return (
     <Container>

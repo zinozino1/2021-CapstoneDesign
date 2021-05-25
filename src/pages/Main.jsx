@@ -12,14 +12,19 @@ import { initializeGroupAndWaitingList } from "../reducers/post";
 const MainWrapper = styled.div``;
 
 // redux 그룹리스트, 웨이팅리스트, 최근동향 데이터 필요
-const Main = () => {
+const Main = ({ history }) => {
   const dispatch = useDispatch();
+  const { me } = useSelector((state) => state.user);
 
   useEffect(() => {
     return () => {
       dispatch(initializeGroupAndWaitingList());
     };
   }, []);
+
+  if (!me) {
+    history.push("/");
+  }
 
   return (
     <ContentLayout>

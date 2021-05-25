@@ -21,3 +21,9 @@ export const rejectMember = ({ userEmail, groupId }) =>
 
 export const loadHistoryList = (userId) =>
   client.get(`/api/history/getHistory?userId=${userId}`);
+
+export const loadGuestRecentTrends = (userId) =>
+  client.get(`/api/main/getGuestRecentTrends/${userId}`);
+
+export const loadHostRecentTrends = (userId) =>
+  client.get(`/api/main/getHostRecentTrends/${userId}`);
