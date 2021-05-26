@@ -43,6 +43,8 @@ const GroupDetail = ({ match }) => {
   const { groupDetail } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
 
+  const [onAir, setOnAir] = useState(false);
+
   const sendTestImages = () => {
     console.log("send Test Images");
 
@@ -119,13 +121,13 @@ const GroupDetail = ({ match }) => {
     <ContentLayout>
       <Divider orientation="left">Summary</Divider>
       {/* 호스트, 게스트 공통 */}
-      <Summary groupDetail={groupDetail} />
+      <Summary groupDetail={groupDetail} onAir={onAir} setOnAir={setOnAir} />
       {/* 호스트만 */}
       {groupDetail.data.role === "HOST" ? (
         <>
           <div style={{ display: "flex", border: "1px solid red" }}>
             <MemberList type="groupMember" match={match} />
-            <MemberList type="waitingMember" match={match} />
+            <MemberList type="waitingMember" match={match} onAir={onAir} />
           </div>
           <Button onClick={sendTestImages}>Send Group Member's Images</Button>
         </>

@@ -63,10 +63,10 @@ const SummaryFooter = styled.div`
 `;
 
 // 게스트, 호스트에 따라 다르게
-const Summary = () => {
+const Summary = ({ onAir, setOnAir }) => {
   const { groupDetail } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
-  const [onAir, setOnAir] = useState(false);
+  //const [onAir, setOnAir] = useState(false);
   const [sessionId, setSessionId] = useState(null);
   const [isLeaved, setIsLeaved] = useState(false);
   const [isRemoved, setIsRemoved] = useState(false);
@@ -115,34 +115,34 @@ const Summary = () => {
       let endClassConfirm = window.confirm("Would you like to end class?");
       if (endClassConfirm) {
         setOnAir(false);
-        axios
-          .post(`${BACK_URL}/api/group/endSession/${sessionId}`)
-          .then((res) => {
-            axios.post(`/api/history/createHistory`, {
-              userId: me.data.userId,
-              sessionId,
-              attendanceCount: 10,
-              vibe: 10,
-              attitude: 10,
-              isAttend: true,
-              timeLineLog: [
-                {
-                  state: "absence",
-                  startHour: 0,
-                  startMinute: 30,
-                  startSeconds: 30,
-                  endHour: 1,
-                  endMinute: 20,
-                  endSeconds: 40,
-                },
-              ],
-              roll: { rollLeft: 40, rollNormal: 20, rollRight: 40 },
-              yaw: { yawLeft: 30, yawNormal: 30, yawRight: 40 },
-            });
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+        // axios
+        //   .post(`${BACK_URL}/api/group/endSession/${sessionId}`)
+        //   .then((res) => {
+        //     axios.post(`/api/history/createHistory`, {
+        //       userId: me.data.userId,
+        //       sessionId,
+        //       attendanceCount: 10,
+        //       vibe: 10,
+        //       attitude: 10,
+        //       isAttend: true,
+        //       timeLineLog: [
+        //         {
+        //           state: "absence",
+        //           startHour: 0,
+        //           startMinute: 30,
+        //           startSeconds: 30,
+        //           endHour: 1,
+        //           endMinute: 20,
+        //           endSeconds: 40,
+        //         },
+        //       ],
+        //       roll: { rollLeft: 40, rollNormal: 20, rollRight: 40 },
+        //       yaw: { yawLeft: 30, yawNormal: 30, yawRight: 40 },
+        //     });
+        //   })
+        //   .catch((e) => {
+        //     console.log(e);
+        //   });
       }
     }
   };
@@ -377,12 +377,18 @@ const Summary = () => {
               onClick={() => {
                 setIsEdit(true);
               }}
+              disabled={onAir ? true : false}
             >
               Edit
             </Button>
           )}
 
-          <Button className="footer-btn" type="danger" onClick={removeGroup}>
+          <Button
+            className="footer-btn"
+            type="danger"
+            onClick={removeGroup}
+            disabled={onAir ? true : false}
+          >
             Remove Group
           </Button>
         </SummaryFooter>

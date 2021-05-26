@@ -43,7 +43,7 @@ const MemberListWrapper = styled.div`
   }
 `;
 
-const MemberList = ({ type }) => {
+const MemberList = ({ type, onAir }) => {
   const dispatch = useDispatch();
   const { groupDetail } = useSelector((state) => state.post);
 
@@ -97,10 +97,12 @@ const MemberList = ({ type }) => {
                             v.name,
                           );
                         }}
+                        disabled={onAir ? true : false}
                       >
                         Accept
                       </Button>
                       <Button
+                        disabled={onAir ? true : false}
                         className="td-wm-btn"
                         onClick={() => {
                           rejectMember(
