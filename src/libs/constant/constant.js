@@ -2,6 +2,8 @@ export const CLIENT_URL = "http://localhost:3000";
 
 export const BACK_URL = "http://localhost:8080";
 
+export const WHOLE_MINUTE = Array.from({ length: 100 }, (v, i) => i * 5);
+
 export const CLASS_DURATION_HOUR = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export const CLASS_DURATION_MINUTE = Array.from({ length: 60 }, (v, i) => i);

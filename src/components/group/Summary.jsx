@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
-import { Button } from "antd";
+import { Button, Input, Select } from "antd";
 import useTimer from "../../hooks/useTimer";
 import axios from "axios";
-import { BACK_URL } from "../../libs/constant/constant";
+import { BACK_URL, WHOLE_MINUTE } from "../../libs/constant/constant";
+import { Redirect } from "react-router-dom";
+import useInput from "../../hooks/useInput";
 
 const SummaryWrapper = styled.div``;
 
@@ -62,6 +64,13 @@ const Summary = () => {
   const { me } = useSelector((state) => state.user);
   const [onAir, setOnAir] = useState(false);
   const [sessionId, setSessionId] = useState(null);
+  const [isLeaved, setIsLeaved] = useState(false);
+  const [isRemoved, setIsRemoved] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+
+  const [name, setName, onChangeName] = useInput("");
+  const [absenceTime, setAbsenceTime] = useState(null);
+  const [alertDuration, setAlertDuration] = useState(null);
 
   const [h, m, s] = useTimer(onAir);
 
@@ -99,27 +108,27 @@ const Summary = () => {
           .post(`${BACK_URL}/api/group/endSession/${sessionId}`)
           .then((res) => {
             console.log(res);
-            // axios.post(`/api/history/createHistory`, {
-            //   userId: me.data.userId,
-            //   sessionId,
-            //   attendanceCount: 10,
-            //   vibe: 10,
-            //   attitude: 10,
-            //   isAttend: true,
-            //   timeLineLog: [
-            //     {
-            //       state: "absence",
-            //       startHour: 0,
-            //       startMinute: 30,
-            //       startSeconds: 30,
-            //       endHour: 1,
-            //       endMinute: 20,
-            //       endSeconds: 40,
-            //     },
-            //   ],
-            //   roll: { rollLeft: 40, rollNormal: 20, rollRight: 40 },
-            //   yaw: { yawLeft: 30, yawNormal: 30, yawRight: 40 },
-            // });
+            axios.post(`/api/history/createHistory`, {
+              userId: me.data.userId,
+              sessionId,
+              attendanceCount: 10,
+              vibe: 10,
+              attitude: 10,
+              isAttend: true,
+              timeLineLog: [
+                {
+                  state: "absence",
+                  startHour: 0,
+                  startMinute: 30,
+                  startSeconds: 30,
+                  endHour: 1,
+                  endMinute: 20,
+                  endSeconds: 40,
+                },
+              ],
+              roll: { rollLeft: 40, rollNormal: 20, rollRight: 40 },
+              yaw: { yawLeft: 30, yawNormal: 30, yawRight: 40 },
+            });
           })
           .catch((e) => {
             console.log(e);
@@ -131,12 +140,56 @@ const Summary = () => {
   // host
   const saveGroupDetail = () => {};
 
-  const removeGroup = () => {};
+  const removeGroup = () => {
+    let removeConfirm = window.confirm("Are you really want remove the group?");
+    if (removeConfirm) {
+      if (me) {
+        axios
+          .delete(
+            `/api/group/deleteGroup/${
+              document.location.href.split("/")[
+                document.location.href.split("/").length - 1
+              ]
+            }`,
+          )
+          .then((res) => {
+            console.log(res);
+            setIsRemoved(true);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+    }
+  };
 
   //guest
-  const leaveGroup = () => {};
+  const leaveGroup = () => {
+    let leaveConfirm = window.confirm("Are you really want leave the group?");
+    if (leaveConfirm) {
+      if (me) {
+        axios
+          .post(
+            `/api/group/exitGroup/${
+              document.location.href.split("/")[
+                document.location.href.split("/").length - 1
+              ]
+            }`,
+            { userId: me.data.userId },
+          )
+          .then((res) => {
+            setIsLeaved(true);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+    }
+  };
 
   if (!groupDetail) return null;
+
+  if (isLeaved || isRemoved) return <Redirect to={`/main`} />;
 
   return (
     <SummaryWrapper>
@@ -197,15 +250,27 @@ const Summary = () => {
                 <span>Group Name</span>
               </td>
               <td className="table-content">
-                <span>{groupDetail.data.groupName}</span>
+                {isEdit ? (
+                  <Input defaultValue={groupDetail.data.groupName}></Input>
+                ) : (
+                  <span>{groupDetail.data.groupName}</span>
+                )}
               </td>
             </tr>
             <tr>
               <td className="table-index">
-                <span>Limit Absence Time</span>
+                <span>Absence Time</span>
               </td>
               <td className="table-content">
-                <span>{groupDetail.data.absenceTime} minutes</span>
+                {isEdit ? (
+                  <Select placeholder="Absence Time">
+                    {WHOLE_MINUTE.map((v, i) => (
+                      <Select.Option key={i}>{v}</Select.Option>
+                    ))}
+                  </Select>
+                ) : (
+                  <span>{groupDetail.data.absenceTime} minutes</span>
+                )}
               </td>
             </tr>
 
@@ -214,7 +279,15 @@ const Summary = () => {
                 <span>Alert Duration</span>
               </td>
               <td className="table-content">
-                <span>{groupDetail.data.alertTime} minutes</span>
+                {isEdit ? (
+                  <Select placeholder="Alert Duration">
+                    {WHOLE_MINUTE.map((v, i) => (
+                      <Select.Option key={i}>{v}</Select.Option>
+                    ))}
+                  </Select>
+                ) : (
+                  <span>{groupDetail.data.alertTime} minutes</span>
+                )}
               </td>
             </tr>
             <tr>
@@ -228,16 +301,31 @@ const Summary = () => {
       </SummaryContent>
       {groupDetail.data.role === "HOST" ? (
         <SummaryFooter>
-          <Button className="footer-btn" type="primary">
-            Save
-          </Button>
-          <Button className="footer-btn" type="danger">
+          {isEdit ? (
+            <Button className="footer-btn" type="primary">
+              Save
+            </Button>
+          ) : (
+            <Button
+              className="footer-btn"
+              type="primary"
+              onClick={() => {
+                setIsEdit(true);
+              }}
+            >
+              Edit
+            </Button>
+          )}
+
+          <Button className="footer-btn" type="danger" onClick={removeGroup}>
             Remove Group
           </Button>
         </SummaryFooter>
       ) : (
         <SummaryFooter>
-          <Button type="danger">Leave the Group</Button>
+          <Button type="danger" onClick={leaveGroup}>
+            Leave the Group
+          </Button>
         </SummaryFooter>
       )}
     </SummaryWrapper>

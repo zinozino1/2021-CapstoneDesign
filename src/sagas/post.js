@@ -147,7 +147,7 @@ function* allowMemberSaga(action) {
 
     yield put({
       type: ALLOW_MEMBER_SUCCESS,
-      groupDetail: res,
+      //groupDetail: res,
     });
   } catch (error) {
     yield put({ type: ALLOW_MEMBER_FAILURE });
@@ -161,7 +161,7 @@ function* rejectMemberSaga(action) {
     console.log(res);
     yield put({
       type: REJECT_MEMBER_SUCCESS,
-      groupDetail: res,
+      //groupDetail: res,
     });
   } catch (error) {
     yield put({ type: REJECT_MEMBER_FAILURE });
