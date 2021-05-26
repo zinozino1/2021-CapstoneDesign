@@ -1,10 +1,11 @@
 import React, { useRef, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import Webcam from "react-webcam";
-import { Button } from "antd";
+import { Button, notification } from "antd";
 import axios from "axios";
 import FormData from "form-data";
 import { useSelector } from "react-redux";
+import faker from "faker";
 
 const Container = styled.div`
   border: 1px solid red;
@@ -27,6 +28,48 @@ const videoConstraints = {
   facingMode: "user",
 };
 
+const openNotification = (placement) => {
+  notification.info({
+    message: `${
+      new Date().getHours() < 10
+        ? `0` + new Date().getHours()
+        : new Date().getHours()
+    }:${
+      new Date().getMinutes() < 10
+        ? `0` + new Date().getMinutes()
+        : new Date().getMinutes()
+    }:${
+      new Date().getSeconds() < 10
+        ? `0` + new Date().getSeconds()
+        : new Date().getSeconds()
+    }`,
+    description: "You have been away for a long time. You have been absent.",
+    placement,
+    duration: 0,
+  });
+};
+
+const openNotification2 = (placement) => {
+  notification.info({
+    message: `${
+      new Date().getHours() < 10
+        ? `0` + new Date().getHours()
+        : new Date().getHours()
+    }:${
+      new Date().getMinutes() < 10
+        ? `0` + new Date().getMinutes()
+        : new Date().getMinutes()
+    }:${
+      new Date().getSeconds() < 10
+        ? `0` + new Date().getSeconds()
+        : new Date().getSeconds()
+    }`,
+    description: "Wake up! It's time to focus!",
+    placement,
+    duration: 0,
+  });
+};
+
 const formData = new FormData();
 const formData2 = new FormData();
 formData2.append("keys", "key 값 ");
@@ -36,6 +79,14 @@ const GuestWebcam = () => {
   const webcamRef = useRef(null);
   const [image, setImage] = useState(null);
   const [enableWebcam, setEnableWebcam] = useState(false);
+
+  const [absenceFlag, setAbsenceFlag] = useState(false);
+  const [absenceTime, setAbsenceTime] = useState(0);
+  const [absenceCount, setAbsenceCount] = useState(0);
+
+  const [drowFlag, setDrowFlag] = useState(false);
+  const [drowTime, setDrowTime] = useState(0);
+  const [drowCount, setDrowCount] = useState(0);
 
   const { groupDetail } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
@@ -80,79 +131,125 @@ const GuestWebcam = () => {
   //   console.log(image[0]);
   // }, [image]);
 
-  const manualCapture = () => {
-    console.log("image manual capture");
-    capture();
-  };
+  // const manualCapture = () => {
+  //   console.log("image manual capture");
+  //   capture();
+  // };
 
-  const tempApi = () => {
-    // for (var pair of formData2.entries()) {
-    //   console.log(pair[0] + ", " + pair[1]);
-    // }
+  // const sendImage = () => {
+  //   // for (var pair of image.entries()) {
+  //   //   console.log(pair[0] + ", " + pair[1], "ㅋㅋㅋㅋ");
+  //   // }
 
-    axios
-      .post("http://localhost:5000/ping", formData2, {
-        header: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  //   axios
+  //     .post("http://localhost:5000/image", image, {
+  //       header: {
+  //         "Content-Type": "multipart/form-data",
+  //         Accept: "multipart/form-data",
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
 
-  const sendImage = () => {
-    // for (var pair of image.entries()) {
-    //   console.log(pair[0] + ", " + pair[1], "ㅋㅋㅋㅋ");
-    // }
+  // 실제
 
-    axios
-      .post("http://localhost:5000/image", image, {
-        header: {
-          "Content-Type": "multipart/form-data",
-          Accept: "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  // useEffect(() => {
+  //   let intervalCapture;
 
+  //   if (enableWebcam) {
+  //     intervalCapture = setInterval(() => {
+  //       capture();
+  //       if (image) {
+  //         axios
+  //           .post("http://localhost:5000/image", image, {
+  //             header: {
+  //               "Content-Type": "multipart/form-data",
+  //               Accept: "multipart/form-data",
+  //             },
+  //           })
+  //           .then((res) => {
+  //             console.log(res);
+  //           })
+  //           .catch((e) => {
+  //             console.log(e);
+  //           });
+  //       }
+  //     }, 7000);
+  //   } else {
+  //     clearInterval(intervalCapture);
+  //   }
+  //   return () => {
+  //     clearInterval(intervalCapture);
+  //   };
+  // }, [enableWebcam, capture, image]);
+
+  // 임시 방편
   useEffect(() => {
+    // 게스트 알림 작업해야댐
     let intervalCapture;
 
     if (enableWebcam) {
       intervalCapture = setInterval(() => {
-        capture();
-        if (image) {
-          axios
-            .post("http://localhost:5000/image", image, {
-              header: {
-                "Content-Type": "multipart/form-data",
-                Accept: "multipart/form-data",
-              },
-            })
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((e) => {
-              console.log(e);
-            });
+        let tmp = faker.datatype.number({
+          min: 96,
+          max: 100,
+        });
+        let tmp2 = true;
+        console.log(tmp);
+        console.log("absence Time : ", absenceTime);
+        // if (tmp > 95) {
+
+        //   openNotification("bottomRight");
+        // }
+        if (tmp > 95) {
+          setAbsenceFlag(true);
+        } else {
+          setAbsenceFlag(false);
         }
-      }, 7000);
-    } else {
-      clearInterval(intervalCapture);
+
+        if (tmp2) {
+          setDrowFlag(true);
+        } else {
+          setDrowFlag(false);
+        }
+        // 졸기 시작했을 때
+        if (drowFlag) {
+          setDrowTime(drowTime + 1);
+          if (drowTime > 10) {
+            // 10초이상 눈 감은 경우
+            if (drowCount === 0) {
+              openNotification2("bottomRight");
+            }
+            setDrowCount(drowCount + 1);
+          }
+        } else {
+          // 안졸기 시작했을 때
+          setDrowCount(0);
+          setDrowTime(0);
+        }
+
+        if (absenceFlag) {
+          setAbsenceTime(absenceTime + 1);
+          if (absenceTime > 10) {
+            if (absenceCount === 0) {
+              openNotification("bottomRight");
+            }
+            setAbsenceCount(absenceCount + 1);
+          }
+        } else {
+          setAbsenceTime(0);
+        }
+      }, 1000);
     }
     return () => {
       clearInterval(intervalCapture);
     };
-  }, [enableWebcam, capture, image]);
+  }, [enableWebcam, absenceTime, absenceFlag, absenceCount]);
 
   return (
     <Container>
@@ -189,9 +286,8 @@ const GuestWebcam = () => {
           </div>
         )}
 
-        <Button onClick={manualCapture}>Capture</Button>
-        <Button onClick={sendImage}>send Image</Button>
-        <Button onClick={tempApi}>send tmp api</Button>
+        {/* <Button onClick={manualCapture}>Capture</Button>
+        <Button onClick={sendImage}>send Image</Button> */}
       </GuestWebcamWrapper>
       <div
         style={{
