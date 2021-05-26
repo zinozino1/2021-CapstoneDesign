@@ -71,7 +71,15 @@ const RecentTrends = () => {
               <Progress
                 type="circle"
                 percent={guestRecentTrends.attendanceRate}
-                format={(percent) => `${percent}% \n 😊`}
+                format={(percent) =>
+                  `${
+                    percent <= 33 && percent >= 0
+                      ? `${percent} % 😵`
+                      : percent <= 66 && percent >= 34
+                      ? `${percent} % 😐`
+                      : `${percent} % 😊`
+                  }`
+                }
               />
               <RateDesc>Attendance Rate</RateDesc>
             </RateItem>
@@ -79,16 +87,25 @@ const RecentTrends = () => {
               <Progress
                 type="circle"
                 percent={guestRecentTrends.concentrationRate}
+                format={(percent) =>
+                  `${
+                    percent <= 33 && percent >= 0
+                      ? "Bad.."
+                      : percent <= 66 && percent >= 34
+                      ? "Normal"
+                      : "Good!"
+                  }`
+                }
               />
               <RateDesc>Concentration Rate</RateDesc>
             </RateItem>
-            <RateItem>
+            {/* <RateItem>
               <Progress
                 type="circle"
                 percent={guestRecentTrends.drowsinessRate}
               />
               <RateDesc>Drowsiness Rate</RateDesc>
-            </RateItem>
+            </RateItem> */}
           </>
         ) : (
           <>
@@ -96,7 +113,15 @@ const RecentTrends = () => {
               <Progress
                 type="circle"
                 percent={hostRecentTrends.attendanceRate}
-                format={(percent) => `${percent}% \n 😵`}
+                format={(percent) =>
+                  `${
+                    percent <= 33 && percent >= 0
+                      ? `${percent} % 😵`
+                      : percent <= 66 && percent >= 34
+                      ? `${percent} % 😐`
+                      : `${percent} % 😊`
+                  }`
+                }
               />
               <RateDesc>Attendance Rate</RateDesc>
             </RateItem>
@@ -104,16 +129,25 @@ const RecentTrends = () => {
               <Progress
                 type="circle"
                 percent={hostRecentTrends.concentrationRate}
+                format={(percent) =>
+                  `${
+                    percent <= 33 && percent >= 0
+                      ? "Bad.."
+                      : percent <= 66 && percent >= 34
+                      ? "Normal"
+                      : "Good!"
+                  }`
+                }
               />
               <RateDesc>Concentration Rate</RateDesc>
             </RateItem>
-            <RateItem>
+            {/* <RateItem>
               <Progress
                 type="circle"
                 percent={hostRecentTrends.drowsinessRate}
               />
               <RateDesc>Drowsiness Rate</RateDesc>
-            </RateItem>
+            </RateItem> */}
           </>
         )}
       </RatesWrapper>
