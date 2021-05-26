@@ -4,7 +4,11 @@ import styled, { css } from "styled-components";
 import { Button, Input, Select } from "antd";
 import useTimer from "../../hooks/useTimer";
 import axios from "axios";
-import { BACK_URL, WHOLE_MINUTE } from "../../libs/constant/constant";
+import {
+  BACK_URL,
+  WHOLE_MINUTE,
+  CLASS_DURATION_MINUTE,
+} from "../../libs/constant/constant";
 import { Redirect } from "react-router-dom";
 import useInput from "../../hooks/useInput";
 
@@ -67,10 +71,19 @@ const Summary = () => {
   const [isLeaved, setIsLeaved] = useState(false);
   const [isRemoved, setIsRemoved] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [saveDone, setSaveDone] = useState(false);
 
-  const [name, setName, onChangeName] = useInput("");
-  const [absenceTime, setAbsenceTime] = useState(null);
-  const [alertDuration, setAlertDuration] = useState(null);
+  const [editName, setEditName, onChangeEditName] = useInput(
+    groupDetail ? groupDetail.data.groupName : "",
+  );
+  const [editAbsenceTime, setEditAbsenceTime] = useState(0);
+  const onChangeEditAbsenceTime = (value) => {
+    setEditAbsenceTime(value);
+  };
+  const [editAlertDuration, setEditAlertDuration] = useState(0);
+  const onChangeEditAlertDuration = (value) => {
+    setEditAlertDuration(value);
+  };
 
   const [h, m, s] = useTimer(onAir);
 
@@ -88,7 +101,6 @@ const Summary = () => {
             }`,
           )
           .then((res) => {
-            console.log(res);
             setSessionId(res.data.id);
           })
           .catch((e) => {
@@ -102,12 +114,10 @@ const Summary = () => {
     if (onAir && sessionId) {
       let endClassConfirm = window.confirm("Would you like to end class?");
       if (endClassConfirm) {
-        console.log(h, m, s);
         setOnAir(false);
         axios
           .post(`${BACK_URL}/api/group/endSession/${sessionId}`)
           .then((res) => {
-            console.log(res);
             axios.post(`/api/history/createHistory`, {
               userId: me.data.userId,
               sessionId,
@@ -138,7 +148,31 @@ const Summary = () => {
   };
 
   // host
-  const saveGroupDetail = () => {};
+  const saveGroupDetail = () => {
+    let saveConfirm = window.confirm("Do you really want to edit?");
+    if (saveConfirm) {
+      axios
+        .post(
+          `/api/group/editGroupInfo/${
+            document.location.href.split("/")[
+              document.location.href.split("/").length - 1
+            ]
+          }`,
+          {
+            name: editName,
+            absenceTime: editAbsenceTime,
+            alertDuration: editAlertDuration,
+          },
+        )
+        .then((res) => {
+          setIsEdit(false);
+          setSaveDone(true);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  };
 
   const removeGroup = () => {
     let removeConfirm = window.confirm("Are you really want remove the group?");
@@ -153,7 +187,6 @@ const Summary = () => {
             }`,
           )
           .then((res) => {
-            console.log(res);
             setIsRemoved(true);
           })
           .catch((e) => {
@@ -190,6 +223,17 @@ const Summary = () => {
   if (!groupDetail) return null;
 
   if (isLeaved || isRemoved) return <Redirect to={`/main`} />;
+
+  if (saveDone)
+    return (
+      <Redirect
+        to={`/main/${
+          document.location.href.split("/")[
+            document.location.href.split("/").length - 1
+          ]
+        }`}
+      />
+    );
 
   return (
     <SummaryWrapper>
@@ -251,7 +295,12 @@ const Summary = () => {
               </td>
               <td className="table-content">
                 {isEdit ? (
-                  <Input defaultValue={groupDetail.data.groupName}></Input>
+                  <>
+                    <Input
+                      defaultValue={groupDetail.data.groupName}
+                      onChange={onChangeEditName}
+                    ></Input>
+                  </>
                 ) : (
                   <span>{groupDetail.data.groupName}</span>
                 )}
@@ -263,11 +312,17 @@ const Summary = () => {
               </td>
               <td className="table-content">
                 {isEdit ? (
-                  <Select placeholder="Absence Time">
-                    {WHOLE_MINUTE.map((v, i) => (
-                      <Select.Option key={i}>{v}</Select.Option>
-                    ))}
-                  </Select>
+                  <>
+                    <Select
+                      placeholder="Absence Time"
+                      onChange={onChangeEditAbsenceTime}
+                    >
+                      {CLASS_DURATION_MINUTE.map((v, i) => (
+                        <Select.Option key={i}>{v}</Select.Option>
+                      ))}
+                    </Select>
+                    <span style={{ marginLeft: "10px" }}>minutes</span>
+                  </>
                 ) : (
                   <span>{groupDetail.data.absenceTime} minutes</span>
                 )}
@@ -280,11 +335,17 @@ const Summary = () => {
               </td>
               <td className="table-content">
                 {isEdit ? (
-                  <Select placeholder="Alert Duration">
-                    {WHOLE_MINUTE.map((v, i) => (
-                      <Select.Option key={i}>{v}</Select.Option>
-                    ))}
-                  </Select>
+                  <>
+                    <Select
+                      placeholder="Alert Duration"
+                      onChange={onChangeEditAlertDuration}
+                    >
+                      {CLASS_DURATION_MINUTE.map((v, i) => (
+                        <Select.Option key={i}>{v}</Select.Option>
+                      ))}
+                    </Select>
+                    <span style={{ marginLeft: "10px" }}>minutes</span>
+                  </>
                 ) : (
                   <span>{groupDetail.data.alertTime} minutes</span>
                 )}
@@ -302,7 +363,11 @@ const Summary = () => {
       {groupDetail.data.role === "HOST" ? (
         <SummaryFooter>
           {isEdit ? (
-            <Button className="footer-btn" type="primary">
+            <Button
+              className="footer-btn"
+              type="primary"
+              onClick={saveGroupDetail}
+            >
               Save
             </Button>
           ) : (
