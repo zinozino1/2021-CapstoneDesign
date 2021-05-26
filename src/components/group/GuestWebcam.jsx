@@ -249,7 +249,15 @@ const GuestWebcam = () => {
     return () => {
       clearInterval(intervalCapture);
     };
-  }, [enableWebcam, absenceTime, absenceFlag, absenceCount]);
+  }, [
+    enableWebcam,
+    absenceTime,
+    absenceFlag,
+    absenceCount,
+    drowCount,
+    drowTime,
+    drowFlag,
+  ]);
 
   return (
     <Container>
