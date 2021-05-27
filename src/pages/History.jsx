@@ -69,10 +69,6 @@ const History = () => {
     }
   }, [currentPage, historyList]);
 
-  useEffect(() => {
-    console.log(currentData);
-  }, [currentData]);
-
   if (!historyList || !currentData) return null;
 
   return (

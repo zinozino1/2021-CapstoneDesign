@@ -126,11 +126,11 @@ function* loadHistoryListSaga(action) {
     const dummyPost = createHistoryList();
 
     // yield delay(100);
-    // const res = yield call(loadHistoryList, action.payload);
+    const res = yield call(loadHistoryList, action.payload);
     // console.log(res);
     yield put({
       type: LOAD_HISTORY_LIST_SUCCESS,
-      historyList: dummyPost,
+      historyList: res.data,
     });
   } catch (error) {
     yield put({ type: LOAD_HISTORY_LIST_FAILURE });

@@ -119,34 +119,14 @@ const Summary = ({ onAir, setOnAir }) => {
       let endClassConfirm = window.confirm("Would you like to end class?");
       if (endClassConfirm) {
         setOnAir(false);
-        // axios
-        //   .post(`${BACK_URL}/api/group/endSession/${sessionId}`)
-        //   .then((res) => {
-        //     axios.post(`/api/history/createHistory`, {
-        //       userId: me.data.userId,
-        //       sessionId,
-        //       attendanceCount: 10,
-        //       vibe: 10,
-        //       attitude: 10,
-        //       isAttend: true,
-        //       timeLineLog: [
-        //         {
-        //           state: "absence",
-        //           startHour: 0,
-        //           startMinute: 30,
-        //           startSeconds: 30,
-        //           endHour: 1,
-        //           endMinute: 20,
-        //           endSeconds: 40,
-        //         },
-        //       ],
-        //       roll: { rollLeft: 40, rollNormal: 20, rollRight: 40 },
-        //       yaw: { yawLeft: 30, yawNormal: 30, yawRight: 40 },
-        //     });
-        //   })
-        //   .catch((e) => {
-        //     console.log(e);
-        //   });
+        axios
+          .post(`${BACK_URL}/api/group/endSession/${sessionId}`)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       }
     }
   };
@@ -223,6 +203,28 @@ const Summary = ({ onAir, setOnAir }) => {
       }
     }
   };
+
+  // 수업 분위기 알림
+
+  // useEffect(() => {
+  //   let intervalAlert;
+
+  //   if (onAir) {
+  //     intervalAlert = setInterval(() => {
+  //       axios.get(`/api/group/getVibe/${sessionId}`);
+  //     }, 1000)
+  //       .then((res) => {
+  //         console.log(res);
+  //       })
+  //       .catch((e) => {
+  //         console.log(e);
+  //       });
+  //   } else {
+  //   }
+  //   return () => {
+  //     clearInterval(intervalAlert);
+  //   };
+  // }, [sessionId, onAir]);
 
   if (!groupDetail) return null;
 

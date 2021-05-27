@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import faker from "faker";
 
 const Container = styled.div`
-  border: 1px solid red;
+  border: 1px solid #ddd;
   padding: 20px;
 `;
 
@@ -87,6 +87,10 @@ const GuestWebcam = () => {
   const [drowFlag, setDrowFlag] = useState(false);
   const [drowTime, setDrowTime] = useState(0);
   const [drowCount, setDrowCount] = useState(0);
+
+  const [isOnAir, setIsOnAir] = useState(false);
+
+  const [sessionId, setSessionId] = useState(false);
 
   const { groupDetail } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
@@ -188,76 +192,141 @@ const GuestWebcam = () => {
   //   };
   // }, [enableWebcam, capture, image]);
 
-  // 임시 방편
+  // 수업 시작했는지 체크하는 코드
   useEffect(() => {
-    // 게스트 알림 작업해야댐
-    let intervalCapture;
-
+    let intervalCheckSession;
     if (enableWebcam) {
-      intervalCapture = setInterval(() => {
-        let tmp = faker.datatype.number({
-          min: 96,
-          max: 100,
-        });
-        let tmp2 = true;
-        console.log(tmp);
-        console.log("absence Time : ", absenceTime);
-        // if (tmp > 95) {
-
-        //   openNotification("bottomRight");
-        // }
-        if (tmp > 95) {
-          setAbsenceFlag(true);
-        } else {
-          setAbsenceFlag(false);
-        }
-
-        if (tmp2) {
-          setDrowFlag(true);
-        } else {
-          setDrowFlag(false);
-        }
-        // 졸기 시작했을 때
-        if (drowFlag) {
-          setDrowTime(drowTime + 1);
-          if (drowTime > 10) {
-            // 10초이상 눈 감은 경우
-            if (drowCount === 0) {
-              openNotification2("bottomRight");
-            }
-            setDrowCount(drowCount + 1);
-          }
-        } else {
-          // 안졸기 시작했을 때
-          setDrowCount(0);
-          setDrowTime(0);
-        }
-
-        if (absenceFlag) {
-          setAbsenceTime(absenceTime + 1);
-          if (absenceTime > 10) {
-            if (absenceCount === 0) {
-              openNotification("bottomRight");
-            }
-            setAbsenceCount(absenceCount + 1);
-          }
-        } else {
-          setAbsenceTime(0);
-        }
+      intervalCheckSession = setInterval(() => {
+        axios
+          .get(
+            `/api/group/checkOnAir/${
+              document.location.href.split("/")[
+                document.location.href.split("/").length - 1
+              ]
+            }`,
+          )
+          .then((res) => {
+            console.log(res.data.onAir, res.data.sessionId);
+            setIsOnAir(res.data.onAir);
+            setSessionId(res.data.sessionId);
+          });
       }, 1000);
+    } else {
+      clearInterval(intervalCheckSession);
     }
     return () => {
-      clearInterval(intervalCapture);
+      clearInterval(intervalCheckSession);
     };
-  }, [
-    enableWebcam,
-    absenceTime,
-    absenceFlag,
-    absenceCount,
-    drowCount,
-    drowTime,
-    drowFlag,
-  ]);
+  }, [enableWebcam]);
+
+  // 웹캠 켰을 때 데이터 실시간으로 보내기 -> 나중에 capture랑 물려야함
+  useEffect(() => {
+    let intervalThrowData;
+
+    if (enableWebcam && isOnAir && sessionId && me) {
+      // 나중에 시간 조정해야함
+      intervalThrowData = setInterval(() => {
+        console.log("data fetching.");
+        // console.log({
+        //   sessionId,
+        //   userId: me.data.userId,
+        //   pitch: 2.1,
+        //   yaw: -1,
+        //   absence: false,
+        // });
+        axios
+          .post(`/api/history/createHistory`, {
+            sessionId,
+            userId: me.data.userId,
+            pitch: 2.1,
+            yaw: -1,
+            absence: false,
+          })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }, 1000);
+    } else {
+      clearInterval(intervalThrowData);
+    }
+    return () => {
+      clearInterval(intervalThrowData);
+    };
+  }, [enableWebcam, isOnAir, sessionId, me]);
+
+  // 임시 방편
+  // useEffect(() => {
+  //   // 게스트 알림 작업해야댐
+  //   let intervalCapture;
+
+  //   if (enableWebcam) {
+  //     intervalCapture = setInterval(() => {
+  //       let tmp = faker.datatype.number({
+  //         min: 96,
+  //         max: 100,
+  //       });
+  //       let tmp2 = true;
+  //       console.log(tmp);
+  //       console.log("absence Time : ", absenceTime);
+  //       // if (tmp > 95) {
+
+  //       //   openNotification("bottomRight");
+  //       // }
+  //       if (tmp > 95) {
+  //         setAbsenceFlag(true);
+  //       } else {
+  //         setAbsenceFlag(false);
+  //       }
+
+  //       if (tmp2) {
+  //         setDrowFlag(true);
+  //       } else {
+  //         setDrowFlag(false);
+  //       }
+  //       // 졸기 시작했을 때
+  //       if (drowFlag) {
+  //         setDrowTime(drowTime + 1);
+  //         if (drowTime > 10) {
+  //           // 10초이상 눈 감은 경우
+  //           if (drowCount === 0) {
+  //             openNotification2("bottomRight");
+  //           }
+  //           setDrowCount(drowCount + 1);
+  //         }
+  //       } else {
+  //         // 안졸기 시작했을 때
+  //         setDrowCount(0);
+  //         setDrowTime(0);
+  //       }
+
+  //       if (absenceFlag) {
+  //         setAbsenceTime(absenceTime + 1);
+  //         if (absenceTime > 10) {
+  //           if (absenceCount === 0) {
+  //             openNotification("bottomRight");
+  //           }
+  //           setAbsenceCount(absenceCount + 1);
+  //         }
+  //       } else {
+  //         setAbsenceTime(0);
+  //       }
+  //     }, 1000);
+  //   }
+  //   return () => {
+  //     clearInterval(intervalCapture);
+  //   };
+  // }, [
+  //   enableWebcam,
+  //   absenceTime,
+  //   absenceFlag,
+  //   absenceCount,
+  //   drowCount,
+  //   drowTime,
+  //   drowFlag,
+  // ]);
 
   return (
     <Container>

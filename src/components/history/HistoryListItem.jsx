@@ -75,7 +75,7 @@ const HistoryListItem = ({ item, idx }) => {
           <span className="list-index">
             <Tag color="magenta">Created At</Tag>
           </span>
-          <div className="list-data">{`${item.createdAt.getFullYear()}.${item.createdAt.getMonth()}.${item.createdAt.getDate()}`}</div>
+          <div className="list-data">{`${item.createdYear}.${item.createdMonth}.${item.createdDay}`}</div>
         </div>
         <div className="list-col">
           <span className="list-index">
@@ -88,9 +88,9 @@ const HistoryListItem = ({ item, idx }) => {
             <Tag color="orange">Vibe</Tag>
           </span>
           <div className="list-data">
-            {item.vibe >= 0 && item.vibe < 33
+            {item.vibe >= 0 && item.vibe < 2
               ? "😞"
-              : item.vibe >= 33 && item.vibe < 66
+              : item.vibe >= 2 && item.vibe < 3
               ? "😐"
               : "😭"}
           </div>
@@ -102,7 +102,7 @@ const HistoryListItem = ({ item, idx }) => {
           <div className="list-data">{item.role}</div>
         </div>
       </HistoryListItemWrapper>
-      {item.role === "guest" ? (
+      {item.role === "GUEST" ? (
         <Modal
           title="History Detail - Guest"
           isModalVisible={modalVisible}
@@ -110,7 +110,7 @@ const HistoryListItem = ({ item, idx }) => {
           footer={false}
           width={900}
         >
-          <GuestHistoryDetail data={item} />
+          {/* <GuestHistoryDetail data={item} /> */}
         </Modal>
       ) : (
         <Modal
@@ -120,7 +120,7 @@ const HistoryListItem = ({ item, idx }) => {
           footer={false}
           width={900}
         >
-          <HostHistoryDetail data={item} />
+          {/* <HostHistoryDetail data={item} /> */}
         </Modal>
       )}
     </>
