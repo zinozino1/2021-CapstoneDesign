@@ -12,6 +12,12 @@ const ContentWrapper = styled.div`
   /* margin: 0 auto; */
   /* margin-top: 30vh; */
   width: 900px;
+  ${(props) =>
+    props.type === "login" &&
+    css`
+      width: 600px;
+    `}
+
   border-radius: 5px;
   background-color: #f1f2f5;
   /* ${(props) =>
@@ -27,10 +33,10 @@ const ContentWrapper = styled.div`
         `} */
 `;
 
-const AuthLayout = ({ children }) => {
+const AuthLayout = ({ children, type }) => {
   return (
     <Container>
-      <ContentWrapper>{children}</ContentWrapper>
+      <ContentWrapper type={type}>{children}</ContentWrapper>
     </Container>
   );
 };

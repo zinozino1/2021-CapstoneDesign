@@ -37,7 +37,7 @@ const Login = ({ history }) => {
   }, [me, history]);
 
   return (
-    <AuthLayout>
+    <AuthLayout type="login">
       <LoginWrapper>
         <div
           style={{
