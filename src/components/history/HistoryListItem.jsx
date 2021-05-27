@@ -110,7 +110,7 @@ const HistoryListItem = ({ item, idx }) => {
           footer={false}
           width={900}
         >
-          {/* <GuestHistoryDetail data={item} /> */}
+          <GuestHistoryDetail data={item} />
         </Modal>
       ) : (
         <Modal
@@ -120,7 +120,7 @@ const HistoryListItem = ({ item, idx }) => {
           footer={false}
           width={900}
         >
-          {/* <HostHistoryDetail data={item} /> */}
+          <HostHistoryDetail data={item} />
         </Modal>
       )}
     </>

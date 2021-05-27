@@ -38,20 +38,30 @@ const IsAttendanceWrapper = styled.span`
 `;
 
 const GuestHistoryDetail = ({ data }) => {
-  const [rollData, setRollData] = useState(null);
+  const [pitchData, setRollData] = useState(null);
   const [yawData, setYawData] = useState(null);
 
   useEffect(() => {
-    let tmpRoll = [];
-    Object.entries(data.roll).forEach((v, i) => {
-      tmpRoll.push({ roll: v[0], val: v[1] });
+    let tmpPitch = [];
+    // Object.entries(data.roll).forEach((v, i) => {
+    //   tmpPitch.push({ roll: v[0], val: v[1] });
+    // });
+    tmpPitch.push({ roll: "Pitch Up", val: data.pitch.pitchUp });
+    tmpPitch.push({
+      roll: "Pitch Normal",
+      val: data.pitch.pitchNormal,
     });
-    setRollData(tmpRoll);
+    tmpPitch.push({ roll: "Pitch Down", val: data.pitch.pitchDown });
+
+    setRollData(tmpPitch);
 
     let tmpYaw = [];
-    Object.entries(data.yaw).forEach((v, i) => {
-      tmpYaw.push({ roll: v[0], val: v[1] });
-    });
+    // Object.entries(data.yaw).forEach((v, i) => {
+    //   tmpYaw.push({ roll: v[0], val: v[1] });
+    // });
+    tmpYaw.push({ roll: "Yaw Left", val: data.yaw.yawLeft });
+    tmpYaw.push({ roll: "Yaw Normal", val: data.yaw.yawNormal });
+    tmpYaw.push({ roll: "Yaw Right", val: data.yaw.yawRight });
     setYawData(tmpYaw);
   }, [data]);
 
@@ -69,7 +79,7 @@ const GuestHistoryDetail = ({ data }) => {
               lineHeight: "200px",
             }}
           >
-            {data.isAttend ? (
+            {data.attend ? (
               <IsAttendanceWrapper type="pass">PASS</IsAttendanceWrapper>
             ) : (
               <IsAttendanceWrapper type="fail">FAIL</IsAttendanceWrapper>
@@ -93,26 +103,31 @@ const GuestHistoryDetail = ({ data }) => {
                   <th className="th">State</th>
                   <th className="th">Time Log</th>
                 </tr>
-                {data.timeLineLog.map((v, i) => (
-                  <tr key={i}>
-                    <td>{v.state}</td>
-                    <td>
-                      {`${v.startHour < 10 ? "0" + v.startHour : v.startHour}:${
-                        v.startMinute < 10 ? "0" + v.startMinute : v.startMinute
-                      }:${
-                        v.startSeconds < 10
-                          ? "0" + v.startSeconds
-                          : v.startSeconds
-                      }`}{" "}
-                      -{" "}
-                      {`${v.endHour < 10 ? "0" + v.endHour : v.endHour}:${
-                        v.endMinute < 10 ? "0" + v.endMinute : v.endMinute
-                      }:${
-                        v.endSeconds < 10 ? "0" + v.endSeconds : v.endSeconds
-                      }`}
-                    </td>
-                  </tr>
-                ))}
+                {data.timeLineLog &&
+                  data.timeLineLog.map((v, i) => (
+                    <tr key={i}>
+                      <td>{v.state}</td>
+                      <td>
+                        {`${
+                          v.startHour < 10 ? "0" + v.startHour : v.startHour
+                        }:${
+                          v.startMinute < 10
+                            ? "0" + v.startMinute
+                            : v.startMinute
+                        }:${
+                          v.startSeconds < 10
+                            ? "0" + v.startSeconds
+                            : v.startSeconds
+                        }`}{" "}
+                        -{" "}
+                        {`${v.endHour < 10 ? "0" + v.endHour : v.endHour}:${
+                          v.endMinute < 10 ? "0" + v.endMinute : v.endMinute
+                        }:${
+                          v.endSeconds < 10 ? "0" + v.endSeconds : v.endSeconds
+                        }`}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
@@ -121,12 +136,12 @@ const GuestHistoryDetail = ({ data }) => {
       <div className="bottom">
         <div className="item roll graph">
           <div className="divider">
-            <Divider orientation="left">Roll Graph</Divider>
+            <Divider orientation="left">Pitch Graph</Divider>
           </div>
           <div className="item-desc">
             <ResponsiveBar
               style={{ border: "1px solid blue" }}
-              data={rollData && rollData}
+              data={pitchData && pitchData}
               keys={["val"]}
               indexBy="roll"
               margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
