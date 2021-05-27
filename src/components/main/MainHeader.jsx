@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Image, Button } from "antd";
+import { Image, Button, Descriptions } from "antd";
 import ExampleProfileImage from "../../statics/images/ExampleProfileImage.jpeg";
 import useToggle from "../../hooks/useToggle";
 import Modal from "../common/Modal";
@@ -40,18 +40,20 @@ const MyProfileWrapper = styled.div`
     }
     .role {
       flex: 1;
-      font-weight: 600;
-      font-size: 1.75rem;
+      font-weight: 400;
+      font-size: 0.75rem;
       border: 1px solid #ddd;
       border-bottom: none;
       text-align: center;
+      line-height: 40px;
+      color: #aaa;
     }
     .username {
       flex: 1;
-      font-size: 1.25rem;
+      font-size: 1.55rem;
       border: 1px solid #ddd;
       border-bottom: none;
-      color: #aaa;
+
       padding: 20px;
       text-align: center;
     }
@@ -109,7 +111,7 @@ const MainHeader = () => {
 
   return (
     <MainHeaderWrapper>
-      <MyProfileWrapper>
+      {/* <MyProfileWrapper>
         <div className="profile-image">
           <Image
             width={120}
@@ -119,10 +121,24 @@ const MainHeader = () => {
         </div>
         <div className="profile-desc">
           <div className="info">Info</div>
-          <div className="role">Student</div>
+          <div className="role">{me.data.email}</div>
           <div className="username">{me.data.name}</div>
         </div>
-      </MyProfileWrapper>
+      </MyProfileWrapper> */}
+      <div style={{ flex: "1" }}>
+        <Descriptions bordered>
+          <Descriptions.Item>
+            <Image
+              width={120}
+              src={`data:image/png;base64,` + me.data.profileImage}
+              style={{ marginRight: "20px" }}
+            />
+          </Descriptions.Item>
+          <Descriptions.Item label="Name">{me.data.name}</Descriptions.Item>
+          <Descriptions.Item label="Email">{me.data.email}</Descriptions.Item>
+        </Descriptions>
+      </div>
+
       <RoomBtnWrapper>
         <div className="guest">
           <Button
