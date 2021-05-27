@@ -14,14 +14,17 @@ import {
 
 const MemberListContainer = styled.div`
   flex: 1;
-  padding: 10px;
+  /* padding: 10px; */
 `;
 
 const MemberListWrapper = styled.div`
   height: 25vh;
   overflow: auto;
-  border: 1px solid red;
+  border: 1px solid #ddd;
   table {
+    border-color: #ddd;
+  }
+  tr {
     border-color: #ddd;
   }
   .th {
@@ -67,7 +70,7 @@ const MemberList = ({ type, onAir }) => {
         {type === "groupMember" ? "Group Member" : "Waiting Member"}
       </Divider>
       <MemberListWrapper>
-        <table border="1" width="100%">
+        <table width="100%" style={{ border: "1px solid #ddd" }}>
           <tbody>
             <tr>
               <th className="th th-name">Name</th>

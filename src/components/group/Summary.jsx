@@ -15,7 +15,9 @@ import useInput from "../../hooks/useInput";
 const SummaryWrapper = styled.div``;
 
 const SummaryHeader = styled.div`
-  border: 1px solid red;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  padding: 10px 0;
   display: flex;
   justify-content: space-between;
   .clock {
@@ -55,7 +57,7 @@ const SummaryContent = styled.div`
 
 const SummaryFooter = styled.div`
   padding: 10px 0;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   text-align: right;
   .footer-btn {
     margin-left: 3px;
@@ -244,19 +246,19 @@ const Summary = ({ onAir, setOnAir }) => {
           <span
             className="alert-text"
             style={{
-              border: "1px solid red",
+              // border: "1px solid red",
               fontSize: "0.75rem",
               color: "#bbb",
             }}
           >
-            <span style={{ color: "red" }}>*</span> If you leave this page
-            without saving, you may lose your work.
+            <span style={{ color: "red", paddingLeft: "10px" }}>*</span> If you
+            leave this page without saving, you may lose your work.
           </span>
 
           <div
             className="clock"
             style={{
-              border: "1px solid red",
+              // border: "1px solid red",
               padding: "0 20px",
               display: "flex",
               alignItems: "center",
@@ -281,7 +283,7 @@ const Summary = ({ onAir, setOnAir }) => {
       )}
 
       <SummaryContent>
-        <table border="1" width="100%">
+        <table border="1" style={{ border: "1px solid #ddd" }} width="100%">
           <tbody>
             <tr>
               <td className="table-index">

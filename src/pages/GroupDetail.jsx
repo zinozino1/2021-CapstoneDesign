@@ -125,11 +125,11 @@ const GroupDetail = ({ match }) => {
       {/* 호스트만 */}
       {groupDetail.data.role === "HOST" ? (
         <>
-          <div style={{ display: "flex", border: "1px solid red" }}>
+          <div style={{ display: "flex" }}>
             <MemberList type="groupMember" match={match} />
             <MemberList type="waitingMember" match={match} onAir={onAir} />
           </div>
-          <Button onClick={sendTestImages}>Send Group Member's Images</Button>
+          {/* <Button onClick={sendTestImages}>Send Group Member's Images</Button> */}
         </>
       ) : (
         <GuestWebcam />
