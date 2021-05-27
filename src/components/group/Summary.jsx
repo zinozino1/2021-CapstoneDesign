@@ -88,6 +88,7 @@ const Summary = ({ onAir, setOnAir }) => {
   const [h, m, s] = useTimer(onAir);
 
   const startClass = () => {
+    // 주기호출 api call 만들어야함
     if (!onAir) {
       let startClassConfirm = window.confirm("Would you like to start class?");
       if (startClassConfirm) {
@@ -111,6 +112,7 @@ const Summary = ({ onAir, setOnAir }) => {
   };
 
   const endClass = () => {
+    // 히스토리 생성 -> 백엔드로 플래그 보내야함
     if (onAir && sessionId) {
       let endClassConfirm = window.confirm("Would you like to end class?");
       if (endClassConfirm) {

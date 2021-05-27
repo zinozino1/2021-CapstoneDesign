@@ -14,7 +14,7 @@ const WaitingListWrapper = styled.div`
 `;
 
 const ListWrapper = styled.div`
-  border: 1px solid black;
+  border: 1px solid #ddd;
   height: 300px;
   position: relative;
 `;

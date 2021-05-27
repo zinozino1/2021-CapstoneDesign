@@ -16,13 +16,13 @@ const RecentTrendsWrapper = styled.div`
 
 const RatesWrapper = styled.div`
   display: flex;
+  border: 1px solid #ddd;
 `;
 
 const RateItem = styled.div`
   flex: 1;
   text-align: center;
   padding: 20px 0;
-  border: 1px solid red;
 `;
 
 const RateDesc = styled.div``;
@@ -151,6 +151,17 @@ const RecentTrends = () => {
           </>
         )}
       </RatesWrapper>
+      <div
+        style={{
+          textAlign: "right",
+          fontSize: "0.7rem",
+          color: "#bbb",
+          padding: "10px 0",
+        }}
+      >
+        <span style={{ color: "red" }}>*</span> Shows the average Trends for the
+        last 10 classes.
+      </div>
     </RecentTrendsWrapper>
   );
 };

@@ -7,8 +7,6 @@ export function imageToBase64(img) {
       var reader = new FileReader();
       reader.onload = function (event) {
         var res = event.target.result;
-        // base64 incoding
-        //console.log(res[0]);
         resolve(res);
       };
       var file = this.response;

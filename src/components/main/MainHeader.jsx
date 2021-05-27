@@ -12,17 +12,23 @@ const MainHeaderWrapper = styled.div`
   display: flex;
 `;
 const MyProfileWrapper = styled.div`
-  border: 1px solid red;
+  border: 1px solid #ddd;
+  border-right: none;
   flex: 1;
   display: flex;
   .profile-image {
-    text-align: center;
     flex: 1;
-    border: 1px solid violet;
+    display: flex;
+    justify-content: center;
+    .ant-image {
+      display: flex;
+
+      align-items: center;
+    }
   }
   .profile-desc {
     flex: 1;
-    border: 1px solid violet;
+    /* border: 1px solid blue; */
     display: flex;
     flex-direction: column;
     .info {
@@ -36,13 +42,15 @@ const MyProfileWrapper = styled.div`
       flex: 1;
       font-weight: 600;
       font-size: 1.75rem;
-      border: 1px solid red;
+      border: 1px solid #ddd;
+      border-bottom: none;
       text-align: center;
     }
     .username {
       flex: 1;
       font-size: 1.25rem;
-      border: 1px solid red;
+      border: 1px solid #ddd;
+      border-bottom: none;
       color: #aaa;
       padding: 20px;
       text-align: center;
@@ -52,7 +60,8 @@ const MyProfileWrapper = styled.div`
 
 const RoomBtnWrapper = styled.div`
   display: flex;
-  border: 1px solid red;
+  border: 1px solid #ddd;
+  border-left: none;
   flex: 1;
 
   .guest {
@@ -104,7 +113,7 @@ const MainHeader = () => {
         <div className="profile-image">
           <Image
             width={120}
-            src={me.data.profileImage}
+            src={`data:image/png;base64,` + me.data.profileImage}
             style={{ marginRight: "20px" }}
           />
         </div>
