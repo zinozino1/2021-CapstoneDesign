@@ -10,6 +10,16 @@ import { useSelector } from "react-redux";
 
 const MainHeaderWrapper = styled.div`
   display: flex;
+  .ant-descriptions .ant-descriptions-bordered {
+    height: 100%;
+  }
+  .ant-descriptions-view {
+    height: 180px;
+    th,
+    td {
+      height: 180px;
+    }
+  }
 `;
 const MyProfileWrapper = styled.div`
   border: 1px solid #ddd;
@@ -65,6 +75,7 @@ const RoomBtnWrapper = styled.div`
   border: 1px solid #ddd;
   border-left: none;
   flex: 1;
+  height: 180px;
 
   .guest {
     flex: 1;
