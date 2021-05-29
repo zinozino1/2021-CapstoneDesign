@@ -47,14 +47,14 @@ const columns = [
 
 const HostHistoryDetail = ({ data }) => {
   const [newData, setNewData] = useState(
-    data.groupMember.map((v, i) => ({
+    data.historyGroupMemberDtoList.map((v, i) => ({
       key: i,
       name: v.name,
       email: v.email,
       attitude:
         v.attitude === 1 ? "Bad" : v.attitude === 2 ? "Average" : "Good",
       absenceTime: v.absenceTime + " minutes",
-      attendace: v.isAttend ? "PASS" : "FAIL",
+      attendace: v.attend ? "PASS" : "FAIL",
     })),
   );
 
@@ -67,7 +67,6 @@ const HostHistoryDetail = ({ data }) => {
           scroll={{ y: 450 }}
           pagination={false}
         />
-        ,
       </TableWrapper>
     </HostHistoryDetailWrapper>
   );

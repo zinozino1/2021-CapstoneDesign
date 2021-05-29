@@ -89,6 +89,8 @@ const Summary = ({ onAir, setOnAir }) => {
 
   const [h, m, s] = useTimer(onAir);
 
+  const [alertTimer, setAlertTimer] = useState(0);
+
   const startClass = () => {
     // 주기호출 api call 만들어야함
     if (!onAir) {
@@ -122,7 +124,8 @@ const Summary = ({ onAir, setOnAir }) => {
         axios
           .post(`${BACK_URL}/api/group/endSession/${sessionId}`)
           .then((res) => {
-            console.log(res);
+            console.log("수업종료.");
+            setAlertTimer(0);
           })
           .catch((e) => {
             console.log(e);
@@ -206,25 +209,34 @@ const Summary = ({ onAir, setOnAir }) => {
 
   // 수업 분위기 알림
 
-  // useEffect(() => {
-  //   let intervalAlert;
+  useEffect(() => {
+    let intervalAlert;
 
-  //   if (onAir) {
-  //     intervalAlert = setInterval(() => {
-  //       axios.get(`/api/group/getVibe/${sessionId}`);
-  //     }, 1000)
-  //       .then((res) => {
-  //         console.log(res);
-  //       })
-  //       .catch((e) => {
-  //         console.log(e);
-  //       });
-  //   } else {
-  //   }
-  //   return () => {
-  //     clearInterval(intervalAlert);
-  //   };
-  // }, [sessionId, onAir]);
+    if (onAir && groupDetail) {
+      intervalAlert = setInterval(() => {
+        axios
+          .get(`/api/history/getVibe/${sessionId}`)
+          .then((res) => {
+            console.log("웹캠을 킨 학생이 있습니다 - 수업분위기는", res.data);
+            setAlertTimer(alertTimer + 1);
+            if (
+              alertTimer !== 0 &&
+              alertTimer % (groupDetail.data.absenceTime * 60) === 0
+            ) {
+              console.log("설정된 시간에 따른 수업분위기는 : ", res.data);
+            }
+          })
+          .catch((e) => {
+            console.log("아직 웸캡을 킨 학생이 없습니다.");
+          });
+      }, 1000);
+    } else {
+      clearInterval(intervalAlert);
+    }
+    return () => {
+      clearInterval(intervalAlert);
+    };
+  }, [sessionId, onAir, alertTimer, groupDetail]);
 
   if (!groupDetail) return null;
 

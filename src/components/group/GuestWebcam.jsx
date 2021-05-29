@@ -206,7 +206,13 @@ const GuestWebcam = () => {
             }`,
           )
           .then((res) => {
-            console.log(res.data.onAir, res.data.sessionId);
+            if (res.data.onAir) {
+              console.log("수업이 시작되었습니다.");
+            } else {
+              console.log(
+                "수업이 아직 시작되지 않았습니다./수업이 끝났습니다.",
+              );
+            }
             setIsOnAir(res.data.onAir);
             setSessionId(res.data.sessionId);
           });
@@ -226,7 +232,7 @@ const GuestWebcam = () => {
     if (enableWebcam && isOnAir && sessionId && me) {
       // 나중에 시간 조정해야함
       intervalThrowData = setInterval(() => {
-        console.log("data fetching.");
+        console.log("수업이 시작되어 분석 결과 백엔드로 보내는중..");
         // console.log({
         //   sessionId,
         //   userId: me.data.userId,
@@ -238,12 +244,12 @@ const GuestWebcam = () => {
           .post(`/api/history/createHistory`, {
             sessionId,
             userId: me.data.userId,
-            pitch: 2.1,
+            pitch: 2,
             yaw: -1,
             absence: false,
           })
           .then((res) => {
-            console.log(res);
+            //console.log(res);
           })
           .catch((e) => {
             console.log(e);
