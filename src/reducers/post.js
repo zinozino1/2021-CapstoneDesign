@@ -78,6 +78,17 @@ export const WAITING_TO_NONE = "post/WAITING_TO_NONE";
 
 export const JOIN_TO_WAITING = "post/JOIN_TO_WAITING";
 
+export const LOAD_INTERVAL_GROUPLIST = "post/LOAD_INTERVAL_GROUPLIST";
+export const LOAD_INTERVAL_GROUPLIST_SUCCESS =
+  "post/LOAD_INTERVAL_GROUPLIST_SUCCESS";
+
+export const LOAD_INTERVAL_WAITINGLIST = "post/LOAD_INTERVAL_WAITINGLIST";
+export const LOAD_INTERVAL_WAITINGLIST_SUCCESS =
+  "post/LOAD_INTERVAL_WAITINGLIST_SUCCESS";
+
+export const LOAD_WAITING_MEMBER = "post/LOAD_WAITING_MEMBER";
+export const LOAD_WAITING_MEMBER_SUCCESS = "post/LOAD_WAITING_MEMBER_SUCCESS";
+
 // action creator
 
 export const initializePostAction = createAction(INITIALIZE_POST);
@@ -127,6 +138,21 @@ export const waitingToGroup = createAction(WAITING_TO_GROUP, (data) => data);
 export const waitingToNone = createAction(WAITING_TO_NONE, (data) => data);
 
 export const joinToWaiting = createAction(JOIN_TO_WAITING, (data) => data);
+
+export const loadIntervalGroupList = createAction(
+  LOAD_INTERVAL_GROUPLIST,
+  (data) => data,
+);
+
+export const loadIntervalWaitingList = createAction(
+  LOAD_INTERVAL_WAITINGLIST,
+  (data) => data,
+);
+
+export const loadWaitingMember = createAction(
+  LOAD_WAITING_MEMBER,
+  (data) => data,
+);
 
 // reducer
 
@@ -314,6 +340,34 @@ const post = handleActions(
           groupId: 1,
           waitingStatus: "WAIT",
         }),
+      },
+    }),
+    [LOAD_INTERVAL_GROUPLIST_SUCCESS]: (state, action) => {
+      return {
+        ...state,
+        groupList: {
+          ...state.groupList,
+          data: action.res,
+        },
+      };
+    },
+    [LOAD_INTERVAL_WAITINGLIST_SUCCESS]: (state, action) => {
+      return {
+        ...state,
+        waitingList: {
+          ...state.waitingList,
+          data: action.res,
+        },
+      };
+    },
+    [LOAD_WAITING_MEMBER_SUCCESS]: (state, action) => ({
+      ...state,
+      groupDetail: {
+        ...state.groupDetail,
+        data: {
+          ...state.groupDetail.data,
+          waitingMemberDtoList: action.res,
+        },
       },
     }),
   },

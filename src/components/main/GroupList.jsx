@@ -6,7 +6,10 @@ import MainListIndex from "../common/MainListIndex";
 import { groupList } from "../../libs/util/dummyCreator";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { loadGroupListRequestAction } from "../../reducers/post";
+import {
+  loadGroupListRequestAction,
+  loadIntervalGroupList,
+} from "../../reducers/post";
 import { Spin } from "antd";
 
 const GroupListWrapper = styled.div`
@@ -31,18 +34,23 @@ const GroupList = () => {
   const { me } = useSelector((state) => state.user);
 
   useEffect(() => {
-    // let loadGroupInterval;
-    // if (me) {
-    //   loadGroupInterval = setInterval(() => {
-    //     dispatch(loadGroupListRequestAction(me.data.userId));
-    //   }, 1500);
-    // }
-    // return () => {
-    //   clearInterval(loadGroupInterval);
-    // };
     if (me) {
       dispatch(loadGroupListRequestAction(me.data.userId));
     }
+  }, [me]);
+
+  useEffect(() => {
+    let loadGroupListInterval;
+
+    if (me) {
+      loadGroupListInterval = setInterval(() => {
+        dispatch(loadIntervalGroupList(me.data.userId));
+      }, 1000);
+    }
+
+    return () => {
+      clearInterval(loadGroupListInterval);
+    };
   }, [me]);
 
   return (

@@ -5,7 +5,10 @@ import MainList from "../common/MainList";
 import { waitingList } from "../../libs/util/dummyCreator";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { loadWaitingListRequestAction } from "../../reducers/post";
+import {
+  loadWaitingListRequestAction,
+  loadIntervalWaitingList,
+} from "../../reducers/post";
 import { Spin } from "antd";
 
 const WaitingListWrapper = styled.div`
@@ -37,8 +40,18 @@ const WaitingList = () => {
   }, [me]);
 
   useEffect(() => {
-    console.log("waiting list rerender", waitingList);
-  }, [waitingList]);
+    let loadGroupListInterval;
+
+    if (me) {
+      loadGroupListInterval = setInterval(() => {
+        dispatch(loadIntervalWaitingList(me.data.userId));
+      }, 1000);
+    }
+
+    return () => {
+      clearInterval(loadGroupListInterval);
+    };
+  }, [me]);
 
   return (
     <WaitingListWrapper>

@@ -31,6 +31,12 @@ import {
   REJECT_MEMBER_FAILURE,
   ALLOW_MEMBER_REQUEST,
   REJECT_MEMBER_REQUEST,
+  LOAD_INTERVAL_GROUPLIST,
+  LOAD_INTERVAL_WAITINGLIST,
+  LOAD_INTERVAL_GROUPLIST_SUCCESS,
+  LOAD_INTERVAL_WAITINGLIST_SUCCESS,
+  LOAD_WAITING_MEMBER,
+  LOAD_WAITING_MEMBER_SUCCESS,
 } from "../reducers/post";
 import {
   hostGroupData,
@@ -50,6 +56,9 @@ import {
   loadHistoryList,
   loadGuestRecentTrends,
   loadHostRecentTrends,
+  loadIntervalGroupList,
+  loadIntervalWaitingList,
+  loadWaitingMember,
 } from "../libs/api/post";
 import axios from "axios";
 
@@ -168,6 +177,34 @@ function* rejectMemberSaga(action) {
   }
 }
 
+function* loadIntervalGroupListSaga(action) {
+  try {
+    const res = yield call(loadIntervalGroupList, action.payload);
+    yield put({ type: LOAD_INTERVAL_GROUPLIST_SUCCESS, res: res.data });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* loadIntervalWaitingListSaga(action) {
+  try {
+    const res = yield call(loadIntervalWaitingList, action.payload);
+    yield put({ type: LOAD_INTERVAL_WAITINGLIST_SUCCESS, res: res.data });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* loadWaitingMemberSaga(action) {
+  try {
+    const res = yield call(loadWaitingMember, action.payload);
+
+    yield put({ type: LOAD_WAITING_MEMBER_SUCCESS, res: res.data });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function* watchPost() {
   yield takeLatest(LOAD_POST_REQUEST, loadPostSaga);
   yield takeLatest(LOAD_GROUP_LIST_REQUEST, loadGroupListSaga);
@@ -177,4 +214,7 @@ export function* watchPost() {
   yield takeLatest(LOAD_HISTORY_LIST_REQEUST, loadHistoryListSaga);
   yield takeLatest(ALLOW_MEMBER_REQUEST, allowMemberSaga);
   yield takeLatest(REJECT_MEMBER_REQUEST, rejectMemberSaga);
+  yield takeLatest(LOAD_INTERVAL_GROUPLIST, loadIntervalGroupListSaga);
+  yield takeLatest(LOAD_INTERVAL_WAITINGLIST, loadIntervalWaitingListSaga);
+  yield takeLatest(LOAD_WAITING_MEMBER, loadWaitingMemberSaga);
 }

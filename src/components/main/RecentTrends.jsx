@@ -88,14 +88,10 @@ const RecentTrends = () => {
             <RateItem>
               <Progress
                 type="circle"
-                percent={guestRecentTrends.concentrationRate}
+                percent={guestRecentTrends.concentrationRate * 30}
                 format={(percent) =>
                   `${
-                    percent <= 33 && percent >= 0
-                      ? "Bad.."
-                      : percent <= 66 && percent >= 34
-                      ? "Normal"
-                      : "Good!"
+                    percent === 1 ? "Bad.." : percent === 2 ? "Normal" : "Good!"
                   }`
                 }
               />
@@ -130,14 +126,10 @@ const RecentTrends = () => {
             <RateItem>
               <Progress
                 type="circle"
-                percent={hostRecentTrends.concentrationRate}
+                percent={hostRecentTrends.concentrationRate * 30}
                 format={(percent) =>
                   `${
-                    percent <= 33 && percent >= 0
-                      ? "Bad.."
-                      : percent <= 66 && percent >= 34
-                      ? "Normal"
-                      : "Good!"
+                    percent === 1 ? "Bad.." : percent === 2 ? "Normal" : "Good!"
                   }`
                 }
               />

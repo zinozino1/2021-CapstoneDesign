@@ -7,7 +7,10 @@ import WaitingList from "../components/main/WaitingList";
 import RecentTrends from "../components/main/RecentTrends";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { initializeGroupAndWaitingList } from "../reducers/post";
+import {
+  initializeGroupAndWaitingList,
+  loadIntervalGroupList,
+} from "../reducers/post";
 
 const MainWrapper = styled.div``;
 
@@ -21,6 +24,20 @@ const Main = ({ history }) => {
       dispatch(initializeGroupAndWaitingList());
     };
   }, []);
+
+  // useEffect(() => {
+  //   let loadGroupListInterval;
+
+  //   if (me) {
+  //     loadGroupListInterval = setInterval(() => {
+  //       dispatch(loadIntervalGroupList(me.data.userId));
+  //     }, 1000);
+  //   }
+
+  //   return () => {
+  //     clearInterval(loadGroupListInterval);
+  //   };
+  // }, [me]);
 
   if (!me) {
     history.push("/");

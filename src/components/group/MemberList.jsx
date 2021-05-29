@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Divider, Button } from "antd";
@@ -8,6 +8,7 @@ import {
   rejectMemberRequestAction,
   waitingToGroup,
   waitingToNone,
+  loadWaitingMember,
 } from "../../reducers/post";
 
 // 그룹멤버리스트, 대기리스트 분기해야함
@@ -50,10 +51,25 @@ const MemberList = ({ type, onAir }) => {
   const dispatch = useDispatch();
   const { groupDetail } = useSelector((state) => state.post);
 
-  if (!groupDetail) return null;
+  useEffect(() => {
+    let loadWaitingMemberInterval;
+
+    loadWaitingMemberInterval = setInterval(() => {
+      dispatch(
+        loadWaitingMember(
+          document.location.href.split("/")[
+            document.location.href.split("/").length - 1
+          ],
+        ),
+      );
+    }, 5000);
+
+    return () => {
+      clearInterval(loadWaitingMemberInterval);
+    };
+  }, []);
 
   const allowMember = (userEmail, groupId, name) => {
-    console.log(userEmail, groupId, name);
     dispatch(waitingToGroup({ name, userEmail }));
     dispatch(waitingToNone({ name, userEmail }));
     dispatch(allowMemberRequestAction({ userEmail, groupId }));
@@ -63,6 +79,8 @@ const MemberList = ({ type, onAir }) => {
     dispatch(waitingToNone({ name, userEmail }));
     dispatch(rejectMemberRequestAction({ userEmail, groupId }));
   };
+
+  if (!groupDetail) return null;
 
   return (
     <MemberListContainer>

@@ -30,3 +30,12 @@ export const loadHostRecentTrends = (userId) =>
 
 export const exitGroup = (groupId, userId) =>
   client.patch(`/api/group/exitGroup/${groupId}`, { userId });
+
+export const loadIntervalGroupList = (userId) =>
+  client.get(`/api/main/getGroupList/${userId}`);
+
+export const loadIntervalWaitingList = (groupId) =>
+  client.get(`/api/main/getWaitingList/${groupId}`);
+
+export const loadWaitingMember = (groupId) =>
+  client.get(`/api/group/getWaitingList/${groupId}`);

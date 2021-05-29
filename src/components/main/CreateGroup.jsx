@@ -64,45 +64,10 @@ const CreateGroup = ({ setIsHostModalVisible }) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item name="groupCode" label="Group Code" initialValue="aaa">
+        {/* <Form.Item name="groupCode" label="Group Code" initialValue="aaa">
           <Input placeholder="ASDFSADF" disabled />
-        </Form.Item>
-        <Form.Item label="Class Duration">
-          <div style={{ display: "flex" }}>
-            <Form.Item
-              name="groupDurationHour"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Select placeholder="hour" style={{ flex: "1" }}>
-                {CLASS_DURATION_HOUR.map((v, i) => (
-                  <Select.Option key={i} value={v}>
-                    {v}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Form.Item>
-            <Form.Item
-              name="groupDurationMin"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Select placeholder="minute" style={{ flex: "1" }}>
-                {CLASS_DURATION_MINUTE.map((v, i) => (
-                  <Select.Option key={i} value={v}>
-                    {v}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Form.Item>
-          </div>
-        </Form.Item>
+        </Form.Item> */}
+
         <Form.Item label="Absence Time">
           <Form.Item
             noStyle
@@ -125,7 +90,7 @@ const CreateGroup = ({ setIsHostModalVisible }) => {
             * Set Time for Attendance Failure
           </div>
         </Form.Item>
-        <Form.Item label="Atmosphere Alert Time">
+        <Form.Item label="Alert Duration">
           <Form.Item
             noStyle
             name="alertTime"
