@@ -244,9 +244,9 @@ const GuestWebcam = () => {
           .post(`/api/history/createHistory`, {
             sessionId,
             userId: me.data.userId,
-            pitch: 2,
-            yaw: -1,
-            absence: false,
+            pitch: faker.datatype.number({ max: 12, min: 0 }),
+            yaw: faker.datatype.number({ max: 0, min: -4 }),
+            absence: faker.datatype.boolean(),
           })
           .then((res) => {
             //console.log(res);

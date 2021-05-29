@@ -33,6 +33,8 @@ const RecentTrends = () => {
   const { guestRecentTrends } = useSelector((state) => state.post);
   const { hostRecentTrends } = useSelector((state) => state.post);
 
+  const { me } = useSelector((state) => state.user);
+
   const [currentRole, setCurrentRole] = useState(true);
 
   const onChangeRole = (checked) => {
@@ -40,12 +42,12 @@ const RecentTrends = () => {
   };
 
   useEffect(() => {
-    dispatch(loadGuestRecentTrendsRequestAction());
-  }, []);
+    dispatch(loadGuestRecentTrendsRequestAction(me.data.userId));
+  }, [me]);
 
   useEffect(() => {
-    dispatch(loadHostRecentTrendsRequestAction());
-  }, []);
+    dispatch(loadHostRecentTrendsRequestAction(me.data.userId));
+  }, [me]);
 
   if (!guestRecentTrends || !hostRecentTrends) return null;
 

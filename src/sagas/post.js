@@ -96,11 +96,11 @@ function* loadWaitingListSaga(action) {
 function* loadGuestRecentTrendsSaga(action) {
   try {
     const dummyPost = createGuestRecentTrends();
-    //const res = yield call(loadGuestRecentTrends, action.payload);
+    const res = yield call(loadGuestRecentTrends, action.payload);
     yield delay(100);
     yield put({
       type: LOAD_GUEST_RECENT_TRENDS_SUCCESS,
-      guestRecentTrends: dummyPost,
+      guestRecentTrends: res.data,
     });
   } catch (error) {
     yield put({ type: LOAD_GUEST_RECENT_TRENDS_FAILURE });
@@ -110,11 +110,11 @@ function* loadGuestRecentTrendsSaga(action) {
 function* loadHostRecentTrendsSaga(action) {
   try {
     const dummyPost = createHostRecentTrends();
-    //const res = yield call(loadHostRecentTrends, action.payload)
+    const res = yield call(loadHostRecentTrends, action.payload);
     yield delay(100);
     yield put({
       type: LOAD_HOST_RECENT_TRENDS_SUCCESS,
-      hostRecentTrends: dummyPost,
+      hostRecentTrends: res.data,
     });
   } catch (error) {
     yield put({ type: LOAD_HOST_RECENT_TRENDS_FAILURE });
@@ -127,7 +127,7 @@ function* loadHistoryListSaga(action) {
 
     // yield delay(100);
     const res = yield call(loadHistoryList, action.payload);
-    // console.log(res);
+    console.log(res);
     yield put({
       type: LOAD_HISTORY_LIST_SUCCESS,
       historyList: res.data,
