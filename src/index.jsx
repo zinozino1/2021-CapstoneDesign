@@ -9,6 +9,7 @@ import createSagaMiddleware from "redux-saga";
 import rootReducer from "./reducers";
 import rootSaga from "./sagas";
 import { setUserRequestAction } from "./reducers/user";
+import { HashRouter } from "react-router-dom";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -31,9 +32,7 @@ loadUser();
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename="/2021-CapstoneDesign">
-      <App />
-    </BrowserRouter>
+    <App />
   </Provider>,
   document.getElementById("root"),
 );

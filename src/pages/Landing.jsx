@@ -86,13 +86,13 @@ const Landing = () => {
                 border: `1px solid ` + palette.mainBG,
               }}
             >
-              <a href={`/login`}>Login</a>
+              <a href={`/2021-CapstoneDesign/login`}>Login</a>
             </Button>
           </div>
           <div style={{ color: "#ccc" }} className="register-btn-wrapper">
             <Button type="text">
               <a
-                href={`/register`}
+                href={`/2021-CapstoneDesign/register`}
                 style={{ textDecoration: "underLine", color: "#aaa" }}
               >
                 Register
