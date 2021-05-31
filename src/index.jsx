@@ -11,6 +11,11 @@ import rootSaga from "./sagas";
 import { setUserRequestAction } from "./reducers/user";
 import Landing from "./pages/Landing";
 import { Route, Switch } from "react-router-dom";
+import Main from "./pages/Main";
+import GroupDetail from "./pages/GroupDetail";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import History from "./pages/History";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -34,7 +39,14 @@ loadUser();
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter basename={window.location.pathname || ""}>
-      <Route exact path="/" component={Landing} />
+      <Switch>
+        <Route path="/" component={Landing} exact></Route>
+        <Route path="/main" component={Main} exact></Route>
+        <Route path="/main/:id" component={GroupDetail} exact></Route>
+        <Route path="/login" component={Login} exact></Route>
+        <Route path="/register" component={Register} exact></Route>
+        <Route path="/history" component={History} exact></Route>
+      </Switch>
     </BrowserRouter>
   </Provider>,
   document.getElementById("root"),
