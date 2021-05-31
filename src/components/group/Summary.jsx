@@ -79,7 +79,12 @@ const openNotification = (placement) => {
         ? `0` + new Date().getSeconds()
         : new Date().getSeconds()
     }`,
-    description: "You have been away for a long time. You have been absent.",
+    description:
+      placement === 3
+        ? "Current Classes's Vibe is Good."
+        : placement === 2
+        ? "Current Classes's Vibe is Normal."
+        : "Current Classes's Vibe is Bad.",
     placement,
     duration: 0,
   });
@@ -240,10 +245,11 @@ const Summary = ({ onAir, setOnAir }) => {
           .then((res) => {
             console.log("웹캠을 킨 학생이 있습니다 - 수업분위기는", res.data);
             setAlertTimer(alertTimer + 1);
-            console.log(alertTimer % (groupDetail.data.absenceTime * 6));
+            // console.log(alertTimer, groupDetail.data.alertTime);
             if (
+              // -> 분석 결과 시간에 따른 알림 시간 설정
               alertTimer !== 0 &&
-              alertTimer % (groupDetail.data.absenceTime * 6) === 0
+              alertTimer % (groupDetail.data.alertTime * 6) === 0
             ) {
               console.log("알림 시간 설정에 따른 알림", res.data.vibe);
               openNotification(res.data.vibe);
