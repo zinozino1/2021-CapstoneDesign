@@ -207,10 +207,11 @@ const GuestWebcam = () => {
           )
           .then((res) => {
             if (res.data.onAir) {
-              console.log("수업이 시작되었습니다.");
+              console.log("수업이 시작되었습니다.", res.data);
             } else {
               console.log(
                 "수업이 아직 시작되지 않았습니다./수업이 끝났습니다.",
+                res.data,
               );
             }
             setIsOnAir(res.data.onAir);
@@ -254,7 +255,7 @@ const GuestWebcam = () => {
           .catch((e) => {
             console.log(e);
           });
-      }, 1000);
+      }, 2000);
     } else {
       clearInterval(intervalThrowData);
     }

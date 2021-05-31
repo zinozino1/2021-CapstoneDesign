@@ -44,8 +44,9 @@ const WaitingList = () => {
 
     if (me) {
       loadGroupListInterval = setInterval(() => {
+        console.log("대기리스트 업데이트...");
         dispatch(loadIntervalWaitingList(me.data.userId));
-      }, 1000);
+      }, 2500);
     }
 
     return () => {

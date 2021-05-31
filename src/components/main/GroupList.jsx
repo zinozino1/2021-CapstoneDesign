@@ -44,8 +44,9 @@ const GroupList = () => {
 
     if (me) {
       loadGroupListInterval = setInterval(() => {
+        console.log("그룹리스트 업데이트..");
         dispatch(loadIntervalGroupList(me.data.userId));
-      }, 1000);
+      }, 2500);
     }
 
     return () => {

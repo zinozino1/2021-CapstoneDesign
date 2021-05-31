@@ -55,6 +55,7 @@ const MemberList = ({ type, onAir }) => {
     let loadWaitingMemberInterval;
 
     loadWaitingMemberInterval = setInterval(() => {
+      console.log("대기리스트 멤버 업데이트.....");
       dispatch(
         loadWaitingMember(
           document.location.href.split("/")[

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
-import { Button, Input, Select } from "antd";
+import { Button, Input, Select, notification } from "antd";
 import useTimer from "../../hooks/useTimer";
 import axios from "axios";
 import {
@@ -63,6 +63,27 @@ const SummaryFooter = styled.div`
     margin-left: 3px;
   }
 `;
+
+const openNotification = (placement) => {
+  notification.info({
+    message: `${
+      new Date().getHours() < 10
+        ? `0` + new Date().getHours()
+        : new Date().getHours()
+    }:${
+      new Date().getMinutes() < 10
+        ? `0` + new Date().getMinutes()
+        : new Date().getMinutes()
+    }:${
+      new Date().getSeconds() < 10
+        ? `0` + new Date().getSeconds()
+        : new Date().getSeconds()
+    }`,
+    description: "You have been away for a long time. You have been absent.",
+    placement,
+    duration: 0,
+  });
+};
 
 // 게스트, 호스트에 따라 다르게
 const Summary = ({ onAir, setOnAir }) => {
@@ -219,17 +240,19 @@ const Summary = ({ onAir, setOnAir }) => {
           .then((res) => {
             console.log("웹캠을 킨 학생이 있습니다 - 수업분위기는", res.data);
             setAlertTimer(alertTimer + 1);
+            console.log(alertTimer % (groupDetail.data.absenceTime * 6));
             if (
               alertTimer !== 0 &&
-              alertTimer % (groupDetail.data.absenceTime * 60) === 0
+              alertTimer % (groupDetail.data.absenceTime * 6) === 0
             ) {
-              console.log("설정된 시간에 따른 수업분위기는 : ", res.data);
+              console.log("알림 시간 설정에 따른 알림", res.data.vibe);
+              openNotification(res.data.vibe);
             }
           })
           .catch((e) => {
             console.log("아직 웸캡을 킨 학생이 없습니다.");
           });
-      }, 1000);
+      }, 2000);
     } else {
       clearInterval(intervalAlert);
     }
