@@ -103,11 +103,17 @@ const GuestHistoryDetail = ({ data }) => {
                   <th className="th">State</th>
                   <th className="th">Time Log</th>
                 </tr>
-                {data.timeLineLog &&
-                  data.timeLineLog.map((v, i) => (
+                {data.timeLineLogList &&
+                  data.timeLineLogList.map((v, i) => (
                     <tr key={i}>
                       <td>{v.state}</td>
                       <td>
+                        {`${v.endHour < 10 ? "0" + v.endHour : v.endHour}:${
+                          v.endMinute < 10 ? "0" + v.endMinute : v.endMinute
+                        }:${
+                          v.endSecond < 10 ? "0" + v.endSecond : v.endSecond
+                        }`}{" "}
+                        -{" "}
                         {`${
                           v.startHour < 10 ? "0" + v.startHour : v.startHour
                         }:${
@@ -116,14 +122,8 @@ const GuestHistoryDetail = ({ data }) => {
                             : v.startMinute
                         }:${
                           v.startSeconds < 10
-                            ? "0" + v.startSeconds
-                            : v.startSeconds
-                        }`}{" "}
-                        -{" "}
-                        {`${v.endHour < 10 ? "0" + v.endHour : v.endHour}:${
-                          v.endMinute < 10 ? "0" + v.endMinute : v.endMinute
-                        }:${
-                          v.endSeconds < 10 ? "0" + v.endSeconds : v.endSeconds
+                            ? "0" + v.startSecond
+                            : v.startSecond
                         }`}
                       </td>
                     </tr>

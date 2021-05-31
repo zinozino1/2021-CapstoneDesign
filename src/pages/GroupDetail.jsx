@@ -76,7 +76,6 @@ const GroupDetail = ({ match }) => {
       });
     });
 
-    console.log(tmp1, tmp2, tmp3, tmp4);
     const data = {
       groupData: [
         { groupName: "Capstone Design", userId: "1", images: tmp1 },
@@ -86,7 +85,6 @@ const GroupDetail = ({ match }) => {
       ],
     };
 
-    console.log(data);
     setTimeout(() => {
       axios
         .post("http://localhost:5000/groupImages", data)
@@ -98,11 +96,6 @@ const GroupDetail = ({ match }) => {
         });
     }, 2000);
   };
-
-  useEffect(() => {
-    //let s = imageToBase64(park1);
-    //console.log(s);
-  }, []);
 
   useEffect(() => {
     const { id } = match.params;

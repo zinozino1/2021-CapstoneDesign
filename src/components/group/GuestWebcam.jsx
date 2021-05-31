@@ -265,7 +265,7 @@ const GuestWebcam = () => {
                     userId: me.data.userId,
                     pitch: parseFloat(res.data.pitch),
                     yaw: parseFloat(res.data.yaw),
-                    absence: res.data.attendance,
+                    absence: !res.data.attendance,
                   })
                   .then((res) => {
                     console.log("프론트 -> 백엔드 : ", res);
