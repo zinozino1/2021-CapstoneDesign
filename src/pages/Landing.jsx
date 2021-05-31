@@ -4,6 +4,7 @@ import { Button, Modal } from "antd";
 import LandingLogo from "../statics/images/LandingLogo3.png";
 import { CLIENT_URL } from "../libs/constant/constant";
 import { palette } from "../libs/constant/palette";
+import { Link } from "react-router-dom";
 
 const LadingWrapper = styled.div``;
 
@@ -86,19 +87,17 @@ const Landing = () => {
                 border: `1px solid ` + palette.mainBG,
               }}
             >
-              <a href={`https://zinozino1.github.io/2021-CapstoneDesign/login`}>
-                Login
-              </a>
+              <Link to="login">Login</Link>
             </Button>
           </div>
           <div style={{ color: "#ccc" }} className="register-btn-wrapper">
             <Button type="text">
-              <a
-                href={`https://zinozino1.github.io/2021-CapstoneDesign/register`}
+              <Link
+                to="register"
                 style={{ textDecoration: "underLine", color: "#aaa" }}
               >
                 Register
-              </a>
+              </Link>
             </Button>
           </div>
         </div>
