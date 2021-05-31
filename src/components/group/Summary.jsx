@@ -249,7 +249,7 @@ const Summary = ({ onAir, setOnAir }) => {
             if (
               // -> 분석 결과 시간에 따른 알림 시간 설정
               alertTimer !== 0 &&
-              alertTimer % (groupDetail.data.alertTime * 6) === 0
+              alertTimer % (groupDetail.data.alertTime * 60) === 0
             ) {
               console.log("알림 시간 설정에 따른 알림", res.data.vibe);
               openNotification(res.data.vibe);
