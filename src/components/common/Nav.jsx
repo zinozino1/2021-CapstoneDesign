@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Link, withRouter } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutRequestAction } from "../../reducers/user";
 
 const NavWrapper = styled.div`
   width: 200px;
@@ -28,9 +30,11 @@ const NavLink = styled.div`
 
 const Nav = ({ history }) => {
   const [currentMenu, setCurrentMenu] = useState("Home");
+  const dispatch = useDispatch();
 
   const onLogout = () => {
     localStorage.removeItem("user");
+    dispatch(logoutRequestAction());
     history.push("/");
   };
 

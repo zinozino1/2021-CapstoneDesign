@@ -4,9 +4,7 @@ import { Table } from "antd";
 
 const HostHistoryDetailWrapper = styled.div``;
 
-const TableWrapper = styled.div`
-  border: 1px solid red;
-`;
+const TableWrapper = styled.div``;
 
 const columns = [
   {

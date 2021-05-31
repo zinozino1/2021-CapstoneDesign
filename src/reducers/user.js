@@ -96,6 +96,7 @@ const user = handleActions(
       logoutLoading: true,
       logoutDone: false,
       logoutError: null,
+      me: null,
     }),
     [LOG_OUT_SUCCESS]: (state, action) => ({
       ...state,
