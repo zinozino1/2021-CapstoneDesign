@@ -1,9 +1,9 @@
 {
   "name": "capstone-demo",
-  "homepage": "http://zinozino1.github.io/2021-CapstoneDesign",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "homepage": "http://zinozino1.github.io/2021-CapstoneDesign",
     "@ant-design/icons": "^4.6.2",
     "@nivo/bar": "^0.69.1",
     "@nivo/core": "^0.69.0",
