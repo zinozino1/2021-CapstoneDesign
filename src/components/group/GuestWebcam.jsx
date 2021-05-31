@@ -281,7 +281,7 @@ const GuestWebcam = () => {
               }
             })
             .catch((e) => {
-              console.log(e);
+              console.log("부재/에러이지만 백엔드로 데이터 보내는중");
               setAbsenceTime(absenceTime + 1);
               if (absenceTime > 1) {
                 // 설정한 결석시간에 맞게 바꿔야함
@@ -289,6 +289,27 @@ const GuestWebcam = () => {
                   openNotification("bottomRight");
                 }
                 setAbsenceCount(absenceCount + 1);
+              }
+              if (sessionId) {
+                axios
+                  .post(`/api/history/createHistory`, {
+                    sessionId,
+                    userId: me.data.userId,
+                    pitch: 0,
+                    yaw: 0,
+                    absence: true,
+                  })
+                  .then((res) => {
+                    console.log("프론트 -> 백엔드 : ", res);
+                    //console.log(res);
+                  })
+                  .catch((e) => {
+                    console.log(e);
+                  });
+              } else {
+                console.log(
+                  "아직 수업이 시작되지 않아 백엔드로 데이터 안보내는중",
+                );
               }
             });
         }
