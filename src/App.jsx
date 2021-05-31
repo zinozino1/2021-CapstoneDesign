@@ -11,7 +11,7 @@ import GroupDetail from "./pages/GroupDetail";
 const App = () => {
   return (
     <>
-      <BrowserRouter basename="/2021-CapstoneDesign">
+      <BrowserRouter basename="/zinozino1.github.io/2021-CapstoneDesign/">
         <Route path="/" component={Landing} exact></Route>
         <Route path="/main" component={Main} exact></Route>
         <Route path="/main/:id" component={GroupDetail}></Route>
