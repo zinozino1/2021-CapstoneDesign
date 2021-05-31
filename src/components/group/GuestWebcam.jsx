@@ -207,8 +207,8 @@ const GuestWebcam = () => {
               },
             })
             .then((res) => {
-              console.log("분석서버 -> 프론트 : ", res);
-              console.log(res.data, sessionId);
+              console.log("분석서버 -> 프론트 : ", res.data);
+
               // 1. 백엔드로 보내야함
 
               //-> 분석결과 axios로 요청
@@ -240,6 +240,7 @@ const GuestWebcam = () => {
                     }
                     // 졸기 시작했을 때
                     if (drowFlag) {
+                      console.log("눈을 감았습니다.");
                       setDrowTime(drowTime + 1);
                       if (drowTime > 5) {
                         // 10초이상 눈 감은 경우
@@ -255,8 +256,9 @@ const GuestWebcam = () => {
                     }
                     // 결석 시작했을 때
                     if (absenceFlag) {
+                      console.log("자리비움을 시작했습니다.");
                       setAbsenceTime(absenceTime + 1);
-                      if (absenceTime > 10) {
+                      if (absenceTime > 5) {
                         // 설정한 결석시간에 맞게 바꿔야함
                         if (absenceCount === 0) {
                           openNotification("bottomRight");
@@ -342,7 +344,20 @@ const GuestWebcam = () => {
       clearInterval(initIntervalCapture);
       clearInterval(afterIntervalCapture);
     };
-  }, [enableWebcam, capture, image, initFlag, me, sessionId]);
+  }, [
+    enableWebcam,
+    capture,
+    image,
+    initFlag,
+    me,
+    sessionId,
+    drowCount,
+    drowFlag,
+    drowTime,
+    absenceCount,
+    absenceFlag,
+    absenceTime,
+  ]);
 
   // 수업 시작했는지 체크하는 코드
   useEffect(() => {
