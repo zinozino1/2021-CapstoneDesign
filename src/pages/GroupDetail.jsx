@@ -129,7 +129,7 @@ const GroupDetail = ({ match }) => {
             <MemberList type="groupMember" match={match} />
             <MemberList type="waitingMember" match={match} onAir={onAir} />
           </div>
-          {/* <Button onClick={sendTestImages}>Send Group Member's Images</Button> */}
+          <Button onClick={sendTestImages}>Send Group Member's Images</Button>
         </>
       ) : (
         <GuestWebcam />

@@ -92,6 +92,8 @@ const GuestWebcam = () => {
 
   const [sessionId, setSessionId] = useState(false);
 
+  const [initFlag, setInitFlag] = useState(true);
+
   const { groupDetail } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
 
@@ -161,36 +163,143 @@ const GuestWebcam = () => {
   // };
 
   // 실제
+  // 처음 : 7초
+  useEffect(() => {
+    let initIntervalCapture;
+    let afterIntervalCapture;
 
-  // useEffect(() => {
-  //   let intervalCapture;
+    if (enableWebcam && initFlag) {
+      initIntervalCapture = setInterval(() => {
+        capture();
+        if (image) {
+          console.log("image 캡쳐하여 분석서버로 보냈음 - init");
+          axios
+            .post("http://13.125.54.51:5000/image", image, {
+              header: {
+                "Content-Type": "multipart/form-data",
+                Accept: "multipart/form-data",
+              },
+            })
+            .then((res) => {
+              setInitFlag(false);
+              console.log("초기분석결과 : ", res);
+            })
+            .catch((e) => {
+              setInitFlag(false);
+              console.log(e);
+            });
+        }
+      }, 7000);
+    } else {
+      clearInterval(initIntervalCapture);
+    }
 
-  //   if (enableWebcam) {
-  //     intervalCapture = setInterval(() => {
-  //       capture();
-  //       if (image) {
-  //         axios
-  //           .post("http://localhost:5000/image", image, {
-  //             header: {
-  //               "Content-Type": "multipart/form-data",
-  //               Accept: "multipart/form-data",
-  //             },
-  //           })
-  //           .then((res) => {
-  //             console.log(res);
-  //           })
-  //           .catch((e) => {
-  //             console.log(e);
-  //           });
-  //       }
-  //     }, 7000);
-  //   } else {
-  //     clearInterval(intervalCapture);
-  //   }
-  //   return () => {
-  //     clearInterval(intervalCapture);
-  //   };
-  // }, [enableWebcam, capture, image]);
+    if (enableWebcam && !initFlag) {
+      afterIntervalCapture = setInterval(() => {
+        capture();
+        if (image) {
+          console.log("image 캡쳐하여 분석서버로 보냈음 - not init");
+          axios
+            .post("http://13.125.54.51:5000/image", image, {
+              header: {
+                "Content-Type": "multipart/form-data",
+                Accept: "multipart/form-data",
+              },
+            })
+            .then((res) => {
+              console.log("분석서버 -> 프론트 : ", res);
+              console.log(res.data, sessionId);
+              // 1. 백엔드로 보내야함
+
+              //-> 분석결과 axios로 요청
+              if (res.data && sessionId) {
+                axios
+                  .post(`/api/history/createHistory`, {
+                    sessionId,
+                    userId: me.data.userId,
+                    pitch: parseFloat(res.data.pitch),
+                    yaw: parseFloat(res.data.yaw),
+                    absence: res.data.attendance,
+                  })
+                  .then((res) => {
+                    console.log("프론트 -> 백엔드 : ", res);
+                    //console.log(res);
+                  })
+                  .catch((e) => {
+                    console.log(e);
+                  });
+              } else {
+                console.log(
+                  "아직 수업이 시작되지 않아 백엔드로 데이터 안보내는중",
+                );
+              }
+
+              // 2. local state에 저장해서 알림기능 해야함
+
+              // let tmp = faker.datatype.number({
+              //   min: 96,
+              //   max: 100,
+              // });
+              // let tmp2 = true;
+              // console.log(tmp);
+              // console.log("absence Time : ", absenceTime);
+              // // if (tmp > 95) {
+
+              // //   openNotification("bottomRight");
+              // // }
+              // if (tmp > 95) {
+              //   setAbsenceFlag(true);
+              // } else {
+              //   setAbsenceFlag(false);
+              // }
+
+              // if (tmp2) {
+              //   setDrowFlag(true);
+              // } else {
+              //   setDrowFlag(false);
+              // }
+              // // 졸기 시작했을 때
+              // if (drowFlag) {
+              //   setDrowTime(drowTime + 1);
+              //   if (drowTime > 10) {
+              //     // 10초이상 눈 감은 경우
+              //     if (drowCount === 0) {
+              //       openNotification2("bottomRight");
+              //     }
+              //     setDrowCount(drowCount + 1);
+              //   }
+              // } else {
+              //   // 안졸기 시작했을 때
+              //   setDrowCount(0);
+              //   setDrowTime(0);
+              // }
+
+              // if (absenceFlag) {
+              //   setAbsenceTime(absenceTime + 1);
+              //   if (absenceTime > 10) {
+              //     if (absenceCount === 0) {
+              //       openNotification("bottomRight");
+              //     }
+              //     setAbsenceCount(absenceCount + 1);
+              //   }
+              // } else {
+              //   setAbsenceTime(0);
+              // }
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+        // setInitFlag(false);
+      }, 6000);
+    } else {
+      clearInterval(afterIntervalCapture);
+    }
+    return () => {
+      clearInterval(initIntervalCapture);
+      clearInterval(afterIntervalCapture);
+    };
+  }, [enableWebcam, capture, image, initFlag, me, sessionId]);
 
   // 수업 시작했는지 체크하는 코드
   useEffect(() => {
@@ -206,14 +315,14 @@ const GuestWebcam = () => {
             }`,
           )
           .then((res) => {
-            if (res.data.onAir) {
-              console.log("수업이 시작되었습니다.", res.data);
-            } else {
-              console.log(
-                "수업이 아직 시작되지 않았습니다./수업이 끝났습니다.",
-                res.data,
-              );
-            }
+            // if (res.data.onAir) {
+            //   console.log("수업이 시작되었습니다.", res.data);
+            // } else {
+            //   console.log(
+            //     "수업이 아직 시작되지 않았습니다./수업이 끝났습니다.",
+            //     res.data,
+            //   );
+            // }
             setIsOnAir(res.data.onAir);
             setSessionId(res.data.sessionId);
           });
@@ -227,42 +336,42 @@ const GuestWebcam = () => {
   }, [enableWebcam]);
 
   // 웹캠 켰을 때 데이터 실시간으로 보내기 -> 나중에 capture랑 물려야함
-  useEffect(() => {
-    let intervalThrowData;
+  // useEffect(() => {
+  //   let intervalThrowData;
 
-    if (enableWebcam && isOnAir && sessionId && me) {
-      // 나중에 시간 조정해야함
-      intervalThrowData = setInterval(() => {
-        console.log("수업이 시작되어 분석 결과 백엔드로 보내는중..");
-        // console.log({
-        //   sessionId,
-        //   userId: me.data.userId,
-        //   pitch: 2.1,
-        //   yaw: -1,
-        //   absence: false,
-        // });
-        axios
-          .post(`/api/history/createHistory`, {
-            sessionId,
-            userId: me.data.userId,
-            pitch: faker.datatype.number({ max: 12, min: 0 }),
-            yaw: faker.datatype.number({ max: 0, min: -4 }),
-            absence: faker.datatype.boolean(),
-          })
-          .then((res) => {
-            //console.log(res);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      }, 2000);
-    } else {
-      clearInterval(intervalThrowData);
-    }
-    return () => {
-      clearInterval(intervalThrowData);
-    };
-  }, [enableWebcam, isOnAir, sessionId, me]);
+  //   if (enableWebcam && isOnAir && sessionId && me) {
+  //     // 나중에 시간 조정해야함
+  //     intervalThrowData = setInterval(() => {
+  //       console.log("수업이 시작되어 분석 결과 백엔드로 보내는중..");
+  //       // console.log({
+  //       //   sessionId,
+  //       //   userId: me.data.userId,
+  //       //   pitch: 2.1,
+  //       //   yaw: -1,
+  //       //   absence: false,
+  //       // });
+  //       axios
+  //         .post(`/api/history/createHistory`, {
+  //           sessionId,
+  //           userId: me.data.userId,
+  //           pitch: faker.datatype.number({ max: 12, min: 0 }),
+  //           yaw: faker.datatype.number({ max: 0, min: -4 }),
+  //           absence: faker.datatype.boolean(),
+  //         })
+  //         .then((res) => {
+  //           //console.log(res);
+  //         })
+  //         .catch((e) => {
+  //           console.log(e);
+  //         });
+  //     }, 2000);
+  //   } else {
+  //     clearInterval(intervalThrowData);
+  //   }
+  //   return () => {
+  //     clearInterval(intervalThrowData);
+  //   };
+  // }, [enableWebcam, isOnAir, sessionId, me]);
 
   // 임시 방편
   // useEffect(() => {
@@ -271,55 +380,55 @@ const GuestWebcam = () => {
 
   //   if (enableWebcam) {
   //     intervalCapture = setInterval(() => {
-  //       let tmp = faker.datatype.number({
-  //         min: 96,
-  //         max: 100,
-  //       });
-  //       let tmp2 = true;
-  //       console.log(tmp);
-  //       console.log("absence Time : ", absenceTime);
-  //       // if (tmp > 95) {
+  // let tmp = faker.datatype.number({
+  //   min: 96,
+  //   max: 100,
+  // });
+  // let tmp2 = true;
+  // console.log(tmp);
+  // console.log("absence Time : ", absenceTime);
+  // // if (tmp > 95) {
 
-  //       //   openNotification("bottomRight");
-  //       // }
-  //       if (tmp > 95) {
-  //         setAbsenceFlag(true);
-  //       } else {
-  //         setAbsenceFlag(false);
-  //       }
+  // //   openNotification("bottomRight");
+  // // }
+  // if (tmp > 95) {
+  //   setAbsenceFlag(true);
+  // } else {
+  //   setAbsenceFlag(false);
+  // }
 
-  //       if (tmp2) {
-  //         setDrowFlag(true);
-  //       } else {
-  //         setDrowFlag(false);
-  //       }
-  //       // 졸기 시작했을 때
-  //       if (drowFlag) {
-  //         setDrowTime(drowTime + 1);
-  //         if (drowTime > 10) {
-  //           // 10초이상 눈 감은 경우
-  //           if (drowCount === 0) {
-  //             openNotification2("bottomRight");
-  //           }
-  //           setDrowCount(drowCount + 1);
-  //         }
-  //       } else {
-  //         // 안졸기 시작했을 때
-  //         setDrowCount(0);
-  //         setDrowTime(0);
-  //       }
+  // if (tmp2) {
+  //   setDrowFlag(true);
+  // } else {
+  //   setDrowFlag(false);
+  // }
+  // // 졸기 시작했을 때
+  // if (drowFlag) {
+  //   setDrowTime(drowTime + 1);
+  //   if (drowTime > 10) {
+  //     // 10초이상 눈 감은 경우
+  //     if (drowCount === 0) {
+  //       openNotification2("bottomRight");
+  //     }
+  //     setDrowCount(drowCount + 1);
+  //   }
+  // } else {
+  //   // 안졸기 시작했을 때
+  //   setDrowCount(0);
+  //   setDrowTime(0);
+  // }
 
-  //       if (absenceFlag) {
-  //         setAbsenceTime(absenceTime + 1);
-  //         if (absenceTime > 10) {
-  //           if (absenceCount === 0) {
-  //             openNotification("bottomRight");
-  //           }
-  //           setAbsenceCount(absenceCount + 1);
-  //         }
-  //       } else {
-  //         setAbsenceTime(0);
-  //       }
+  // if (absenceFlag) {
+  //   setAbsenceTime(absenceTime + 1);
+  //   if (absenceTime > 10) {
+  //     if (absenceCount === 0) {
+  //       openNotification("bottomRight");
+  //     }
+  //     setAbsenceCount(absenceCount + 1);
+  //   }
+  // } else {
+  //   setAbsenceTime(0);
+  // }
   //     }, 1000);
   //   }
   //   return () => {
