@@ -9,6 +9,8 @@ import createSagaMiddleware from "redux-saga";
 import rootReducer from "./reducers";
 import rootSaga from "./sagas";
 import { setUserRequestAction } from "./reducers/user";
+import Landing from "./pages/Landing";
+import { Route, Switch } from "react-router-dom";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -31,8 +33,8 @@ loadUser();
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <App />
+    <BrowserRouter basename={window.location.pathname || ""}>
+      <Route exact path="/" component={Landing} />
     </BrowserRouter>
   </Provider>,
   document.getElementById("root"),
