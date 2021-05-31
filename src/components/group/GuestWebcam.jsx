@@ -208,7 +208,53 @@ const GuestWebcam = () => {
             })
             .then((res) => {
               console.log("분석서버 -> 프론트 : ", res.data);
+              let tmp = res.data.attendance;
+              let tmp2 = res.data.sleepResult;
 
+              if (!tmp) {
+                console.log("자리비움을 시작했습니다.");
+                setAbsenceFlag(true);
+              } else {
+                setAbsenceFlag(false);
+              }
+
+              if (tmp2) {
+                console.log("눈을 감았습니다.");
+                setDrowFlag(true);
+              } else {
+                setDrowFlag(false);
+              }
+              // 졸기 시작했을 때
+              if (drowFlag) {
+                console.log("눈을 감은 시간 : ", drowTime);
+                setDrowTime(drowTime + 1);
+                if (drowTime > 1) {
+                  // 10초이상 눈 감은 경우
+                  if (drowCount === 0) {
+                    openNotification2("bottomRight");
+                  }
+                  setDrowCount(drowCount + 1);
+                }
+              } else {
+                // 안졸기 시작했을 때
+                setDrowCount(0);
+                setDrowTime(0);
+              }
+              // 결석 시작했을 때
+              if (absenceFlag) {
+                console.log("자리 비운 시간 : ", absenceTime);
+                setAbsenceTime(absenceTime + 1);
+                if (absenceTime > 1) {
+                  // 설정한 결석시간에 맞게 바꿔야함
+                  if (absenceCount === 0) {
+                    openNotification("bottomRight");
+                  }
+                  setAbsenceCount(absenceCount + 1);
+                }
+              } else {
+                // 결석 안하기 시작했을 때
+                setAbsenceTime(0);
+              }
               // 1. 백엔드로 보내야함
 
               //-> 분석결과 axios로 요청
@@ -224,51 +270,6 @@ const GuestWebcam = () => {
                   .then((res) => {
                     console.log("프론트 -> 백엔드 : ", res);
                     //console.log(res);
-                    let tmp = res.data.attendance;
-                    let tmp2 = res.data.sleepResult;
-
-                    if (tmp) {
-                      setAbsenceFlag(true);
-                    } else {
-                      setAbsenceFlag(false);
-                    }
-
-                    if (tmp2) {
-                      setDrowFlag(true);
-                    } else {
-                      setDrowFlag(false);
-                    }
-                    // 졸기 시작했을 때
-                    if (drowFlag) {
-                      console.log("눈을 감았습니다.");
-                      setDrowTime(drowTime + 1);
-                      if (drowTime > 5) {
-                        // 10초이상 눈 감은 경우
-                        if (drowCount === 0) {
-                          openNotification2("bottomRight");
-                        }
-                        setDrowCount(drowCount + 1);
-                      }
-                    } else {
-                      // 안졸기 시작했을 때
-                      setDrowCount(0);
-                      setDrowTime(0);
-                    }
-                    // 결석 시작했을 때
-                    if (absenceFlag) {
-                      console.log("자리비움을 시작했습니다.");
-                      setAbsenceTime(absenceTime + 1);
-                      if (absenceTime > 5) {
-                        // 설정한 결석시간에 맞게 바꿔야함
-                        if (absenceCount === 0) {
-                          openNotification("bottomRight");
-                        }
-                        setAbsenceCount(absenceCount + 1);
-                      }
-                    } else {
-                      // 결석 안하기 시작했을 때
-                      setAbsenceTime(0);
-                    }
                   })
                   .catch((e) => {
                     console.log(e);
@@ -333,6 +334,14 @@ const GuestWebcam = () => {
             })
             .catch((e) => {
               console.log(e);
+              setAbsenceTime(absenceTime + 1);
+              if (absenceTime > 1) {
+                // 설정한 결석시간에 맞게 바꿔야함
+                if (absenceCount === 0) {
+                  openNotification("bottomRight");
+                }
+                setAbsenceCount(absenceCount + 1);
+              }
             });
         }
         // setInitFlag(false);
