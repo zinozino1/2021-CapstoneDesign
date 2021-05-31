@@ -57,7 +57,6 @@ const Landing = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleOk = () => {
-    console.log(11);
     setIsVisible(!isVisible);
   };
 
@@ -87,13 +86,13 @@ const Landing = () => {
                 border: `1px solid ` + palette.mainBG,
               }}
             >
-              <a href={`${CLIENT_URL}/login`}>Login</a>
+              <a href={`/login`}>Login</a>
             </Button>
           </div>
           <div style={{ color: "#ccc" }} className="register-btn-wrapper">
             <Button type="text">
               <a
-                href={`${CLIENT_URL}/register`}
+                href={`/register`}
                 style={{ textDecoration: "underLine", color: "#aaa" }}
               >
                 Register
