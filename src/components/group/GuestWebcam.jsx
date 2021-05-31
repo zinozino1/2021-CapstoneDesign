@@ -224,6 +224,49 @@ const GuestWebcam = () => {
                   .then((res) => {
                     console.log("프론트 -> 백엔드 : ", res);
                     //console.log(res);
+                    let tmp = res.data.attendance;
+                    let tmp2 = res.data.sleepResult;
+
+                    if (tmp) {
+                      setAbsenceFlag(true);
+                    } else {
+                      setAbsenceFlag(false);
+                    }
+
+                    if (tmp2) {
+                      setDrowFlag(true);
+                    } else {
+                      setDrowFlag(false);
+                    }
+                    // 졸기 시작했을 때
+                    if (drowFlag) {
+                      setDrowTime(drowTime + 1);
+                      if (drowTime > 5) {
+                        // 10초이상 눈 감은 경우
+                        if (drowCount === 0) {
+                          openNotification2("bottomRight");
+                        }
+                        setDrowCount(drowCount + 1);
+                      }
+                    } else {
+                      // 안졸기 시작했을 때
+                      setDrowCount(0);
+                      setDrowTime(0);
+                    }
+                    // 결석 시작했을 때
+                    if (absenceFlag) {
+                      setAbsenceTime(absenceTime + 1);
+                      if (absenceTime > 10) {
+                        // 설정한 결석시간에 맞게 바꿔야함
+                        if (absenceCount === 0) {
+                          openNotification("bottomRight");
+                        }
+                        setAbsenceCount(absenceCount + 1);
+                      }
+                    } else {
+                      // 결석 안하기 시작했을 때
+                      setAbsenceTime(0);
+                    }
                   })
                   .catch((e) => {
                     console.log(e);

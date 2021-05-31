@@ -67,12 +67,10 @@ import axios from "axios";
 function* loadPostSaga(action) {
   // action.payload -> url 파라미터 뜻함
 
-  console.log(action.payload); // yield call 에 payload 박으면 된다
   try {
     //const dummyPost = hostGroupData(10, 5); -> 데모때 필요
     // const dummyPost2 = guestGroupData();
     const res = yield call(loadGroupInfo, action.payload);
-    console.log(res);
 
     yield put({ type: LOAD_POST_SUCCESS, groupDetail: res });
   } catch (error) {
@@ -136,7 +134,7 @@ function* loadHistoryListSaga(action) {
 
     // yield delay(100);
     const res = yield call(loadHistoryList, action.payload);
-    console.log(res);
+
     yield put({
       type: LOAD_HISTORY_LIST_SUCCESS,
       historyList: res.data,
@@ -151,7 +149,7 @@ function* allowMemberSaga(action) {
     // const dummyPost = createHistoryList();
     // console.log(action.payload);
     const res = yield call(allowMember, action.payload);
-    console.log(res);
+
     // axios 요청 해야겠ㄷ네 다시
 
     yield put({
@@ -167,7 +165,7 @@ function* rejectMemberSaga(action) {
   try {
     // const dummyPost = createHistoryList();
     const res = yield call(rejectMember, action.payload);
-    console.log(res);
+
     yield put({
       type: REJECT_MEMBER_SUCCESS,
       //groupDetail: res,
