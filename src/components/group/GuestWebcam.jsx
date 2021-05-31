@@ -228,7 +228,7 @@ const GuestWebcam = () => {
               if (drowFlag) {
                 console.log("눈을 감은 시간 : ", drowTime);
                 setDrowTime(drowTime + 1);
-                if (drowTime > 1) {
+                if (drowTime >= 1) {
                   // 10초이상 눈 감은 경우
                   if (drowCount === 0) {
                     openNotification2("bottomRight");
@@ -279,58 +279,6 @@ const GuestWebcam = () => {
                   "아직 수업이 시작되지 않아 백엔드로 데이터 안보내는중",
                 );
               }
-
-              // 2. local state에 저장해서 알림기능 해야함
-
-              // let tmp = faker.datatype.number({
-              //   min: 96,
-              //   max: 100,
-              // });
-              // let tmp2 = true;
-              // console.log(tmp);
-              // console.log("absence Time : ", absenceTime);
-              // // if (tmp > 95) {
-
-              // //   openNotification("bottomRight");
-              // // }
-              // if (tmp > 95) {
-              //   setAbsenceFlag(true);
-              // } else {
-              //   setAbsenceFlag(false);
-              // }
-
-              // if (tmp2) {
-              //   setDrowFlag(true);
-              // } else {
-              //   setDrowFlag(false);
-              // }
-              // // 졸기 시작했을 때
-              // if (drowFlag) {
-              //   setDrowTime(drowTime + 1);
-              //   if (drowTime > 10) {
-              //     // 10초이상 눈 감은 경우
-              //     if (drowCount === 0) {
-              //       openNotification2("bottomRight");
-              //     }
-              //     setDrowCount(drowCount + 1);
-              //   }
-              // } else {
-              //   // 안졸기 시작했을 때
-              //   setDrowCount(0);
-              //   setDrowTime(0);
-              // }
-
-              // if (absenceFlag) {
-              //   setAbsenceTime(absenceTime + 1);
-              //   if (absenceTime > 10) {
-              //     if (absenceCount === 0) {
-              //       openNotification("bottomRight");
-              //     }
-              //     setAbsenceCount(absenceCount + 1);
-              //   }
-              // } else {
-              //   setAbsenceTime(0);
-              // }
             })
             .catch((e) => {
               console.log(e);
