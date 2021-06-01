@@ -12,6 +12,7 @@ import {
   loadIntervalGroupList,
 } from "../reducers/post";
 import effectSound from "../libs/util/effectSound";
+import AA from "../statics/audios/absenceAlert.MP3";
 
 const MainWrapper = styled.div``;
 
@@ -27,7 +28,7 @@ const Main = ({ history }) => {
   }, []);
 
   // useEffect(() => {
-  //   const es = effectSound(DA, 1);
+  //   const es = effectSound(AA, 1);
   //   es.play();
   // }, []);
 

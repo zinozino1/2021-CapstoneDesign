@@ -245,6 +245,7 @@ const GuestWebcam = () => {
                 drowTime += 1;
                 console.log("눈을 감은 시간 : ", drowTime);
                 if (drowTime >= 1) {
+                  // 조정 필요
                   // 14초이상 눈 감은 경우
                   if (drowCount === 0) {
                     openNotification2("bottomRight");
@@ -314,6 +315,8 @@ const GuestWebcam = () => {
                 // 설정한 결석시간에 맞게 바꿔야함
                 if (absenceCount === 0) {
                   openNotification("bottomRight");
+                  const es = effectSound(AA, 1);
+                  es.play();
                 }
                 // setAbsenceCount(absenceCount + 1);
                 absenceCount += 1;
