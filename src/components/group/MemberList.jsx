@@ -55,7 +55,12 @@ const MemberList = ({ type, onAir }) => {
     let loadWaitingMemberInterval;
 
     loadWaitingMemberInterval = setInterval(() => {
-      console.log("대기리스트 멤버 업데이트.....");
+      console.log(
+        "대기리스트 멤버 업데이트.....",
+        document.location.href.split("/")[
+          document.location.href.split("/").length - 1
+        ],
+      );
       dispatch(
         loadWaitingMember(
           document.location.href.split("/")[
@@ -63,7 +68,7 @@ const MemberList = ({ type, onAir }) => {
           ],
         ),
       );
-    }, 5000);
+    }, 7000);
 
     return () => {
       clearInterval(loadWaitingMemberInterval);

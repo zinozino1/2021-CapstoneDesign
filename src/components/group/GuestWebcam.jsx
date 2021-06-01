@@ -200,7 +200,7 @@ const GuestWebcam = () => {
               console.log(e);
             });
         }
-      }, 7000);
+      }, 6000);
     } else {
       clearInterval(initIntervalCapture);
     }
@@ -244,7 +244,7 @@ const GuestWebcam = () => {
                 // setDrowTime(drowTime + 1);
                 drowTime += 1;
                 console.log("눈을 감은 시간 : ", drowTime);
-                if (drowTime >= 1) {
+                if (drowTime >= 2) {
                   // 조정 필요
                   // 14초이상 눈 감은 경우
                   if (drowCount === 0) {
@@ -285,6 +285,13 @@ const GuestWebcam = () => {
               // 1. 백엔드로 보내야함
 
               //-> 분석결과 axios로 요청
+              let tmp = {
+                sessionId,
+                userId: me.data.userId,
+                pitch: parseFloat(res.data.pitch),
+                yaw: parseFloat(res.data.yaw),
+                absence: !res.data.attendance,
+              };
               if (res.data && sessionId) {
                 axios
                   .post(`/api/history/createHistory`, {
@@ -295,7 +302,7 @@ const GuestWebcam = () => {
                     absence: !res.data.attendance,
                   })
                   .then((res) => {
-                    console.log("프론트 -> 백엔드 : ", res);
+                    console.log("프론트 -> 백엔드 : ", tmp);
                     //console.log(res);
                   })
                   .catch((e) => {
@@ -331,7 +338,13 @@ const GuestWebcam = () => {
                     absence: true,
                   })
                   .then((res) => {
-                    console.log("프론트 -> 백엔드 : ", res);
+                    console.log("프론트 -> 백엔드 : ", {
+                      sessionId,
+                      userId: me.data.userId,
+                      pitch: 0,
+                      yaw: 0,
+                      absence: true,
+                    });
                     //console.log(res);
                   })
                   .catch((e) => {

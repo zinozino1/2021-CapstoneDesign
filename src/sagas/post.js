@@ -149,7 +149,7 @@ function* allowMemberSaga(action) {
     // const dummyPost = createHistoryList();
     // console.log(action.payload);
     const res = yield call(allowMember, action.payload);
-
+    console.log("allow 결과", res);
     // axios 요청 해야겠ㄷ네 다시
 
     yield put({
