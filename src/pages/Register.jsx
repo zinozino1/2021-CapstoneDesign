@@ -63,7 +63,7 @@ const Register = ({
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     formData.append("email", values.email);
     formData.append("name", values.name);
     formData.append("password", values.password);
@@ -73,7 +73,7 @@ const Register = ({
       formData.append("file" + (i + 1), file.originFileObj);
     });
 
-    axios
+    await axios
       .post(`${BACK_URL}/api/auth/register`, formData, {
         header: {
           "Content-Type": "multipart/form-data",
@@ -81,6 +81,19 @@ const Register = ({
       })
       .then((res) => {
         history.push("/login");
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+
+    await axios
+      .post(`http://13.125.54.51:5000/send/train/image`, formData, {
+        header: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
         console.log(res);
       })
       .catch((e) => {
