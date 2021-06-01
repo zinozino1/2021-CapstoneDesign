@@ -74,7 +74,7 @@ const History = () => {
   return (
     <ContentLayout>
       <HistoryWrapper>
-        <HistoryHeader />
+        {/* <HistoryHeader /> */}
         <HistoryList data={currentData} />
         {/* {currentData &&
           currentData.map((item, i) => <div key={i}>{item.groupName}</div>)} */}

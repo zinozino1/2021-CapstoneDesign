@@ -42,7 +42,7 @@ function getBase64(file) {
   });
 }
 
-const Register = ({ history }) => {
+const Register = ({ history, type, myPageEmail, myPageName }) => {
   const dispatch = useDispatch();
 
   const formData = new FormData();
@@ -110,18 +110,21 @@ const Register = ({ history }) => {
   return (
     <AuthLayout>
       <RegisterWrapper>
-        <div
-          style={{
-            textAlign: "center",
-            marginBottom: "40px",
-            fontSize: "2.5rem",
-            fontWeight: "600",
-          }}
-        >
-          <a href={CLIENT_URL} style={{ color: "#ccc" }}>
-            Focus
-          </a>
-        </div>
+        {type !== "mypage" && (
+          <div
+            style={{
+              textAlign: "center",
+              marginBottom: "40px",
+              fontSize: "2.5rem",
+              fontWeight: "600",
+            }}
+          >
+            <a href={CLIENT_URL} style={{ color: "#ccc" }}>
+              Focus
+            </a>
+          </div>
+        )}
+
         <Form {...InputLayout} onFinish={onSubmit}>
           <Form.Item
             name="email"
@@ -137,50 +140,53 @@ const Register = ({ history }) => {
               },
             ]}
           >
-            <Input />
+            <Input defaultValue={myPageEmail && myPageEmail} />
           </Form.Item>
-
-          <Form.Item
-            name="password"
-            label="Password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
-            hasFeedback
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item
-            name="passwordConfirm"
-            label="Confirm Password"
-            dependencies={["password"]}
-            hasFeedback
-            rules={[
-              {
-                required: true,
-                message: "Please confirm your password!",
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue("password") === value) {
-                    return Promise.resolve();
-                  }
-
-                  return Promise.reject(
-                    new Error(
-                      "The two passwords that you entered do not match!",
-                    ),
-                  );
+          {type !== "mypage" && (
+            <Form.Item
+              name="password"
+              label="Password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
                 },
-              }),
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
+              ]}
+              hasFeedback
+            >
+              <Input.Password />
+            </Form.Item>
+          )}
+
+          {type !== "mypage" && (
+            <Form.Item
+              name="passwordConfirm"
+              label="Confirm Password"
+              dependencies={["password"]}
+              hasFeedback
+              rules={[
+                {
+                  required: true,
+                  message: "Please confirm your password!",
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue("password") === value) {
+                      return Promise.resolve();
+                    }
+
+                    return Promise.reject(
+                      new Error(
+                        "The two passwords that you entered do not match!",
+                      ),
+                    );
+                  },
+                }),
+              ]}
+            >
+              <Input.Password />
+            </Form.Item>
+          )}
 
           <Form.Item
             name="name"
@@ -197,7 +203,7 @@ const Register = ({ history }) => {
               },
             ]}
           >
-            <Input />
+            <Input defaultValue={type && myPageName} />
           </Form.Item>
 
           <Form.Item
@@ -288,7 +294,7 @@ const Register = ({ history }) => {
                 border: `1px solid ` + palette.mainBG,
               }}
             >
-              Register
+              {type ? "Edit" : "Register"}
             </Button>
           </div>
         </Form>

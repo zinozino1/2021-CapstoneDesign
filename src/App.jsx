@@ -7,6 +7,7 @@ import Landing from "./pages/Landing";
 import History from "./pages/History";
 import Main from "./pages/Main";
 import GroupDetail from "./pages/GroupDetail";
+import MyPage from "./pages/MyPage";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/login" component={Login}></Route>
           <Route path="/register" component={Register}></Route>
           <Route path="/history" component={History}></Route>
+          <Route path="/mypage" component={MyPage}></Route>
         </Switch>
       </HashRouter>
     </>
