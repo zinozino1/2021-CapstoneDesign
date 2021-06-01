@@ -123,12 +123,6 @@ const GuestHistoryDetail = ({ data }) => {
                     <tr key={i}>
                       <td>{v.state}</td>
                       <td>
-                        {`${v.endHour < 10 ? "0" + v.endHour : v.endHour}:${
-                          v.endMinute < 10 ? "0" + v.endMinute : v.endMinute
-                        }:${
-                          v.endSecond < 10 ? "0" + v.endSecond : v.endSecond
-                        }`}{" "}
-                        -{" "}
                         {`${
                           v.startHour < 10 ? "0" + v.startHour : v.startHour
                         }:${
@@ -139,6 +133,12 @@ const GuestHistoryDetail = ({ data }) => {
                           v.startSeconds < 10
                             ? "0" + v.startSecond
                             : v.startSecond
+                        }`}{" "}
+                        -{" "}
+                        {`${v.endHour < 10 ? "0" + v.endHour : v.endHour}:${
+                          v.endMinute < 10 ? "0" + v.endMinute : v.endMinute
+                        }:${
+                          v.endSecond < 10 ? "0" + v.endSecond : v.endSecond
                         }`}
                       </td>
                     </tr>

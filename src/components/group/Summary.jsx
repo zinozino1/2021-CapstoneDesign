@@ -248,8 +248,13 @@ const Summary = ({ onAir, setOnAir }) => {
             // console.log(alertTimer, groupDetail.data.alertTime);
             if (
               // -> 분석 결과 시간에 따른 알림 시간 설정
-              alertTimer !== 0 &&
-              alertTimer % (groupDetail.data.alertTime * 60) === 0
+              // parseInt(m) === groupDetail.data.alertTime
+              parseInt(m) !== 0 &&
+              parseInt(m) % groupDetail.data.alertTime === 0 &&
+              parseInt(s) === 0
+              //alertTimer === 0
+              // alertTimer !== 0 &&
+              // alertTimer % (groupDetail.data.alertTime * 24) === 0
             ) {
               console.log("알림 시간 설정에 따른 알림", res.data.vibe);
               openNotification(res.data.vibe);
@@ -265,7 +270,7 @@ const Summary = ({ onAir, setOnAir }) => {
     return () => {
       clearInterval(intervalAlert);
     };
-  }, [sessionId, onAir, alertTimer, groupDetail]);
+  }, [sessionId, onAir, alertTimer, groupDetail, m]);
 
   if (!groupDetail) return null;
 
