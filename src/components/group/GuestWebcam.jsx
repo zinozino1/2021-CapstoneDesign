@@ -75,18 +75,26 @@ const formData2 = new FormData();
 formData2.append("keys", "key 값 ");
 let intervalCapture;
 
+let absenceFlag = false;
+let absenceTime = 0;
+let absenceCount = 0;
+
+let drowFlag = false;
+let drowTime = 0;
+let drowCount = 0;
+
 const GuestWebcam = () => {
   const webcamRef = useRef(null);
   const [image, setImage] = useState(null);
   const [enableWebcam, setEnableWebcam] = useState(false);
 
-  const [absenceFlag, setAbsenceFlag] = useState(false);
-  const [absenceTime, setAbsenceTime] = useState(0);
-  const [absenceCount, setAbsenceCount] = useState(0);
+  // const [absenceFlag, setAbsenceFlag] = useState(false);
+  // const [absenceTime, setAbsenceTime] = useState(0);
+  // const [absenceCount, setAbsenceCount] = useState(0);
 
-  const [drowFlag, setDrowFlag] = useState(false);
-  const [drowTime, setDrowTime] = useState(0);
-  const [drowCount, setDrowCount] = useState(0);
+  // const [drowFlag, setDrowFlag] = useState(false);
+  // const [drowTime, setDrowTime] = useState(0);
+  // const [drowCount, setDrowCount] = useState(0);
 
   const [isOnAir, setIsOnAir] = useState(false);
 
@@ -208,52 +216,63 @@ const GuestWebcam = () => {
             })
             .then((res) => {
               console.log("분석서버 -> 프론트 : ", res.data);
-              let tmp = res.data.attendance;
-              let tmp2 = res.data.sleepResult;
+              let att = res.data.attendance;
+              let sleep = res.data.sleepResult;
 
-              if (!tmp) {
+              if (!att) {
                 console.log("자리비움을 시작했습니다.");
-                setAbsenceFlag(true);
+                // setAbsenceFlag(true);
+                absenceFlag = true;
               } else {
-                setAbsenceFlag(false);
+                // setAbsenceFlag(false);
+                absenceFlag = false;
               }
 
-              if (tmp2) {
+              if (sleep) {
                 console.log("눈을 감았습니다.");
-                setDrowFlag(true);
+                // setDrowFlag(true);
+                drowFlag = true;
               } else {
-                setDrowFlag(false);
+                // setDrowFlag(false);
+                drowFlag = false;
               }
               // 졸기 시작했을 때
               if (drowFlag) {
                 console.log("눈을 감은 시간 : ", drowTime);
-                setDrowTime(drowTime + 1);
+                // setDrowTime(drowTime + 1);
+                drowTime += 1;
                 if (drowTime >= 1) {
-                  // 10초이상 눈 감은 경우
+                  // 14초이상 눈 감은 경우
                   if (drowCount === 0) {
                     openNotification2("bottomRight");
                   }
-                  setDrowCount(drowCount + 1);
+                  drowCount += 1;
+                  // setDrowCount(drowCount + 1);
                 }
               } else {
                 // 안졸기 시작했을 때
-                setDrowCount(0);
-                setDrowTime(0);
+                drowCount = 0;
+                drowTime = 0;
+                // setDrowCount(0);
+                // setDrowTime(0);
               }
               // 결석 시작했을 때
               if (absenceFlag) {
                 console.log("자리 비운 시간 : ", absenceTime);
-                setAbsenceTime(absenceTime + 1);
+                absenceTime += 1;
+                // setAbsenceTime(absenceTime + 1);
                 if (absenceTime > 1) {
                   // 설정한 결석시간에 맞게 바꿔야함
                   if (absenceCount === 0) {
                     openNotification("bottomRight");
                   }
-                  setAbsenceCount(absenceCount + 1);
+                  absenceCount += 1;
+                  // setAbsenceCount(absenceCount + 1);
                 }
               } else {
                 // 결석 안하기 시작했을 때
-                setAbsenceTime(0);
+                absenceTime = 0;
+                // setAbsenceTime(0);
               }
               // 1. 백엔드로 보내야함
 
@@ -282,13 +301,15 @@ const GuestWebcam = () => {
             })
             .catch((e) => {
               console.log("부재/에러이지만 백엔드로 데이터 보내는중");
-              setAbsenceTime(absenceTime + 1);
+              // setAbsenceTime(absenceTime + 1);
+              absenceTime += 1;
               if (absenceTime > 1) {
                 // 설정한 결석시간에 맞게 바꿔야함
                 if (absenceCount === 0) {
                   openNotification("bottomRight");
                 }
-                setAbsenceCount(absenceCount + 1);
+                // setAbsenceCount(absenceCount + 1);
+                absenceCount += 1;
               }
               if (sessionId) {
                 axios
@@ -329,12 +350,12 @@ const GuestWebcam = () => {
     initFlag,
     me,
     sessionId,
-    drowCount,
-    drowFlag,
-    drowTime,
-    absenceCount,
-    absenceFlag,
-    absenceTime,
+    // drowCount,
+    // drowFlag,
+    // drowTime,
+    // absenceCount,
+    // absenceFlag,
+    // absenceTime,
   ]);
 
   // 수업 시작했는지 체크하는 코드
