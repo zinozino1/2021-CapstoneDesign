@@ -31,10 +31,22 @@ function* loginSaga(action) {
 
     const user = localStorage.getItem("user");
     if (!user) {
-      localStorage.setItem("user", JSON.stringify(res));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          ...res,
+          data: { ...res.data, image2: "", image3: "" },
+        }),
+      );
     } else {
       localStorage.removeItem("user");
-      localStorage.setItem("user", JSON.stringify(res));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          ...res,
+          data: { ...res.data, image2: "", image3: "" },
+        }),
+      );
     }
     yield put({ type: LOG_IN_SUCCESS, me: res });
   } catch (error) {

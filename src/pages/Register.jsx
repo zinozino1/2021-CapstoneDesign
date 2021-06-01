@@ -22,6 +22,11 @@ const RegisterWrapper = styled.div`
     height: 140px;
     /* margin-left: 30px; */
   }
+  .mypage-image {
+    border: 1px solid #ddd;
+    padding-right: 10px;
+    padding: 10% 5%;
+  }
 `;
 
 const InputLayout = {
@@ -42,7 +47,13 @@ function getBase64(file) {
   });
 }
 
-const Register = ({ history, type, myPageEmail, myPageName }) => {
+const Register = ({
+  history,
+  type,
+  myPageEmail,
+  myPageName,
+  profileImages,
+}) => {
   const dispatch = useDispatch();
 
   const formData = new FormData();
@@ -245,43 +256,62 @@ const Register = ({ history, type, myPageEmail, myPageName }) => {
                 </div>
               </div>
             </div>
-
-            <div
-              style={{
-                display: "flex",
-                marginTop: "20px",
-              }}
-            >
-              <Upload
-                name="logo1"
-                beforeUpload={(file) => {
-                  setFileList(file);
-                  return false;
-                }}
-                listType="picture-card"
-                accept="image/*"
-                onPreview={handlePreview}
-                onChange={onChangeImage}
+            {type !== "mypage" ? (
+              <div
                 style={{
-                  width: "140px",
-                  margin: "0",
+                  display: "flex",
+                  marginTop: "20px",
                 }}
               >
-                {fileList.length >= 3 ? null : uploadButton}
-              </Upload>
-              <Modal
-                visible={previewVisible}
-                title={previewTitle}
-                footer={null}
-                onCancel={handleCancel}
-              >
-                <img
-                  alt="example"
-                  style={{ width: "100%" }}
-                  src={previewImage}
-                />
-              </Modal>
-            </div>
+                <Upload
+                  name="logo1"
+                  beforeUpload={(file) => {
+                    setFileList(file);
+                    return false;
+                  }}
+                  listType="picture-card"
+                  accept="image/*"
+                  onPreview={handlePreview}
+                  onChange={onChangeImage}
+                  style={{
+                    width: "140px",
+                    margin: "0",
+                  }}
+                >
+                  {fileList.length >= 3 ? null : uploadButton}
+                </Upload>
+                <Modal
+                  visible={previewVisible}
+                  title={previewTitle}
+                  footer={null}
+                  onCancel={handleCancel}
+                >
+                  <img
+                    alt="example"
+                    style={{ width: "100%" }}
+                    src={previewImage}
+                  />
+                </Modal>
+              </div>
+            ) : (
+              <div style={{ display: "flex", marginTop: "20px" }}>
+                <Image
+                  className="mypage-image"
+                  width={120}
+                  src={`data:image/png;base64,` + profileImages.image1}
+                ></Image>
+                <Image
+                  className="mypage-image"
+                  width={120}
+                  src={`data:image/png;base64,` + profileImages.image2}
+                ></Image>
+                <Image
+                  className="mypage-image"
+                  width={120}
+                  src={`data:image/png;base64,` + profileImages.image3}
+                ></Image>
+              </div>
+            )}
           </Form.Item>
 
           <div style={{ textAlign: "center", padding: "20px" }}>

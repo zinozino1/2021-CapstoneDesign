@@ -122,26 +122,12 @@ const MainHeader = () => {
 
   return (
     <MainHeaderWrapper>
-      {/* <MyProfileWrapper>
-        <div className="profile-image">
-          <Image
-            width={120}
-            src={`data:image/png;base64,` + me.data.profileImage}
-            style={{ marginRight: "20px" }}
-          />
-        </div>
-        <div className="profile-desc">
-          <div className="info">Info</div>
-          <div className="role">{me.data.email}</div>
-          <div className="username">{me.data.name}</div>
-        </div>
-      </MyProfileWrapper> */}
       <div style={{ flex: "1" }}>
         <Descriptions bordered>
           <Descriptions.Item>
             <Image
               width={120}
-              src={`data:image/png;base64,` + me.data.profileImage}
+              src={`data:image/png;base64,` + me.data.image1}
               style={{ marginRight: "20px" }}
             />
           </Descriptions.Item>
@@ -149,7 +135,6 @@ const MainHeader = () => {
           <Descriptions.Item label="Email">{me.data.email}</Descriptions.Item>
         </Descriptions>
       </div>
-
       <RoomBtnWrapper>
         <div className="guest">
           <Button

@@ -42,14 +42,19 @@ const RecentTrends = () => {
   };
 
   useEffect(() => {
-    dispatch(loadGuestRecentTrendsRequestAction(me.data.userId));
+    if (me) {
+      dispatch(loadGuestRecentTrendsRequestAction(me.data.userId));
+    }
   }, [me]);
 
   useEffect(() => {
-    dispatch(loadHostRecentTrendsRequestAction(me.data.userId));
+    if (me) {
+      dispatch(loadHostRecentTrendsRequestAction(me.data.userId));
+    }
   }, [me]);
 
   if (!guestRecentTrends || !hostRecentTrends) return null;
+  if (!me) return null;
 
   return (
     <RecentTrendsWrapper>

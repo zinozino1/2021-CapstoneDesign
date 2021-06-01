@@ -4,29 +4,29 @@ import styled from "styled-components";
 import ContentLayout from "../components/layout/ContentLayout";
 import { useSelector } from "react-redux";
 import Register from "./Register";
+import { useEffect } from "react";
+import axios from "axios";
 
 const MyPageWrapper = styled.div``;
-
-const RegisterWrapper = styled.div`
-  padding: 50px 50px;
-  .ant-upload-list-picture-card-container {
-    width: 120px;
-    height: 140px;
-    /* margin-left: 30px; */
-  }
-  .ant-upload-select-picture-card {
-    width: 120px;
-    height: 140px;
-    /* margin-left: 30px; */
-  }
-`;
 
 const MyPage = () => {
   const { me } = useSelector((state) => state.user);
 
-  const [fileList, setFileList] = useState([]);
+  const [profileImages, setProfileImages] = useState(null);
+  useEffect(() => {
+    if (me) {
+      axios
+        .get(`/api/image/getImage/${me.data.userId}`)
+        .then((res) => {
+          setProfileImages(res.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }, [me]);
 
-  if (!me) return null;
+  if (!me || !profileImages) return null;
 
   return (
     <ContentLayout>
@@ -35,6 +35,7 @@ const MyPage = () => {
           type="mypage"
           myPageEmail={me.data.email}
           myPageName={me.data.name}
+          profileImages={profileImages && profileImages}
         />
       </MyPageWrapper>
     </ContentLayout>
