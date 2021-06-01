@@ -2,6 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import { Divider } from "antd";
 import { ResponsiveBar } from "@nivo/bar";
+import pitchUp from "../../statics/images/pitchUp.png";
+import pitchNormal from "../../statics/images/pitchNormal.png";
+import pitchDown from "../../statics/images/pitchDown.png";
+import yawLeft from "../../statics/images/yawLeft.png";
+import yawNormal from "../../statics/images/yawNormal.png";
+import yawRight from "../../statics/images/yawRight.png";
 
 const GuestHistoryDetailWrapper = styled.div`
   .top,
@@ -22,6 +28,15 @@ const GuestHistoryDetailWrapper = styled.div`
   }
   .attendance {
     /* line-height: 250px; */
+  }
+`;
+
+const ImageWrapper = styled.div`
+  .graph-img {
+    width: 50px;
+    height: auto;
+    margin-left: 68px;
+    border: 1px solid #999;
   }
 `;
 
@@ -181,6 +196,11 @@ const GuestHistoryDetail = ({ data }) => {
               isInteractive={true}
             />
           </div>
+          <ImageWrapper>
+            <img src={pitchUp} alt="" className="graph-img" />
+            <img src={pitchNormal} alt="" className="graph-img" />
+            <img src={pitchDown} alt="" className="graph-img" />
+          </ImageWrapper>
         </div>
         <div className="item yaw graph">
           <div className="divider">
@@ -229,6 +249,11 @@ const GuestHistoryDetail = ({ data }) => {
               isInteractive={true}
             />
           </div>
+          <ImageWrapper>
+            <img src={yawLeft} alt="" className="graph-img" />
+            <img src={yawNormal} alt="" className="graph-img" />
+            <img src={yawRight} alt="" className="graph-img" />
+          </ImageWrapper>
         </div>
       </div>
     </GuestHistoryDetailWrapper>
