@@ -6,6 +6,9 @@ import axios from "axios";
 import FormData from "form-data";
 import { useSelector } from "react-redux";
 import faker from "faker";
+import effectSound from "../../libs/util/effectSound";
+import AA from "../../statics/audios/absenceAlert.MP3";
+import DA from "../../statics/audios/drowAlert.MP3";
 
 const Container = styled.div`
   border: 1px solid #ddd;
@@ -238,13 +241,15 @@ const GuestWebcam = () => {
               }
               // 졸기 시작했을 때
               if (drowFlag) {
-                console.log("눈을 감은 시간 : ", drowTime);
                 // setDrowTime(drowTime + 1);
                 drowTime += 1;
+                console.log("눈을 감은 시간 : ", drowTime);
                 if (drowTime >= 1) {
                   // 14초이상 눈 감은 경우
                   if (drowCount === 0) {
                     openNotification2("bottomRight");
+                    const es = effectSound(DA, 1);
+                    es.play();
                   }
                   drowCount += 1;
                   // setDrowCount(drowCount + 1);
@@ -265,6 +270,8 @@ const GuestWebcam = () => {
                   // 설정한 결석시간에 맞게 바꿔야함
                   if (absenceCount === 0) {
                     openNotification("bottomRight");
+                    const es = effectSound(AA, 1);
+                    es.play();
                   }
                   absenceCount += 1;
                   // setAbsenceCount(absenceCount + 1);

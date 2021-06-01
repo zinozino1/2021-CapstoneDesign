@@ -11,6 +11,7 @@ import {
   initializeGroupAndWaitingList,
   loadIntervalGroupList,
 } from "../reducers/post";
+import effectSound from "../libs/util/effectSound";
 
 const MainWrapper = styled.div``;
 
@@ -24,6 +25,11 @@ const Main = ({ history }) => {
       dispatch(initializeGroupAndWaitingList());
     };
   }, []);
+
+  // useEffect(() => {
+  //   const es = effectSound(DA, 1);
+  //   es.play();
+  // }, []);
 
   // useEffect(() => {
   //   let loadGroupListInterval;
