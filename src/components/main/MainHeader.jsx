@@ -10,6 +10,10 @@ import { useSelector } from "react-redux";
 
 const MainHeaderWrapper = styled.div`
   display: flex;
+
+  @media (max-width: 1368px) {
+    flex-direction: column;
+  }
   .ant-descriptions .ant-descriptions-bordered {
     height: 100%;
   }
@@ -76,6 +80,11 @@ const RoomBtnWrapper = styled.div`
   border-left: none;
   flex: 1;
   height: 180px;
+
+  @media (max-width: 1368px) {
+    margin-top: 30px;
+    border-left: 1px solid #ddd;
+  }
 
   .guest {
     flex: 1;
