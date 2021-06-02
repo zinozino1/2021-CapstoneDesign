@@ -18,6 +18,15 @@ const MainHeaderWrapper = styled.div`
     height: 100%;
   }
   .ant-descriptions-view {
+    @media (max-width: 1368px) {
+      th,
+      td {
+        font-size: 10px;
+      }
+      th {
+        /* padding: 2px; */
+      }
+    }
     height: 180px;
     th,
     td {
@@ -84,6 +93,7 @@ const RoomBtnWrapper = styled.div`
   @media (max-width: 1368px) {
     margin-top: 30px;
     border-left: 1px solid #ddd;
+    height: 120px;
   }
 
   .guest {
