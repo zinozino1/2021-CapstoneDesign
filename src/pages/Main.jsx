@@ -14,7 +14,14 @@ import {
 import effectSound from "../libs/util/effectSound";
 import AA from "../statics/audios/absenceAlert.MP3";
 
-const MainWrapper = styled.div``;
+const MainWrapper = styled.div`
+  .list-wrapper {
+    display: flex;
+    @media (max-width: 1368px) {
+      flex-direction: column;
+    }
+  }
+`;
 
 // redux 그룹리스트, 웨이팅리스트, 최근동향 데이터 필요
 const Main = ({ history }) => {
@@ -54,7 +61,7 @@ const Main = ({ history }) => {
     <ContentLayout>
       <MainWrapper>
         <MainHeader />
-        <div style={{ display: "flex" }}>
+        <div className="list-wrapper">
           <GroupList />
           <WaitingList />
         </div>

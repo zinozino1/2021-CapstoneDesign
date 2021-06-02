@@ -14,16 +14,25 @@ import { Spin } from "antd";
 
 const GroupListWrapper = styled.div`
   flex: 1;
+  @media (max-width: 1368px) {
+    font-size: 12px;
+  }
 `;
 
 const ListWrapper = styled.div`
   border: 1px solid #ddd;
   height: 300px;
+  @media (max-width: 1368px) {
+    height: 180px;
+  }
   position: relative;
 `;
 
 const Skeleton = styled.div`
   height: 300px;
+  @media (max-width: 1368px) {
+    height: 180px;
+  }
   text-align: center;
   line-height: 300px;
 `;
