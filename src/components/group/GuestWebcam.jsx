@@ -185,7 +185,7 @@ const GuestWebcam = () => {
         if (image) {
           console.log("image 캡쳐하여 분석서버로 보냈음 - init");
           axios
-            .post("http://13.125.54.51:5000/image", image, {
+            .post("http://3.35.234.42:5000/image", image, {
               header: {
                 "Content-Type": "multipart/form-data",
                 Accept: "multipart/form-data",
@@ -205,13 +205,13 @@ const GuestWebcam = () => {
       clearInterval(initIntervalCapture);
     }
 
-    if (enableWebcam && !initFlag) {
+    if (enableWebcam && !initFlag && groupDetail) {
       afterIntervalCapture = setInterval(() => {
         capture();
         if (image) {
           console.log("image 캡쳐하여 분석서버로 보냈음 - not init");
           axios
-            .post("http://13.125.54.51:5000/image", image, {
+            .post("http://3.35.234.42:5000/image", image, {
               header: {
                 "Content-Type": "multipart/form-data",
                 Accept: "multipart/form-data",
@@ -267,7 +267,7 @@ const GuestWebcam = () => {
                 console.log("자리 비운 시간 : ", absenceTime);
                 absenceTime += 1;
                 // setAbsenceTime(absenceTime + 1);
-                if (absenceTime > 1) {
+                if (absenceTime * 7 > groupDetail.data.absenceTime * 60) {
                   // 설정한 결석시간에 맞게 바꿔야함
                   if (absenceCount === 0) {
                     openNotification("bottomRight");
@@ -318,7 +318,7 @@ const GuestWebcam = () => {
               console.log("부재/에러이지만 백엔드로 데이터 보내는중");
               // setAbsenceTime(absenceTime + 1);
               absenceTime += 1;
-              if (absenceTime > 1) {
+              if (absenceTime * 7 > groupDetail.data.absenceTime * 60) {
                 // 설정한 결석시간에 맞게 바꿔야함
                 if (absenceCount === 0) {
                   openNotification("bottomRight");
