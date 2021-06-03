@@ -28,7 +28,13 @@ const columns = [
     title: "Absence Time",
     dataIndex: "absenceTime",
     width: 150,
-    render: (text) => <span style={{ color: "#888" }}>{text}</span>,
+    render: (text) => (
+      <span style={{ color: "#888" }}>
+        {parseInt(parseInt(text) / 60) + " minutes"}
+        <br />
+        {(parseInt(text) % 60) + " seconds"}
+      </span>
+    ),
   },
   {
     title: "Attendance",

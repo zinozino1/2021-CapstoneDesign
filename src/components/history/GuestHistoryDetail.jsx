@@ -35,7 +35,7 @@ const ImageWrapper = styled.div`
   .graph-img {
     width: 50px;
     height: auto;
-    margin-left: 68px;
+    margin-left: 57px;
     border: 1px solid #999;
   }
 `;
@@ -130,7 +130,7 @@ const GuestHistoryDetail = ({ data }) => {
                             ? "0" + v.startMinute
                             : v.startMinute
                         }:${
-                          v.startSeconds < 10
+                          v.startSecond < 10
                             ? "0" + v.startSecond
                             : v.startSecond
                         }`}{" "}
