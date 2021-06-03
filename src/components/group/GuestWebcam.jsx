@@ -121,6 +121,7 @@ const GuestWebcam = () => {
           document.location.href.split("/").length - 1
         ],
       );
+      formData.append("userEmail", me.data.email);
 
       setImage(formData);
       // setImage(imageSrc);
