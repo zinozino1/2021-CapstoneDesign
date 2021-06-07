@@ -201,7 +201,7 @@ const GuestWebcam = () => {
               console.log(e);
             });
         }
-      }, 6000);
+      }, 7000);
     } else {
       clearInterval(initIntervalCapture);
     }
@@ -289,18 +289,20 @@ const GuestWebcam = () => {
               let tmp = {
                 sessionId,
                 userId: me.data.userId,
-                pitch: parseFloat(res.data.pitch),
-                yaw: parseFloat(res.data.yaw),
+                pitch: parseFloat(res.data.pitch2),
+                yaw: parseFloat(res.data.yaw2),
                 absence: !res.data.attendance,
+                drowse: res.data.sleepResult,
               };
               if (res.data && sessionId) {
                 axios
                   .post(`/api/history/createHistory`, {
                     sessionId,
                     userId: me.data.userId,
-                    pitch: parseFloat(res.data.pitch),
-                    yaw: parseFloat(res.data.yaw),
+                    pitch: parseFloat(res.data.pitch2),
+                    yaw: parseFloat(res.data.yaw2),
                     absence: !res.data.attendance,
+                    drowse: res.data.sleepResult,
                   })
                   .then((res) => {
                     console.log("프론트 -> 백엔드 : ", tmp);
@@ -337,6 +339,7 @@ const GuestWebcam = () => {
                     pitch: 0,
                     yaw: 0,
                     absence: true,
+                    drowse: false,
                   })
                   .then((res) => {
                     console.log("프론트 -> 백엔드 : ", {
@@ -345,6 +348,7 @@ const GuestWebcam = () => {
                       pitch: 0,
                       yaw: 0,
                       absence: true,
+                      drowse: false,
                     });
                     //console.log(res);
                   })
@@ -359,7 +363,7 @@ const GuestWebcam = () => {
             });
         }
         // setInitFlag(false);
-      }, 6000);
+      }, 7000);
     } else {
       clearInterval(afterIntervalCapture);
     }

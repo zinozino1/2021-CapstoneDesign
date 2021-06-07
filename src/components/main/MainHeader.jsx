@@ -151,7 +151,7 @@ const MainHeader = () => {
             />
           </Descriptions.Item>
           <Descriptions.Item label="Name">{me.data.name}</Descriptions.Item>
-          <Descriptions.Item label="Email">{me.data.email}</Descriptions.Item>
+          {/* <Descriptions.Item label="Email">{me.data.email}</Descriptions.Item> */}
         </Descriptions>
       </div>
       <RoomBtnWrapper>

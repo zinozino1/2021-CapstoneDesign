@@ -5,9 +5,9 @@ import HistoryListItem from "./HistoryListItem";
 const HistoryList = ({ data }) => {
   return (
     <>
-      {data.map((item, i) => (
-        <HistoryListItem key={i} item={item} idx={i}></HistoryListItem>
-      ))}
+      {data.map((item, i) => {
+        return <HistoryListItem key={i} item={item} idx={i}></HistoryListItem>;
+      })}
     </>
   );
 };
