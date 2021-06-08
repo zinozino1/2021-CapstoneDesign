@@ -134,6 +134,7 @@ function* loadHistoryListSaga(action) {
 
     // yield delay(100);
     const res = yield call(loadHistoryList, action.payload);
+    console.log(res);
 
     yield put({
       type: LOAD_HISTORY_LIST_SUCCESS,
