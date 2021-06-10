@@ -88,7 +88,7 @@ const Register = ({
       });
 
     await axios
-      .post(`http://13.125.54.51:5000/send/train/image`, formData, {
+      .post(`http://3.35.234.42:5000/send/train/image`, formData, {
         header: {
           "Content-Type": "multipart/form-data",
         },
