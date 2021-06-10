@@ -1,6 +1,6 @@
 export const CLIENT_URL = "http://localhost:3000";
 
-export const BACK_URL = "http://localhost:8080";
+export const BACK_URL = "http://13.124.11.13:8080";
 
 export const WHOLE_MINUTE = Array.from({ length: 100 }, (v, i) => i * 5);
 
