@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Form, Input, Select, Button } from "antd";
 import {
-  CLASS_DURATION_HOUR,
-  CLASS_DURATION_MINUTE,
   ABSENCE_TIME,
   ALERT_ATMOSPHERE,
   BACK_URL,
@@ -12,6 +10,12 @@ import { palette } from "../../libs/constant/palette";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 그룹 생성 컴포넌트
+ */
 
 const CreateGroupWrapper = styled.div``;
 
@@ -64,9 +68,6 @@ const CreateGroup = ({ setIsHostModalVisible }) => {
         >
           <Input />
         </Form.Item>
-        {/* <Form.Item name="groupCode" label="Group Code" initialValue="aaa">
-          <Input placeholder="ASDFSADF" disabled />
-        </Form.Item> */}
 
         <Form.Item label="Absence Time">
           <Form.Item

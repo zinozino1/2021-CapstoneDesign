@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Divider } from "antd";
 import MainList from "../common/MainList";
-import { waitingList } from "../../libs/util/dummyCreator";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
@@ -10,6 +9,12 @@ import {
   loadIntervalWaitingList,
 } from "../../reducers/post";
 import { Spin } from "antd";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 대기 게스트 멤버 리스트 컴포넌트
+ */
 
 const WaitingListWrapper = styled.div`
   flex: 1;
@@ -54,7 +59,6 @@ const WaitingList = () => {
 
     if (me) {
       loadGroupListInterval = setInterval(() => {
-        console.log("대기리스트 업데이트...");
         dispatch(loadIntervalWaitingList(me.data.userId));
       }, 2500);
     }

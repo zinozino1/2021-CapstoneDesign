@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import Webcam from "react-webcam";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 웹캠 클래스형 컴포넌트
+ * @deprecated 훅으로 대체
+ */
+
 const videoConstraints = {
   width: 350,
   height: 350,
@@ -19,7 +26,6 @@ export default class WebCamPicure extends Component {
 
   capture = () => {
     const imageSrc = this.webcam.current.getScreenshot();
-    //console.log("Take Picture");
     this.props.landmarkPicture(imageSrc);
   };
 
@@ -41,12 +47,6 @@ export default class WebCamPicure extends Component {
           width={350}
           videoConstraints={videoConstraints}
         />
-        {/* <img 스샷 버튼 
-          src="/img/cameraIcon.png"
-          alt="Take Pic"
-          height={100}
-          onClick={this.capture}
-        /> */}
       </div>
     );
   }

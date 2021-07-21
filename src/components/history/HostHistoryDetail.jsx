@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Table } from "antd";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 호스트 히스토리 디테일 컴포넌트
+ */
+
 const HostHistoryDetailWrapper = styled.div``;
 
 const TableWrapper = styled.div``;

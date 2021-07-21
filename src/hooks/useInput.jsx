@@ -1,4 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 입력폼 커스텀 훅
+ */
 
 const useInput = (initialValue = "") => {
   const [value, setValue] = useState(initialValue);

@@ -1,11 +1,4 @@
-import {
-  takeLatest,
-  call,
-  put,
-  throttle,
-  takeEvery,
-  delay,
-} from "redux-saga/effects";
+import { takeLatest, call, put, delay } from "redux-saga/effects";
 import {
   LOAD_POST_SUCCESS,
   LOAD_POST_FAILURE,
@@ -39,10 +32,6 @@ import {
   LOAD_WAITING_MEMBER_SUCCESS,
 } from "../reducers/post";
 import {
-  hostGroupData,
-  guestGroupData,
-  groupList,
-  waitingList,
   createGuestRecentTrends,
   createHostRecentTrends,
   createHistoryList,
@@ -60,16 +49,17 @@ import {
   loadIntervalWaitingList,
   loadWaitingMember,
 } from "../libs/api/post";
-import axios from "axios";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 포스트관련 사가 정의
+ */
 
 // saga
 
 function* loadPostSaga(action) {
-  // action.payload -> url 파라미터 뜻함
-
   try {
-    //const dummyPost = hostGroupData(10, 5); -> 데모때 필요
-    // const dummyPost2 = guestGroupData();
     const res = yield call(loadGroupInfo, action.payload);
 
     yield put({ type: LOAD_POST_SUCCESS, groupDetail: res });
@@ -80,7 +70,6 @@ function* loadPostSaga(action) {
 
 function* loadGroupListSaga(action) {
   try {
-    //const dummyPost = groupList(15);
     const res = yield call(loadGroupList, action.payload);
 
     yield put({ type: LOAD_GROUP_LIST_SUCCESS, groupList: res });
@@ -91,7 +80,6 @@ function* loadGroupListSaga(action) {
 
 function* loadWaitingListSaga(action) {
   try {
-    //const dummyPost = waitingList(10);
     const res = yield call(loadWaitingList, action.payload);
 
     yield put({ type: LOAD_WAITING_LIST_SUCCESS, waitingList: res });
@@ -102,7 +90,6 @@ function* loadWaitingListSaga(action) {
 
 function* loadGuestRecentTrendsSaga(action) {
   try {
-    const dummyPost = createGuestRecentTrends();
     const res = yield call(loadGuestRecentTrends, action.payload);
     yield delay(100);
     yield put({
@@ -116,7 +103,6 @@ function* loadGuestRecentTrendsSaga(action) {
 
 function* loadHostRecentTrendsSaga(action) {
   try {
-    const dummyPost = createHostRecentTrends();
     const res = yield call(loadHostRecentTrends, action.payload);
     yield delay(100);
     yield put({
@@ -130,11 +116,7 @@ function* loadHostRecentTrendsSaga(action) {
 
 function* loadHistoryListSaga(action) {
   try {
-    const dummyPost = createHistoryList();
-
-    // yield delay(100);
     const res = yield call(loadHistoryList, action.payload);
-    console.log(res);
 
     yield put({
       type: LOAD_HISTORY_LIST_SUCCESS,
@@ -147,15 +129,10 @@ function* loadHistoryListSaga(action) {
 
 function* allowMemberSaga(action) {
   try {
-    // const dummyPost = createHistoryList();
-    // console.log(action.payload);
     const res = yield call(allowMember, action.payload);
-    console.log("allow 결과", res);
-    // axios 요청 해야겠ㄷ네 다시
 
     yield put({
       type: ALLOW_MEMBER_SUCCESS,
-      //groupDetail: res,
     });
   } catch (error) {
     yield put({ type: ALLOW_MEMBER_FAILURE });
@@ -164,12 +141,10 @@ function* allowMemberSaga(action) {
 
 function* rejectMemberSaga(action) {
   try {
-    // const dummyPost = createHistoryList();
     const res = yield call(rejectMember, action.payload);
 
     yield put({
       type: REJECT_MEMBER_SUCCESS,
-      //groupDetail: res,
     });
   } catch (error) {
     yield put({ type: REJECT_MEMBER_FAILURE });

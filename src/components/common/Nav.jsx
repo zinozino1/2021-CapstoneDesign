@@ -4,6 +4,12 @@ import { Link, withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutRequestAction } from "../../reducers/user";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 좌측 네비게이션 바 컴포넌트
+ */
+
 const NavWrapper = styled.div`
   width: 200px;
   height: 100%;
@@ -43,7 +49,7 @@ const Nav = ({ history }) => {
     if (currPath.indexOf("/") !== -1) {
       currPath = currPath.slice(0, currPath.indexOf("/"));
     }
-    //console.log(currPath);
+
     setCurrentMenu(currPath);
   }, [history]);
 

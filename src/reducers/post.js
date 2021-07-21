@@ -1,5 +1,11 @@
 import { createAction, handleActions } from "redux-actions";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 포스트관련 리덕스 액션,리듀서 정의
+ */
+
 // initial state
 
 const initialState = {
@@ -268,14 +274,6 @@ const post = handleActions(
     }),
     [ALLOW_MEMBER_SUCCESS]: (state, action) => ({
       ...state,
-      // groupDetail: {
-      //   ...state.groupDetail,
-      //   data: {
-      //     ...state.groupDetail.data,
-      //     groupMemberSimpleDtoList:
-      //       action.groupDetail.data.groupMemberSimpleDtoList,
-      //   },
-      // },
     }),
     [ALLOW_MEMBER_FAILURE]: (state, action) => ({
       ...state,
@@ -285,19 +283,11 @@ const post = handleActions(
     }),
     [REJECT_MEMBER_SUCCESS]: (state, action) => ({
       ...state,
-      // groupDetail: {
-      //   ...state.groupDetail,
-      //   data: {
-      //     ...state.groupDetail.data,
-      //     waitingMemberDtoList: action.groupDetail.data.waitingMemberDtoList,
-      //   },
-      // },
     }),
     [REJECT_MEMBER_FAILURE]: (state, action) => ({
       ...state,
     }),
     [WAITING_TO_GROUP]: (state, action) => {
-      console.log(action);
       return {
         ...state,
         groupDetail: {

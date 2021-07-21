@@ -1,3 +1,9 @@
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary base64인코딩 유틸 함수
+ */
+
 export function imageToBase64(img) {
   return new Promise((resolve, reject) => {
     var xhr = new XMLHttpRequest();

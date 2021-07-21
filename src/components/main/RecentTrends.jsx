@@ -8,6 +8,12 @@ import {
   loadHostRecentTrendsRequestAction,
 } from "../../reducers/post";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 최근 동향 컴포넌트
+ */
+
 const RecentTrendsWrapper = styled.div`
   .ant-switch-checked {
     background: #aeb0d3;
@@ -102,13 +108,6 @@ const RecentTrends = () => {
               />
               <RateDesc>Concentration Rate</RateDesc>
             </RateItem>
-            {/* <RateItem>
-              <Progress
-                type="circle"
-                percent={guestRecentTrends.drowsinessRate}
-              />
-              <RateDesc>Drowsiness Rate</RateDesc>
-            </RateItem> */}
           </>
         ) : (
           <>
@@ -140,13 +139,6 @@ const RecentTrends = () => {
               />
               <RateDesc>Concentration Rate</RateDesc>
             </RateItem>
-            {/* <RateItem>
-              <Progress
-                type="circle"
-                percent={hostRecentTrends.drowsinessRate}
-              />
-              <RateDesc>Drowsiness Rate</RateDesc>
-            </RateItem> */}
           </>
         )}
       </RatesWrapper>

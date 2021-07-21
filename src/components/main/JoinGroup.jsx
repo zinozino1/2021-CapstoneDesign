@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Form, Input, Select, Button } from "antd";
+import { Form, Input, Button } from "antd";
 import { palette } from "../../libs/constant/palette";
-import useInput from "../../hooks/useInput";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {
-  loadWaitingListRequestAction,
-  joinToWaiting,
-} from "../../reducers/post";
+import { loadWaitingListRequestAction } from "../../reducers/post";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 그룹 참여 컴포넌트
+ */
 
 const JoinGroupWrapper = styled.div``;
 
@@ -24,21 +26,9 @@ const JoinGroup = ({ setIsGuestModalVisible }) => {
           groupEnterCode: item.groupCode,
         })
         .then((res) => {
-          console.log("join gropup", res);
           dispatch(loadWaitingListRequestAction(me.data.userId));
           alert("You have completed the application for participation.");
           setIsGuestModalVisible(false);
-          // axios
-          //   .post(`/api/group/getGroupInfo`, {
-          //     groupId: res.data.id,
-          //     userid: me.data.userId,
-          //   })
-          //   .then((res) => {
-          //     console.log(res);
-          //     dispatch(joinToWaiting({ groupName: res.data.groupName }));
-          //     // 여기서 프론트 데이터 업데이트
-          //   });
-          console.log(res);
         })
         .catch((e) => {
           console.log(e);

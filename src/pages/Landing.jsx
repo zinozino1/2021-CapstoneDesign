@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button, Modal } from "antd";
+import { Button } from "antd";
 import LandingLogo from "../statics/images/LandingLogo3.png";
-import { CLIENT_URL } from "../libs/constant/constant";
 import { palette } from "../libs/constant/palette";
 import { Link } from "react-router-dom";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 랜딩 페이지
+ */
 
 const LadingWrapper = styled.div``;
 
 const LandingHeader = styled.div`
   height: 5vh;
-  /* border: 1px solid black; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,7 +25,6 @@ const LandingHeader = styled.div`
 
 const LandingSection = styled.div`
   height: 55vh;
-  /* border: 1px solid black; */
   padding-top: 40px;
   font-size: 4.5rem;
   font-weight: 600;
@@ -44,14 +47,13 @@ const LandingSection = styled.div`
 
 const LandingImgWrapper = styled.div`
   height: 40vh;
-  /* border: 1px solid black; */
+
   text-align: center;
 `;
 
 const LandingLogoImg = styled.img`
   width: 40%;
   height: auto;
-  /* border: 1px solid blue; */
 `;
 
 const Landing = () => {

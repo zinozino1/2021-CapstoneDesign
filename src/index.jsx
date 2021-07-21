@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -9,7 +8,12 @@ import createSagaMiddleware from "redux-saga";
 import rootReducer from "./reducers";
 import rootSaga from "./sagas";
 import { setUserRequestAction } from "./reducers/user";
-import { HashRouter } from "react-router-dom";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 인덱스 페이지 정의
+ */
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -19,7 +23,6 @@ const store = createStore(
 );
 
 function loadUser() {
-  console.log("load user");
   try {
     store.dispatch(setUserRequestAction());
   } catch (error) {
@@ -32,9 +35,7 @@ loadUser();
 
 ReactDOM.render(
   <Provider store={store}>
-    {/* <BrowserRouter basename={window.location.pathname || ""}> */}
     <App />
-    {/* </BrowserRouter> */}
   </Provider>,
   document.getElementById("root"),
 );

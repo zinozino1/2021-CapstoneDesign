@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 import { Howl } from "howler";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 사운드 관련 커스텀 훅
+ */
+
 function useSound(src, volume = 1, fadeoutTime = 0) {
   let sound;
   const soundStop = () => sound.stop();

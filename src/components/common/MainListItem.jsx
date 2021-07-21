@@ -1,6 +1,12 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 메인 화면 리스트 아이템 컴포넌트
+ */
+
 const ItemWrapper = styled.div`
   display: flex;
 
@@ -19,7 +25,6 @@ const ItemWrapper = styled.div`
 
 const ColWrapper = styled.div`
   flex: 1;
-  /* border: 1px solid red; */
   padding: 5px;
   text-align: center;
 `;

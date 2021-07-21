@@ -1,5 +1,11 @@
 import client from "./client";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 포스트요청 관련 api 라이브러리
+ */
+
 export const loadPost = (id) => client.get("");
 
 export const loadGroupList = (id) => client.get(`/api/main/getGroupList/${id}`);

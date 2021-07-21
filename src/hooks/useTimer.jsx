@@ -1,4 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 타이머 커스텀 훅
+ */
 
 const useTimer = (timerToggle) => {
   const [time, setTime] = useState(0);

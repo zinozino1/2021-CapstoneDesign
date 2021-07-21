@@ -9,6 +9,12 @@ import yawLeft from "../../statics/images/yawLeft.png";
 import yawNormal from "../../statics/images/yawNormal.png";
 import yawRight from "../../statics/images/yawRight.png";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 게스트 히스토리 컴포넌트
+ */
+
 const GuestHistoryDetailWrapper = styled.div`
   .top,
   .bottom {
@@ -16,18 +22,17 @@ const GuestHistoryDetailWrapper = styled.div`
   }
   .item {
     flex: 1;
-    /* border: 1px solid violet; */
+
     .divider {
       height: 50px;
     }
     .item-desc {
       height: 200px;
-      /* border: 1px solid red; */
+
       text-align: center;
     }
   }
   .attendance {
-    /* line-height: 250px; */
   }
 `;
 
@@ -58,9 +63,7 @@ const GuestHistoryDetail = ({ data }) => {
 
   useEffect(() => {
     let tmpPitch = [];
-    // Object.entries(data.roll).forEach((v, i) => {
-    //   tmpPitch.push({ roll: v[0], val: v[1] });
-    // });
+
     tmpPitch.push({ roll: "Pitch Up", val: data.pitch.pitchUp });
     tmpPitch.push({
       roll: "Pitch Normal",
@@ -71,9 +74,7 @@ const GuestHistoryDetail = ({ data }) => {
     setRollData(tmpPitch);
 
     let tmpYaw = [];
-    // Object.entries(data.yaw).forEach((v, i) => {
-    //   tmpYaw.push({ roll: v[0], val: v[1] });
-    // });
+
     tmpYaw.push({ roll: "Yaw Left", val: data.yaw.yawLeft });
     tmpYaw.push({ roll: "Yaw Normal", val: data.yaw.yawNormal });
     tmpYaw.push({ roll: "Yaw Right", val: data.yaw.yawRight });
@@ -121,25 +122,29 @@ const GuestHistoryDetail = ({ data }) => {
                 {data.timeLineLogList &&
                   data.timeLineLogList.map((v, i) => (
                     <tr key={i}>
-                      <td>{v.state}</td>
+                      <td>{v.state === "absence" && v.state}</td>
                       <td>
-                        {`${
-                          v.startHour < 10 ? "0" + v.startHour : v.startHour
-                        }:${
-                          v.startMinute < 10
-                            ? "0" + v.startMinute
-                            : v.startMinute
-                        }:${
-                          v.startSecond < 10
-                            ? "0" + v.startSecond
-                            : v.startSecond
-                        }`}{" "}
-                        -{" "}
-                        {`${v.endHour < 10 ? "0" + v.endHour : v.endHour}:${
-                          v.endMinute < 10 ? "0" + v.endMinute : v.endMinute
-                        }:${
-                          v.endSecond < 10 ? "0" + v.endSecond : v.endSecond
-                        }`}
+                        {v.state === "absence" &&
+                          `${
+                            v.startHour < 10 ? "0" + v.startHour : v.startHour
+                          }:${
+                            v.startMinute < 10
+                              ? "0" + v.startMinute
+                              : v.startMinute
+                          }:${
+                            v.startSecond < 10
+                              ? "0" + v.startSecond
+                              : v.startSecond
+                          }`}
+                        {v.state === "absence" && " "}
+                        {v.state === "absence" && "-"}
+                        {v.state === "absence" && " "}
+                        {v.state === "absence" &&
+                          `${v.endHour < 10 ? "0" + v.endHour : v.endHour}:${
+                            v.endMinute < 10 ? "0" + v.endMinute : v.endMinute
+                          }:${
+                            v.endSecond < 10 ? "0" + v.endSecond : v.endSecond
+                          }`}
                       </td>
                     </tr>
                   ))}

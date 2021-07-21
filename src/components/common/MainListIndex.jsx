@@ -1,6 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 메인 화면 리스트 인덱싱 컴포넌트
+ */
+
 const MainListIndexWrapper = styled.div`
   display: flex;
   padding: 5px 0;

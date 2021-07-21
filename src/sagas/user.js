@@ -1,4 +1,4 @@
-import { takeLatest, call, put, delay, throttle } from "redux-saga/effects";
+import { takeLatest, call, put } from "redux-saga/effects";
 import {
   SET_USER_REQUEST,
   LOG_IN_REQUEST,
@@ -9,8 +9,13 @@ import {
   SET_USER_SUCCESS,
   SET_USER_FAILURE,
 } from "../reducers/user";
-import { createUser } from "../libs/util/dummyCreator";
 import { login } from "../libs/api/user";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 유저 관련 사가 정의
+ */
 
 // saga
 
@@ -54,25 +59,9 @@ function* loginSaga(action) {
   }
 }
 
-function* logoutSaga(action) {
-  // try {
-  //   yield call(logout);
-  //   yield put({ type: LOG_OUT_SUCCESS });
-  //   window.location.href = `/`;
-  // } catch (error) {
-  //   console.log(error);
-  //   yield put({ type: LOG_OUT_FAILURE });
-  // }
-}
+function* logoutSaga(action) {} // deprecated
 
-function* registerSaga(action) {
-  // try {
-  //   yield call(register, action.data);
-  //   yield put({ type: REGISTER_SUCCESS });
-  // } catch (error) {
-  //   yield put({ type: REGISTER_FAILURE });
-  // }
-}
+function* registerSaga(action) {} // deprecated
 
 // watcher
 

@@ -7,12 +7,13 @@ import WaitingList from "../components/main/WaitingList";
 import RecentTrends from "../components/main/RecentTrends";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import {
-  initializeGroupAndWaitingList,
-  loadIntervalGroupList,
-} from "../reducers/post";
-import effectSound from "../libs/util/effectSound";
-import AA from "../statics/audios/absenceAlert.MP3";
+import { initializeGroupAndWaitingList } from "../reducers/post";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 메인 페이지
+ */
 
 const MainWrapper = styled.div`
   .list-wrapper {
@@ -23,7 +24,6 @@ const MainWrapper = styled.div`
   }
 `;
 
-// redux 그룹리스트, 웨이팅리스트, 최근동향 데이터 필요
 const Main = ({ history }) => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
@@ -33,25 +33,6 @@ const Main = ({ history }) => {
       dispatch(initializeGroupAndWaitingList());
     };
   }, []);
-
-  // useEffect(() => {
-  //   const es = effectSound(AA, 1);
-  //   es.play();
-  // }, []);
-
-  // useEffect(() => {
-  //   let loadGroupListInterval;
-
-  //   if (me) {
-  //     loadGroupListInterval = setInterval(() => {
-  //       dispatch(loadIntervalGroupList(me.data.userId));
-  //     }, 1000);
-  //   }
-
-  //   return () => {
-  //     clearInterval(loadGroupListInterval);
-  //   };
-  // }, [me]);
 
   if (!me) {
     history.push("/");

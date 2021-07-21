@@ -3,7 +3,13 @@ import styled from "styled-components";
 import MainListItem from "./MainListItem";
 import MainListIndex from "./MainListIndex";
 import { Pagination } from "antd";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 메인 화면 리스트 렌더링
+ */
 
 const PaginationWrapper = styled.div`
   position: absolute;

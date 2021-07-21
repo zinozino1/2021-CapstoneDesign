@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Image, Button, Descriptions } from "antd";
-import ExampleProfileImage from "../../statics/images/ExampleProfileImage.jpeg";
 import useToggle from "../../hooks/useToggle";
 import Modal from "../common/Modal";
 import CreateGroup from "./CreateGroup";
 import JoinGroup from "./JoinGroup";
 import { useSelector } from "react-redux";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 메인 화면 헤더 컴포넌트
+ */
 
 const MainHeaderWrapper = styled.div`
   display: flex;
@@ -23,62 +28,11 @@ const MainHeaderWrapper = styled.div`
       td {
         font-size: 10px;
       }
-      th {
-        /* padding: 2px; */
-      }
     }
     height: 180px;
     th,
     td {
       height: 180px;
-    }
-  }
-`;
-const MyProfileWrapper = styled.div`
-  border: 1px solid #ddd;
-  border-right: none;
-  flex: 1;
-  display: flex;
-  .profile-image {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    .ant-image {
-      display: flex;
-
-      align-items: center;
-    }
-  }
-  .profile-desc {
-    flex: 1;
-    /* border: 1px solid blue; */
-    display: flex;
-    flex-direction: column;
-    .info {
-      text-align: right;
-      font-size: 1.2rem;
-      background: #ffc224;
-      color: #fff;
-      padding-right: 10px;
-    }
-    .role {
-      flex: 1;
-      font-weight: 400;
-      font-size: 0.75rem;
-      border: 1px solid #ddd;
-      border-bottom: none;
-      text-align: center;
-      line-height: 40px;
-      color: #aaa;
-    }
-    .username {
-      flex: 1;
-      font-size: 1.55rem;
-      border: 1px solid #ddd;
-      border-bottom: none;
-
-      padding: 20px;
-      text-align: center;
     }
   }
 `;

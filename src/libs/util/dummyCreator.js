@@ -1,6 +1,12 @@
 import shortId from "shortid";
 import faker from "faker";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 더미데이터 생성 유틸 함수 라이브러리
+ */
+
 export const createUser = () => {
   return {
     name: faker.name.findName(),
@@ -19,10 +25,7 @@ export const hostGroupData = (groupMemberNum, waitingMemberNum) => {
     groupName: faker.lorem.word(),
     absenceTime: faker.random.number(),
     alertDuration: faker.random.number(),
-    // groupMember: new Array(groupMemberNum).fill().map((v, i) => ({
-    //   name: faker.name.findName(),
-    //   email: faker.internet.email(),
-    // })),
+
     groupMember: [
       { name: "박진호", email: "gogod23@ajou.ac.kr" },
       { name: "양세영", email: "whfh1359@ajou.ac.kr" },

@@ -1,10 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
-import { List, Avatar, Space, Tag, Popover, Image } from "antd";
+import { List, Tag } from "antd";
 import useToggle from "../../hooks/useToggle";
 import Modal from "../common/Modal";
 import GuestHistoryDetail from "./GuestHistoryDetail";
 import HostHistoryDetail from "./HostHistoryDetail";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 히스토리 리스트 아이템 컴포넌트
+ */
 
 const HistoryListItemWrapper = styled(List.Item)`
   ${(props) =>
@@ -62,10 +68,6 @@ const HistoryListItem = ({ item, idx }) => {
   const onClickItem = () => {
     setModalVisible(!modalVisible);
   };
-
-  // useEffect(() => {
-  //   console.log(modalVisible, idx);
-  // }, [modalVisible, idx]);
 
   return (
     <>

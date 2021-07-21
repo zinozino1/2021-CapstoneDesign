@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ContentLayout from "../components/layout/ContentLayout";
-import HistoryHeader from "../components/history/HistoryHeader";
 import { Pagination } from "antd";
-import { Link, withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { loadHistoryListRequestAction } from "../reducers/post";
 import HistoryList from "../components/history/HistoryList";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 히스토리 페이지
+ */
 
 const HistoryWrapper = styled.div``;
 
@@ -74,10 +78,7 @@ const History = () => {
   return (
     <ContentLayout>
       <HistoryWrapper>
-        {/* <HistoryHeader /> */}
         <HistoryList data={currentData} />
-        {/* {currentData &&
-          currentData.map((item, i) => <div key={i}>{item.groupName}</div>)} */}
         <PaginationWrapper>
           <Pagination
             defaultCurrent={1}

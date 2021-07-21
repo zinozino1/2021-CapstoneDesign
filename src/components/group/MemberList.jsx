@@ -11,11 +11,14 @@ import {
   loadWaitingMember,
 } from "../../reducers/post";
 
-// 그룹멤버리스트, 대기리스트 분기해야함
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 그룹 멤버 리스트 컴포넌트
+ */
 
 const MemberListContainer = styled.div`
   flex: 1;
-  /* padding: 10px; */
 `;
 
 const MemberListWrapper = styled.div`
@@ -55,12 +58,6 @@ const MemberList = ({ type, onAir }) => {
     let loadWaitingMemberInterval;
 
     loadWaitingMemberInterval = setInterval(() => {
-      console.log(
-        "대기리스트 멤버 업데이트.....",
-        document.location.href.split("/")[
-          document.location.href.split("/").length - 1
-        ],
-      );
       dispatch(
         loadWaitingMember(
           document.location.href.split("/")[

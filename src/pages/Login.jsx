@@ -7,7 +7,12 @@ import { CLIENT_URL } from "../libs/constant/constant";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { loginRequestAction } from "../reducers/user";
-import useInput from "../hooks/useInput";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 로그인 페이지
+ */
 
 const LoginWrapper = styled.div`
   padding: 50px 50px;

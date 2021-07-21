@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React from "react";
 import "./App.css";
-import { Route, Switch, BrowserRouter, HashRouter } from "react-router-dom";
+import { Route, Switch, HashRouter } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Landing from "./pages/Landing";
@@ -8,6 +8,12 @@ import History from "./pages/History";
 import Main from "./pages/Main";
 import GroupDetail from "./pages/GroupDetail";
 import MyPage from "./pages/MyPage";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 페이지 라우팅 정의
+ */
 
 const App = () => {
   return (

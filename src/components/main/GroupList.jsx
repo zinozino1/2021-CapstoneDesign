@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Divider, Pagination } from "antd";
+import { Divider } from "antd";
 import MainList from "../common/MainList";
-import MainListIndex from "../common/MainListIndex";
-import { groupList } from "../../libs/util/dummyCreator";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
@@ -11,6 +9,12 @@ import {
   loadIntervalGroupList,
 } from "../../reducers/post";
 import { Spin } from "antd";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 그룹 리스트 렌더링 컴포넌트
+ */
 
 const GroupListWrapper = styled.div`
   flex: 1;
@@ -53,7 +57,6 @@ const GroupList = () => {
 
     if (me) {
       loadGroupListInterval = setInterval(() => {
-        console.log("그룹리스트 업데이트..");
         dispatch(loadIntervalGroupList(me.data.userId));
       }, 2500);
     }

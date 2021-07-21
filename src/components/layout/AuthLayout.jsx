@@ -1,6 +1,12 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 인증화면 레이아웃
+ */
+
 const Container = styled.div`
   height: 100vh;
   display: flex;

@@ -1,3 +1,9 @@
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 프로젝트에서 사용되는 상수 정의
+ */
+
 export const CLIENT_URL = "http://localhost:3000";
 
 export const BACK_URL = "http://13.124.11.13:8080";

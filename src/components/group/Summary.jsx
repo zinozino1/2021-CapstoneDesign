@@ -4,13 +4,15 @@ import styled, { css } from "styled-components";
 import { Button, Input, Select, notification } from "antd";
 import useTimer from "../../hooks/useTimer";
 import axios from "axios";
-import {
-  BACK_URL,
-  WHOLE_MINUTE,
-  CLASS_DURATION_MINUTE,
-} from "../../libs/constant/constant";
+import { BACK_URL, CLASS_DURATION_MINUTE } from "../../libs/constant/constant";
 import { Redirect } from "react-router-dom";
 import useInput from "../../hooks/useInput";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 수업 결과 요약 컴포넌트
+ */
 
 const SummaryWrapper = styled.div``;
 
@@ -41,7 +43,6 @@ const SummaryHeader = styled.div`
 `;
 
 const SummaryContent = styled.div`
-  /* border: 1px solid red; */
   .table-index {
     width: 20%;
     height: 35px;
@@ -57,7 +58,6 @@ const SummaryContent = styled.div`
 
 const SummaryFooter = styled.div`
   padding: 10px 0;
-  /* border: 1px solid red; */
   text-align: right;
   .footer-btn {
     margin-left: 3px;
@@ -94,16 +94,12 @@ const openNotification = (placement) => {
 const Summary = ({ onAir, setOnAir }) => {
   const { groupDetail } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
-  //const [onAir, setOnAir] = useState(false);
+
   const [sessionId, setSessionId] = useState(null);
   const [isLeaved, setIsLeaved] = useState(false);
   const [isRemoved, setIsRemoved] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [saveDone, setSaveDone] = useState(false);
-
-  const [editName, setEditName, onChangeEditName] = useInput(
-    groupDetail ? groupDetail.data.groupName : "",
-  );
   const [editAbsenceTime, setEditAbsenceTime] = useState(0);
   const onChangeEditAbsenceTime = (value) => {
     setEditAbsenceTime(value);
@@ -112,13 +108,15 @@ const Summary = ({ onAir, setOnAir }) => {
   const onChangeEditAlertDuration = (value) => {
     setEditAlertDuration(value);
   };
+  const [alertTimer, setAlertTimer] = useState(0);
 
   const [h, m, s] = useTimer(onAir);
 
-  const [alertTimer, setAlertTimer] = useState(0);
+  const [editName, setEditName, onChangeEditName] = useInput(
+    groupDetail ? groupDetail.data.groupName : "",
+  );
 
   const startClass = () => {
-    // 주기호출 api call 만들어야함
     if (!onAir) {
       let startClassConfirm = window.confirm("Would you like to start class?");
       if (startClassConfirm) {
@@ -142,7 +140,6 @@ const Summary = ({ onAir, setOnAir }) => {
   };
 
   const endClass = () => {
-    // 히스토리 생성 -> 백엔드로 플래그 보내야함
     if (onAir && sessionId) {
       let endClassConfirm = window.confirm("Would you like to end class?");
       if (endClassConfirm) {
@@ -150,7 +147,6 @@ const Summary = ({ onAir, setOnAir }) => {
         axios
           .post(`${BACK_URL}/api/group/endSession/${sessionId}`)
           .then((res) => {
-            console.log("수업종료.");
             setAlertTimer(0);
           })
           .catch((e) => {
@@ -160,7 +156,6 @@ const Summary = ({ onAir, setOnAir }) => {
     }
   };
 
-  // host
   const saveGroupDetail = () => {
     let saveConfirm = window.confirm("Do you really want to edit?");
     if (saveConfirm) {
@@ -209,7 +204,6 @@ const Summary = ({ onAir, setOnAir }) => {
     }
   };
 
-  //guest
   const leaveGroup = () => {
     let leaveConfirm = window.confirm("Are you really want leave the group?");
     if (leaveConfirm) {
@@ -233,8 +227,6 @@ const Summary = ({ onAir, setOnAir }) => {
     }
   };
 
-  // 수업 분위기 알림
-
   useEffect(() => {
     let intervalAlert;
 
@@ -243,25 +235,17 @@ const Summary = ({ onAir, setOnAir }) => {
         axios
           .get(`/api/history/getVibe/${sessionId}`)
           .then((res) => {
-            console.log("웹캠을 킨 학생이 있습니다 - 수업분위기는", res.data);
             setAlertTimer(alertTimer + 1);
-            // console.log(alertTimer, groupDetail.data.alertTime);
             if (
-              // -> 분석 결과 시간에 따른 알림 시간 설정
-              // parseInt(m) === groupDetail.data.alertTime
               parseInt(m) !== 0 &&
               parseInt(m) % groupDetail.data.alertTime === 0 &&
               parseInt(s) === 0
-              //alertTimer === 0
-              // alertTimer !== 0 &&
-              // alertTimer % (groupDetail.data.alertTime * 24) === 0
             ) {
-              console.log("알림 시간 설정에 따른 알림", res.data.vibe);
               openNotification(res.data.vibe);
             }
           })
           .catch((e) => {
-            console.log("아직 웸캡을 킨 학생이 없습니다.");
+            console.log(e);
           });
       }, 2000);
     } else {
@@ -294,7 +278,6 @@ const Summary = ({ onAir, setOnAir }) => {
           <span
             className="alert-text"
             style={{
-              // border: "1px solid red",
               fontSize: "0.75rem",
               color: "#bbb",
             }}
@@ -306,7 +289,6 @@ const Summary = ({ onAir, setOnAir }) => {
           <div
             className="clock"
             style={{
-              // border: "1px solid red",
               padding: "0 20px",
               display: "flex",
               alignItems: "center",

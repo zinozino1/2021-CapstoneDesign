@@ -1,5 +1,11 @@
 import { Howl } from "howler";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 사운드 유틸함수
+ */
+
 function effectSound(src, volume = 1) {
   let sound;
   const soundInject = (src) => {

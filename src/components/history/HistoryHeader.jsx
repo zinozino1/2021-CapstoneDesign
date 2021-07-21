@@ -3,6 +3,12 @@ import { Select } from "antd";
 import styled from "styled-components";
 import { YEAR, MONTH, DAY } from "../../libs/constant/constant";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 히스토리 헤더 컴포넌트
+ */
+
 const { Option } = Select;
 
 const HistoryHeaderWrapper = styled.div`

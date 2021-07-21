@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import ContentLayout from "../components/layout/ContentLayout";
-import { Divider, Button } from "antd";
-import { hostGroupData } from "../libs/util/dummyCreator";
+import { Divider } from "antd";
 import Summary from "../components/group/Summary";
 import MemberList from "../components/group/MemberList";
 import { useDispatch } from "react-redux";
 import { loadPostAction, initializePostAction } from "../reducers/post";
 import { useSelector } from "react-redux";
 import GuestWebcam from "../components/group/GuestWebcam";
-import FormData from "form-data";
 import axios from "axios";
 import { imageToBase64 } from "../libs/util/imageToBase64";
+
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 그룹 상세 페이지
+ * @etc 사전에 트레이닝된 멤버 외 일반화 작업 필요
+ */
 
 import park1 from "../statics/testImages/park1.jpeg";
 import park2 from "../statics/testImages/park2.jpeg";
@@ -38,64 +43,11 @@ let tmp3 = [];
 let tmp4 = [];
 
 const GroupDetail = ({ match }) => {
-  // url 파라미터로 api 호출 후 그룹리스트의 role에 따라 분기
   const dispatch = useDispatch();
   const { groupDetail } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
 
   const [onAir, setOnAir] = useState(false);
-
-  const sendTestImages = () => {
-    console.log("send Test Images");
-
-    images1.forEach((image, i) => {
-      imageToBase64(image).then((res) => {
-        //formData1.append("image" + i, res);
-        tmp1.push(res);
-      });
-    });
-
-    images2.forEach((image, i) => {
-      imageToBase64(image).then((res) => {
-        //formData1.append("image" + i, res);
-        tmp2.push(res);
-      });
-    });
-
-    images3.forEach((image, i) => {
-      imageToBase64(image).then((res) => {
-        //formData1.append("image" + i, res);
-        tmp3.push(res);
-      });
-    });
-
-    images4.forEach((image, i) => {
-      imageToBase64(image).then((res) => {
-        //formData1.append("image" + i, res);
-        tmp4.push(res);
-      });
-    });
-
-    const data = {
-      groupData: [
-        { groupName: "Capstone Design", userId: "1", images: tmp1 },
-        { groupName: "Capstone Design", userId: "2", images: tmp2 },
-        { groupName: "Capstone Design", userId: "3", images: tmp3 },
-        { groupName: "Capstone Design", userId: "4", images: tmp4 },
-      ],
-    };
-
-    setTimeout(() => {
-      axios
-        .post("http://localhost:5000/groupImages", data)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }, 2000);
-  };
 
   useEffect(() => {
     const { id } = match.params;
@@ -113,16 +65,14 @@ const GroupDetail = ({ match }) => {
   return (
     <ContentLayout>
       <Divider orientation="left">Summary</Divider>
-      {/* 호스트, 게스트 공통 */}
       <Summary groupDetail={groupDetail} onAir={onAir} setOnAir={setOnAir} />
-      {/* 호스트만 */}
+
       {groupDetail.data.role === "HOST" ? (
         <>
           <div style={{ display: "flex" }}>
             <MemberList type="groupMember" match={match} />
             <MemberList type="waitingMember" match={match} onAir={onAir} />
           </div>
-          <Button onClick={sendTestImages}>Send Group Member's Images</Button>
         </>
       ) : (
         <GuestWebcam />

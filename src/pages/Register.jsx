@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import AuthLayout from "../components/layout/AuthLayout";
 import { Form, Input, Button, Upload, Image, Modal } from "antd";
-import { UploadOutlined, PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import { CLIENT_URL, BACK_URL } from "../libs/constant/constant";
 import FormData from "form-data";
 import ExampleProfileImage from "../statics/images/ExampleProfileImage.jpeg";
@@ -10,17 +10,21 @@ import { palette } from "../libs/constant/palette";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 회원가입 페이지
+ */
+
 const RegisterWrapper = styled.div`
   padding: 50px 50px;
   .ant-upload-list-picture-card-container {
     width: 120px;
     height: 140px;
-    /* margin-left: 30px; */
   }
   .ant-upload-select-picture-card {
     width: 120px;
     height: 140px;
-    /* margin-left: 30px; */
   }
   .mypage-image {
     border: 1px solid #ddd;
@@ -54,8 +58,6 @@ const Register = ({
   myPageName,
   profileImages,
 }) => {
-  const dispatch = useDispatch();
-
   const formData = new FormData();
 
   const [fileList, setFileList] = useState([]);
@@ -81,7 +83,6 @@ const Register = ({
       })
       .then((res) => {
         history.push("/login");
-        console.log(res);
       })
       .catch((e) => {
         console.log(e);
@@ -92,9 +93,6 @@ const Register = ({
         header: {
           "Content-Type": "multipart/form-data",
         },
-      })
-      .then((res) => {
-        console.log(res);
       })
       .catch((e) => {
         console.log(e);
@@ -126,10 +124,6 @@ const Register = ({
   const handleCancel = () => {
     setPreviewVisible(false);
   };
-
-  useEffect(() => {
-    console.log(fileList);
-  }, [fileList]);
 
   return (
     <AuthLayout>
@@ -234,13 +228,6 @@ const Register = ({
             name="profileImage"
             label="Profile Image"
             valuePropName="fileList"
-            //getValueFromEvent={normFile}
-            // rules={[
-            //   {
-            //     required: true,
-            //   },
-            // ]}
-            // extra="longgggggggggggggggggggggggggggggggggg"
           >
             <div style={{ display: "flex" }}>
               <div>

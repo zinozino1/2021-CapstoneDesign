@@ -1,6 +1,13 @@
 import * as faceapi from "face-api.js";
 const MODEL_URL = "/models";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary faceAPI
+ * @deprecated flask서버와의 연동으로 사용되지 않음
+ */
+
 export default class FaceMatch {
   constructor(input, appendedElement = document.body) {
     this.input = input;

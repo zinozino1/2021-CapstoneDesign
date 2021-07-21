@@ -7,6 +7,12 @@ import Register from "./Register";
 import { useEffect } from "react";
 import axios from "axios";
 
+/**
+ * @author 박진호
+ * @version 1.0
+ * @summary 마이페이지
+ */
+
 const MyPageWrapper = styled.div``;
 
 const MyPage = () => {
